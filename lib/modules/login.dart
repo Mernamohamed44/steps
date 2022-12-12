@@ -16,40 +16,66 @@ class SignInScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: 70.0,
-                  left: 50,),
+                  left: 50,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Welcome Back ',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 50),),
-                    Text('Let The sun Work For you',style: TextStyle(fontSize: 20),),
-                    SizedBox(height: 10,),
-                    Text('Email',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 25)),
+                    Text(
+                      'Welcome Back ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 50),
+                    ),
+                    Text(
+                      'Let The sun Work For you',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Email',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 25)),
+                    Container(
+                      width: 450,
+                      child: defaultTextField(txt: 'Enter Your Email'),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Password',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 25)),
+                    Container(
+                      width: 450,
+                      child: defaultTextField(isPass: true, txt: 'Password'),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text('Confirm Password',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 25)),
                     Container(
                       width: 450,
                       child: defaultTextField(
-                          txt: 'Enter Your Email'
-                      ),),
-                    SizedBox(height: 10,),
-                    Text('Password',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 25)),
-                    Container(
-                      width: 450,
-                      child: defaultTextField(
-                          isPass: true,
-                          txt: 'Password'
-                      ),),
-                    SizedBox(height: 10,),
-                    Text('Confirm Password',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 25)),
-                    Container(
-                      width: 450,
-                      child: defaultTextField(
-                          isPass:  true,
-                          txt: 'Confirm Password'
-                      ),),
-                    SizedBox(height: 10,),
-                    defaultButton(txt: 'Sign In',w:460,onPress: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context){return AppLayout();}));
-                    }),
-                    SizedBox(height: 10,),
+                          isPass: true, txt: 'Confirm Password'),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    defaultButton(
+                        txt: 'Sign In',
+                        w: 460,
+                        onPress: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return AppLayout();
+                          }));
+                        }),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       width: 450,
                       decoration: BoxDecoration(
@@ -57,15 +83,17 @@ class SignInScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: TextButton(
-                          onPressed: (){},
-                          child: Text('Sign in With Google',style: TextStyle(color: grayDrkColor))
-                      ),
+                          onPressed: () {},
+                          child: Text('Sign in With Google',
+                              style: TextStyle(color: grayDrkColor))),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 200,),
+            SizedBox(
+              width: 200,
+            ),
             logoImage()
           ],
         ),
