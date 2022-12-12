@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:steps/style/colors/colors.dart';
+import 'package:steps/style/colors.dart';
+import 'package:steps/style/costraints.dart';
 
 Widget SettingsElements(
     {required color,
@@ -77,12 +78,12 @@ Widget defaultTextField(
   );
 }
 
-Widget defaultButton({String? txt, Function? onPress,required double w}) {
+Widget defaultButton({String? txt, Function? onPress, required double w}) {
   return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       minWidth: w,
       height: 40,
-      color: blueColor,
+      color: AppColor.blueColor,
       child: Text('$txt', style: TextStyle(color: Colors.white)),
       onPressed: () => onPress!());
 }
@@ -92,39 +93,42 @@ Widget logoImage() {
       child: Container(
           height: double.infinity,
           color: Color.fromRGBO(16, 186, 210, 0.1),
-          child: Image(image: AssetImage('images/logo.png'))));
+          child: Image(image: AssetImage('assets/images/logo.png'))));
 }
 
 Widget SmallStaticsCard(
-    {required icon, required title, required num, required measure_unit}) {
+    {required BuildContext context,
+    required icon,
+    required title,
+    required num,
+    required measure_unit}) {
   return Container(
+    margin: EdgeInsets.all(5),
     padding: EdgeInsets.all(30),
-    width: 200,
-    height: 160,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(14)), color:grayAccentColor),
+    width: MediaQueryHelper.sizeFromWidth(context, 5),
+    height: MediaQueryHelper.sizeFromHeight(context, 4),
+    decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(14)),
+        //color: AppColor.grayAccentColor
+        color: Colors.red),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
-
         children: [
-      CircleAvatar(
-          child: icon, backgroundColor: Colors.white.withOpacity(.5)),
-      Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-        Text(title,style: TextStyle(color: grayColor)),
-        RichText(
-            text: TextSpan(style: TextStyle(color: blacktext), children: [
-          TextSpan(
-              text: num,
-              style: TextStyle(fontSize: 25)),
-          TextSpan(text: measure_unit,),
-
-        ]))
-      ]),
-    ]),
+          CircleAvatar(
+              child: icon, backgroundColor: Colors.white.withOpacity(.5)),
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(title, style: TextStyle(color: AppColor.grayColor)),
+            RichText(
+                text: TextSpan(
+                    style: TextStyle(color: AppColor.blacktext),
+                    children: [
+                  TextSpan(text: num, style: TextStyle(fontSize: 25)),
+                  TextSpan(
+                    text: measure_unit,
+                  ),
+                ]))
+          ]),
+        ]),
   );
 }
-
-

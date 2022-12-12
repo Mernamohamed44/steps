@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/shared/components/components.dart';
-import 'package:steps/style/colors/colors.dart';
+import 'package:steps/style/colors.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -79,13 +79,13 @@ class SignInScreen extends StatelessWidget {
                     Container(
                       width: 450,
                       decoration: BoxDecoration(
-                        border: Border.all(color: blueColor),
+                        border: Border.all(color: AppColor.blueColor),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: TextButton(
                           onPressed: () {},
                           child: Text('Sign in With Google',
-                              style: TextStyle(color: grayDrkColor))),
+                              style: TextStyle(color: AppColor.grayDrkColor))),
                     ),
                   ],
                 ),

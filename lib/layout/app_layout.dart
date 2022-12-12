@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
-import 'package:steps/style/colors/colors.dart';
+import 'package:steps/style/colors.dart';
 
 class AppLayout extends StatelessWidget {
   const AppLayout({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class AppLayout extends StatelessWidget {
         builder: (BuildContext context, state) {
           var cubit = StepsCubit.get(context);
           return Scaffold(
-            backgroundColor: scaffoldBackGroundColor,
+            backgroundColor: AppColor.scaffoldBackGroundColor,
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(left: 16, top: 21),
@@ -28,7 +28,7 @@ class AppLayout extends StatelessWidget {
                         const Image(
                             height: 80,
                             width: 80,
-                            image: AssetImage('images/logo.png')),
+                            image: AssetImage('assets/images/logo.png')),
                         const SizedBox(
                           height: 218,
                         ),
@@ -36,7 +36,7 @@ class AppLayout extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               NavigationRail(
-                                backgroundColor: scaffoldBackGroundColor,
+                                backgroundColor: AppColor.scaffoldBackGroundColor,
                                 indicatorColor: Colors.red,
                                 selectedIndex: cubit.currentIndex,
                                 onDestinationSelected: (int index) {
@@ -45,51 +45,51 @@ class AppLayout extends StatelessWidget {
                                 labelType: NavigationRailLabelType.all,
                                 destinations: [
                                   NavigationRailDestination(
-                                    icon: Image(
+                                    icon: const Image(
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
-                                            'images/dashboardicon.png')),
-                                    selectedIcon: Image(
+                                            'assets/images/dashboardicon.png')),
+                                    selectedIcon: const Image(
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
-                                            'images/dashboardicon.png')),
+                                            'assets/images/dashboardicon.png')),
                                     label: Text(
                                       'Dashboard',
-                                      style: TextStyle(color: grayColor),
+                                      style: TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                   NavigationRailDestination(
-                                    icon: Image(
+                                    icon: const Image(
                                         height: 20,
                                         width: 16,
                                         image:
-                                            AssetImage('images/analytics.png')),
-                                    selectedIcon: Image(
+                                            AssetImage('assets/images/analytics.png')),
+                                    selectedIcon: const Image(
                                         height: 20,
                                         width: 16,
                                         image:
-                                            AssetImage('images/analytics.png')),
+                                            AssetImage('assets/images/analytics.png')),
                                     label: Text(
                                       'Analytics',
-                                      style: TextStyle(color: grayColor),
+                                      style: TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                   NavigationRailDestination(
-                                    icon: Image(
+                                    icon: const Image(
                                         height: 24,
                                         width: 24,
                                         image:
-                                            AssetImage('images/settings.png')),
-                                    selectedIcon: Image(
+                                            AssetImage('assets/images/settings.png')),
+                                    selectedIcon: const Image(
                                         height: 24,
                                         width: 24,
                                         image:
-                                            AssetImage('images/settings.png')),
+                                            AssetImage('assets/images/settings.png')),
                                     label: Text(
                                       'Settings',
-                                      style: TextStyle(color: grayColor),
+                                      style: TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                 ],

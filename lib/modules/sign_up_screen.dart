@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steps/modules/login.dart';
 import 'package:steps/shared/components/components.dart';
-import 'package:steps/style/colors/colors.dart';
+import 'package:steps/style/colors.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -105,13 +105,13 @@ class SignUpScreen extends StatelessWidget {
                     Container(
                       width: 400,
                       decoration: BoxDecoration(
-                        border: Border.all(color: blueColor),
+                        border: Border.all(color: AppColor.blueColor),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: TextButton(
                           onPressed: () {},
                           child: Text('Sign up With Google',
-                              style: TextStyle(color: grayDrkColor))),
+                              style: TextStyle(color: AppColor.grayDrkColor))),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class SignUpScreen extends StatelessWidget {
                             },
                             child: Text(
                               'Sign In',
-                              style: TextStyle(color: blueColor),
+                              style: TextStyle(color: AppColor.blueColor),
                             )),
                       ],
                     )

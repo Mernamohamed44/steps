@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/modules/analytics_screen.dart';
-import 'package:steps/modules/dashboard/dashboars_screen.dart';
+import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings_screen.dart';
 
 class StepsCubit extends Cubit<StepsState>{
