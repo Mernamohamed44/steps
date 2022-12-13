@@ -14,7 +14,7 @@ class StepsCubit extends Cubit<StepsState>{
     emit(ChangeNavBottomState());
   }
   List screen = [
-    const DashboardScreen(),
+     DashboardScreen(),
     const AnalyticsScreen(),
     const SettingsScreen()
   ];

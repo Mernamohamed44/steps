@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
 import 'package:steps/style/text_style.dart';
 
 import '../../../shared/components/components.dart';
-import '../../../style/colors.dart';
 import '../widgets/icon_box.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+   DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  String? selectedValue ;
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Today"),value: "Today",),
+      DropdownMenuItem(child: Text("Yesterday"),value: "Yesterday"),
+    ];
+    return menuItems;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,17 +105,55 @@ class DashboardScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           color: Colors.blueGrey),
-                      child: Row(
-                        children: [
-                          Image.asset("assets/images/solar-cell.png",
-                              height: MediaQueryHelper.sizeFromHeight(
-                                  context, 2.5)),
-                          Column(
-                            children: const [
-                              IconBox(),
-                            ],
-                          )
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                        Container(
+                          height: 30.0,
+                          width: 115.0,
+                          child: DropdownButtonFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(10.0),
+                                  ),
+                                ),
+                                filled: true,
+                                enabled: false,
+                                hintStyle: TextStyle(color: Colors.grey[800]),
+                                hintText: "Name",
+                                fillColor: Colors.blue[200]),
+                            value: selectedValue,
+                            onChanged: (String? Value) {
+                              setState(() {
+                                selectedValue = Value;
+                              });
+                            },
+                            items: dropdownItems
+                          ),
+                        ),
+                            Row(
+                             // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Image.asset("assets/images/solar-cell.png",
+                                    height: MediaQueryHelper.sizeFromHeight(
+                                        context, 2.5)),
+                                SizedBox(width: 150,),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end ,
+                                  children:  [
+                                   Text('Daily revenue'),
+                                    SizedBox(height: 20,),
+                                    Text('45.24',style: AppTextStyles.titles),
+                                    Text('+12% From week',style:Theme.of(context).textTheme.caption)
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Row(
@@ -116,7 +168,7 @@ class DashboardScreen extends StatelessWidget {
                             measure_unit: "ton"),
                         SmallStaticsCard(
                             context: context,
-                            icon: Icon(Icons.text_snippet),
+                            icon: Icon(Icons.lightbulb),
                             title: "Capacity",
                             num: "12",
                             measure_unit: "kW"),
