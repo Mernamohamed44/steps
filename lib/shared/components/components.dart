@@ -14,25 +14,46 @@ Widget SettingsElements(
     height: 160,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(14)), color: color),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    child: Row(
       children: [
-        Row(
-          children: [
-            CircleAvatar(
-                child: icon, backgroundColor: Colors.white.withOpacity(.5)),
-            Spacer(),
-          ],
+
+        SizedBox(height: 100,
+          width: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                      child: icon, backgroundColor: Colors.white.withOpacity(.5)),
+                  Spacer(),
+                ],
+              ),
+              Spacer(),
+              Text(txt,
+                  style: TextStyle(
+                      color: txtcolor, fontSize: 20, fontWeight: FontWeight.w500)),
+              Text(status,
+                  style: TextStyle(
+                    color: txtcolor,
+                    fontSize: 15,
+                  ))
+            ],
+          ),
         ),
-        Spacer(),
-        Text(txt,
-            style: TextStyle(
-                color: txtcolor, fontSize: 20, fontWeight: FontWeight.w500)),
-        Text(status,
-            style: TextStyle(
-              color: txtcolor,
-              fontSize: 15,
-            ))
+    SizedBox(
+      height: 50,
+      width: 50,
+      child: Switch(
+
+        // This bool value toggles the switch.
+        value: true,
+        activeColor: Colors.red,
+        onChanged: (bool value) {
+        },
+      ),
+    )
+
       ],
     ),
   );

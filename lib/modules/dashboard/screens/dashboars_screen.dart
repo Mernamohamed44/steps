@@ -23,7 +23,7 @@ class DashboardScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                color: Colors.blue,
+
                 width: MediaQueryHelper.sizeFromWidth(context, 2.4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,8 +77,9 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                color: Colors.blue,
-                width: MediaQueryHelper.sizeFromWidth(context, 2.4),
+                width: MediaQuery.of(context).size.width,
+
+               // width: MediaQueryHelper.sizeFromWidth(context, 2.4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +94,7 @@ class DashboardScreen extends StatelessWidget {
                           color: Colors.blueGrey),
                       child: Row(
                         children: [
-                          Image.asset("assets/images/solar-cell.png",
+                          Image.asset("assets/images/analytics1.png",
                               height: MediaQueryHelper.sizeFromHeight(
                                   context, 2.5)),
                           Column(
