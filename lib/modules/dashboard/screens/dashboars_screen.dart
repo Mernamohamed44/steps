@@ -182,42 +182,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
-/**
- *  Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-    SmallStaticsCard(
-    icon: Icon(Icons.cloud_outlined),
-    title: "CO Reduction",
-    num: "12",
-    measure_unit: "ton"),
-    SmallStaticsCard(
-    icon: Icon(Icons.text_snippet),
-    title: "Capacity",
-    num: "12",
-    measure_unit: "kW"),
-    SmallStaticsCard(
-    icon: Icon(Icons.electric_bolt_rounded),
-    title: "Total yield",
-    num: "12",
-    measure_unit: "kWh"),
-    SmallStaticsCard(
-    icon: Icon(Icons.lightbulb),
-    title: "Consumption",
-    num: "12",
-    measure_unit: "kWh"),
-    ],
-    )
- * */
-////////////////////////////////////
 
-/**
- *
- * Text(
-    'Dashboard',
-    style: TextStyle(
-    color: textHeadingColor,
-    fontSize: 31,
-    fontWeight: FontWeight.w500),
-    ),
- */
