@@ -39,6 +39,8 @@ dependencies:
   firebase_auth:
   firebase_core:
   shared_preferences:
+  conditional_builder_null_safety:
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:
