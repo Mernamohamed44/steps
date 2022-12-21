@@ -14,7 +14,7 @@ abstract class AppTextStyles {
 
   /// - weight: w500
   /// - family: cairo
-  static const TextStyle w500 = TextStyle(fontWeight: FontWeight.w500);
+  static const TextStyle w500 = TextStyle(fontWeight: FontWeight.w500,fontSize: 20);
 
   /// - weight: w600
   /// - family: cairo

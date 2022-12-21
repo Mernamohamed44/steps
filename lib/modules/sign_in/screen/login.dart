@@ -82,10 +82,22 @@ class SignInScreen extends StatelessWidget {
                         border: Border.all(color: AppColor.blueColor),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text('Sign in With Google',
-                              style: TextStyle(color: AppColor.grayDrkColor))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/images/google 1.png"),
+                            width: 20,
+                            height: 20,),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text('Sign in With Google',
+                                  style: TextStyle(color: AppColor.grayDrkColor))),
+                        ],
+                      ),
                     ),
                   ],
                 ),
