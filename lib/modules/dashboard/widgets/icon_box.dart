@@ -4,22 +4,23 @@ import 'package:steps/style/text_style.dart';
 import '../../../style/costraints.dart';
 
 class IconBox extends StatelessWidget {
-  const IconBox({Key? key}) : super(key: key);
+  String image='assets/images/temperature.png';
+   IconBox(this.image, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQueryHelper.sizeFromWidth(context, 10),
-        height: MediaQueryHelper.sizeFromHeight(context, 20),
+        width: MediaQueryHelper.sizeFromWidth(context, 15),
+        height: MediaQueryHelper.sizeFromHeight(context, 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.red,
+          color: Colors.white
         ),
 
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/temperature.png", height: 45),
+            Image.asset("$image", height: 45),
            SizedBox(width: 5),
             Text('45°', style: AppTextStyles.box_icons),
           ],
