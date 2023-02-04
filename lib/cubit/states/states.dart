@@ -3,7 +3,10 @@ class InitialState extends StepsState {}
 class ChangeNavBottomState extends StepsState {}
 class SignUpStateLoadingState extends StepsState {}
 class SignUpStateSuccessState extends StepsState {}
-class SignUpStateErrorState extends StepsState {}
+class SignUpStateErrorState extends StepsState {
+  final String errorMsg;
+  SignUpStateErrorState(this.errorMsg);
+}
 class SignInStateLoadingState extends StepsState {}
 class SignInStateSuccessState extends StepsState {}
 class SignInStateErrorState extends StepsState {}
