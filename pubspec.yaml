@@ -41,6 +41,7 @@ dependencies:
   shared_preferences:
   conditional_builder_null_safety:
   cloud_firestore:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

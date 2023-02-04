@@ -13,27 +13,27 @@ class SettingsScreen extends StatelessWidget {
         left: 19,
         right: 16),
         child: Container(
-          padding: EdgeInsets.only(top: 44,
+          padding: const EdgeInsets.only(top: 44,
           right: 55,
           left: 37),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(14),
               topRight: Radius.circular(14)
             ),
-            color: const Color(0xFFFBFDFF),
+            color: Color(0xFFFBFDFF),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Settings',style: TextStyle(color: AppColor.textHeadingColor,fontSize:31,fontWeight: FontWeight.w500 ),)
-            ,SizedBox(height: 15,),
+              const Text('Settings',style: TextStyle(color: AppColor.textHeadingColor,fontSize:31,fontWeight: FontWeight.w500 ),)
+            ,const SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SettingsElements(color:AppColor.blueColor,icon: Icon(Icons.wifi_outlined,color: Colors.white,), txt: 'Wifi',),
-                  SettingsElements(color:AppColor.blueColor,icon: Icon(Icons.bluetooth_audio,color: Colors.white),txt: 'Bluetooth'),
-                  SettingsElements(color:AppColor.grayAccentColor,icon:Icon(Icons.sensors_rounded,color: AppColor.grayDrkColor),txt: 'Server',status: 'disconnect',txtcolor: Color(0xFF656464)),
+                  SettingsElements(color:AppColor.blueColor,icon: const Icon(Icons.wifi_outlined,color: Colors.white,), txt: 'Wifi',),
+                  SettingsElements(color:AppColor.blueColor,icon: const Icon(Icons.bluetooth_audio,color: Colors.white),txt: 'Bluetooth'),
+                  SettingsElements(color:AppColor.grayAccentColor,icon:const Icon(Icons.sensors_rounded,color: AppColor.grayDrkColor),txt: 'Server',status: 'disconnect',txtcolor: const Color(0xFF656464)),
                 ],
               )
             ],

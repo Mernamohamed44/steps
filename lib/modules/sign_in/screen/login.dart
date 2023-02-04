@@ -1,10 +1,10 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
-import 'package:steps/layout/app_layout.dart';
 import 'package:steps/shared/components/components.dart';
+import 'package:steps/shared/constants/constants.dart';
+
 import 'package:steps/style/colors.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -16,7 +16,27 @@ class SignInScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => StepsCubit(),
       child: BlocConsumer<StepsCubit, StepsState>(
-        listener: (BuildContext context, state) {},
+        listener: (BuildContext context, state) {
+          if (state is SignInStateLoadingState) {
+            Center(
+              child: Container(
+                width: 400,
+                height: 50,
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(
+                  color: AppColor.accentblue,
+                ),),
+            );
+          }
+          if (state is SignInStateSuccessState) {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed(dashboard);
+          }
+
+          if (state is SignInStateErrorState) {
+            print(state.toString());
+          }
+        },
         builder: (BuildContext context, Object? state) {
           var cubit = StepsCubit.get(context);
           return Scaffold(
@@ -32,78 +52,44 @@ class SignInScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Welcome Back ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 50),
+                          headingText(),
+                          const SizedBox(
+                            height: 14,
                           ),
-                          Text(
-                            'Let The sun Work For you',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('Email',
+                          const Text('Email',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 25)),
-                          Container(
+                          SizedBox(
                             width: 450,
                             child: defaultTextField(
                                 txt: 'Enter Your Email',
                                 controller: emailController),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text('Password',
+                          const Text('Password',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 25)),
-                          Container(
+                          SizedBox(
                             width: 450,
                             child: defaultTextField(
                                 isPass: true,
                                 txt: 'Password',
                                 controller: passwordController),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text('Confirm Password',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 25)),
-                          Container(
-                            width: 450,
-                            child: defaultTextField(
-                                isPass: true, txt: 'Confirm Password'),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ConditionalBuilder(
-                            builder: (BuildContext context) => defaultButton(
-                                txt: 'Sign In',
-                                w: 460,
-                                onPress: () {
-                                  cubit.signIn(
-                                      email: emailController.text,
-                                      password: passwordController.text);
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return AppLayout();
-                                  }));
-                                }),
-                            fallback: (BuildContext context) => Center(
-                              child: Container(
-                                width: 400,
-                                height: 50,
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                            condition: state is! SignInStateLoadingState,
-                          ),
-                          SizedBox(
+                          defaultButton(
+                              txt: 'Sign In',
+                              w: 450,
+                              onPress: () {
+                                cubit.signIn(
+                                    email: emailController.text,
+                                    password: passwordController.text);
+                              }),
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
@@ -111,23 +97,23 @@ class SignInScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               border: Border.all(color: AppColor.blueColor),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
+                                  const BorderRadius.all(Radius.circular(5)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image(
+                                const Image(
                                   image:
                                       AssetImage("assets/images/google 1.png"),
                                   width: 20,
                                   height: 20,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 TextButton(
                                     onPressed: () {},
-                                    child: Text('Sign in With Google',
+                                    child: const Text('Sign in With Google',
                                         style: TextStyle(
                                             color: AppColor.grayDrkColor))),
                               ],
@@ -137,7 +123,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 200,
                   ),
                   logoImage()
