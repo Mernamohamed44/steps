@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:steps/modules/settings/screen/widgets/custom_switch.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
 Widget SettingsElements(
@@ -9,11 +11,11 @@ Widget SettingsElements(
     Color txtcolor = Colors.white,
     String status = 'on'}) {
   return Container(
-    padding: const EdgeInsets.all(30),
-    width: 200,
+    padding: const EdgeInsets.all(15),
+    width: 230,
     height: 160,
     decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(14)), color: color),
+        borderRadius: const BorderRadius.all(Radius.circular(20)), color: color),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +23,9 @@ Widget SettingsElements(
           children: [
             CircleAvatar(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
-            const Spacer(),
+            Spacer(),
+            const CustomSwitchItem(),
+
           ],
         ),
         const Spacer(),
