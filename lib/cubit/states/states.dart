@@ -9,7 +9,16 @@ class SignUpStateErrorState extends StepsState {
 }
 class SignInStateLoadingState extends StepsState {}
 class SignInStateSuccessState extends StepsState {}
-class SignInStateErrorState extends StepsState {}
+class SignInStateErrorState extends StepsState {
+  final String errorMsg;
+  SignInStateErrorState(this.errorMsg);
+}
 class CreateUserStateLoadingState extends StepsState {}
 class CreateUserSuccessState extends StepsState {}
 class CreateUserErrorState extends StepsState {}
+class SignInWithGoogleStateLoadingState extends StepsState {}
+class SignInWithGoogleStateSuccessState extends StepsState {}
+class SignInWithGoogleStateErrorState extends StepsState {
+  final String errorMsg;
+  SignInWithGoogleStateErrorState(this.errorMsg);
+}
