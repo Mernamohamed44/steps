@@ -12,6 +12,7 @@ class StepsCubit extends Cubit<StepsState> {
 
   static StepsCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
+
   changeBottomNav(index) {
     currentIndex = index;
     emit(ChangeNavBottomState());
@@ -22,51 +23,55 @@ class StepsCubit extends Cubit<StepsState> {
     const AnalyticsScreen(),
     const SettingsScreen()
   ];
-  signup({
-    required String fName, required String lName,
-    required String email, required String password}) {
+
+  signup(
+      {required String fName,
+      required String lName,
+      required String email,
+      required String password}) {
     emit(SignUpStateLoadingState());
     FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password).then((value)
-    {
-      createUser(fName: fName,lName: lName,email: email,uId:value.user!.uid );
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      createUser(
+          fName: fName, lName: lName, email: email, uId: value.user!.uid);
       emit(SignUpStateSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print("error is ${error.toString()}");
       emit(SignUpStateErrorState());
     });
   }
+
   UserModel? model;
 
-  createUser({
-    required String email,
-    required String fName,
-    required String lName,
-    required String uId
-  }) {
+  createUser(
+      {required String email,
+      required String fName,
+      required String lName,
+      required String uId}) {
     model = UserModel(
-        email: email,
-        fName: fName,
-        lName: lName,
-        uId: uId,
-
+      email: email,
+      fName: fName,
+      lName: lName,
+      uId: uId,
     );
-    FirebaseFirestore.instance.collection('users').doc(uId).
-    set(model!.toMap()).then((value) =>
-    {
-      print(uId),
-      emit(CreateUserSuccessState())
-    }).catchError((error){
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .set(model!.toMap())
+        .then((value) => {print(uId), emit(CreateUserSuccessState())})
+        .catchError((error) {
       print(error.toString());
     });
   }
-  signIn({required String email,required password}){
+
+  signIn({required String email, required password}) {
     emit(SignInStateLoadingState());
     FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password).then((value)
-    {
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) {
       emit(SignInStateSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print("error is ${error.toString()}");
       emit(SignInStateErrorState());
     });
