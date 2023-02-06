@@ -41,7 +41,7 @@ class AnalysisBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text("Nov 29, 02:29 AM",style: AppTextStyles.date,),
-                  chartToRun()
+               //   chartToRun()
                 ],
               ),
             )
