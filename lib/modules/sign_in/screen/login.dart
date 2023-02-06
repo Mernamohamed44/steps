@@ -34,7 +34,23 @@ class SignInScreen extends StatelessWidget {
           }
 
           if (state is SignInStateErrorState) {
-            print(state.toString());
+            print((state).errorMsg);
+            showToast(message: (state).errorMsg, state: ToastState.error);
+          }
+          if (state is SignInWithGoogleStateSuccessState) {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed(dashboard);
+          }
+          if (state is SignInWithGoogleStateLoadingState) {
+            Center(
+              child: Container(
+                width: 400,
+                height: 50,
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(
+                  color: AppColor.accentblue,
+                ),),
+            );
           }
         },
         builder: (BuildContext context, Object? state) {
@@ -112,7 +128,9 @@ class SignInScreen extends StatelessWidget {
                                   width: 5,
                                 ),
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      cubit.signInWithGoogle(context: context);
+                                    },
                                     child: const Text('Sign in With Google',
                                         style: TextStyle(
                                             color: AppColor.grayDrkColor))),

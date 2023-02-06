@@ -44,6 +44,8 @@ dependencies:
   fluttertoast:
   flutter_switch:
   flutter_bluetooth_serial:
+  dio:
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:
