@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:steps/modules/settings/screen/widgets/custom_switch.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
+
 Widget SettingsElements(
     {required color,
     required icon,
@@ -15,7 +15,8 @@ Widget SettingsElements(
     width: 230,
     height: 160,
     decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)), color: color),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        color: color),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,7 +26,6 @@ Widget SettingsElements(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
             Spacer(),
             const CustomSwitchItem(),
-
           ],
         ),
         const Spacer(),
@@ -41,14 +41,14 @@ Widget SettingsElements(
     ),
   );
 }
-Widget headingText(){
+
+Widget headingText() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: const [
       Text(
         'Welcome Back ',
-        style:
-        TextStyle(fontWeight: FontWeight.w500, fontSize: 50),
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 50),
       ),
       Text(
         'Let The sun Work For you',
@@ -127,7 +127,7 @@ Widget SmallStaticsCard(
     padding: const EdgeInsets.all(30),
     width: MediaQueryHelper.sizeFromWidth(context, 5),
     height: MediaQueryHelper.sizeFromHeight(context, 4),
-    decoration:  const BoxDecoration(
+    decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(14)),
         //color: AppColor.grayAccentColor
         color: AppColor.scaffoldBackGroundColor),
@@ -136,8 +136,9 @@ Widget SmallStaticsCard(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 30,
-              child: image, backgroundColor: Colors.white.withOpacity(.5)),
+              radius: 30,
+              child: image,
+              backgroundColor: Colors.white.withOpacity(.5)),
           Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(title, style: const TextStyle(color: AppColor.grayColor)),
             RichText(
@@ -153,34 +154,31 @@ Widget SmallStaticsCard(
         ]),
   );
 }
-void showToast({
-  @required message,
-  @required ToastState ?state
-}){
+
+void showToast({@required message, @required ToastState? state}) {
   Fluttertoast.showToast(
-      msg: message ,
+      msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state!),
       textColor: Colors.white,
-      fontSize: 16.0
-  );
+      fontSize: 16.0);
 }
-enum ToastState{success,error,warning}
-Color chooseToastColor(ToastState state)
-{
+
+enum ToastState { success, error, warning }
+
+Color chooseToastColor(ToastState state) {
   Color color;
-  switch(state)
-  {
+  switch (state) {
     case ToastState.success:
-      color=Colors.green;
+      color = Colors.green;
       break;
     case ToastState.error:
-      color=Colors.red;
+      color = Colors.red;
       break;
     case ToastState.warning:
-      color=Colors.amber;
+      color = Colors.amber;
       break;
   }
   return color;
