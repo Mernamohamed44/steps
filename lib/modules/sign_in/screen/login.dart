@@ -25,7 +25,8 @@ class SignInScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator(
                   color: AppColor.accentblue,
-                ),),
+                ),
+              ),
             );
           }
           if (state is SignInStateSuccessState) {
@@ -41,6 +42,7 @@ class SignInScreen extends StatelessWidget {
             Navigator.pop(context);
             Navigator.of(context).pushNamed(dashboard);
           }
+
           if (state is SignInWithGoogleStateLoadingState) {
             Center(
               child: Container(
@@ -49,7 +51,8 @@ class SignInScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator(
                   color: AppColor.accentblue,
-                ),),
+                ),
+              ),
             );
           }
         },
