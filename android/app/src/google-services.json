@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "638234715063",
+    "project_id": "steps-f65e4",
+    "storage_bucket": "steps-f65e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638234715063:android:dde2879fae83bb40cbbe32",
+        "android_client_info": {
+          "package_name": "com.example.steps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638234715063-m8cljcekadu289pj73hto5i8m8lqpaif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2WfBzneUJl0vGzDq1A7hYeE6PzfVLZy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638234715063-m8cljcekadu289pj73hto5i8m8lqpaif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
