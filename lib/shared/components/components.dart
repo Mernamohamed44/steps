@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:steps/modules/settings/screen/widgets/custom_switch.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
 Widget SettingsElements(
@@ -8,11 +11,11 @@ Widget SettingsElements(
     Color txtcolor = Colors.white,
     String status = 'on'}) {
   return Container(
-    padding: const EdgeInsets.all(30),
-    width: 200,
+    padding: const EdgeInsets.all(15),
+    width: 230,
     height: 160,
     decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(14)), color: color),
+        borderRadius: const BorderRadius.all(Radius.circular(20)), color: color),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +23,9 @@ Widget SettingsElements(
           children: [
             CircleAvatar(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
-            const Spacer(),
+            Spacer(),
+            const CustomSwitchItem(),
+
           ],
         ),
         const Spacer(),
@@ -34,6 +39,22 @@ Widget SettingsElements(
             ))
       ],
     ),
+  );
+}
+Widget headingText(){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: const [
+      Text(
+        'Welcome Back ',
+        style:
+        TextStyle(fontWeight: FontWeight.w500, fontSize: 50),
+      ),
+      Text(
+        'Let The sun Work For you',
+        style: TextStyle(fontSize: 20),
+      ),
+    ],
   );
 }
 
@@ -131,4 +152,36 @@ Widget SmallStaticsCard(
           ]),
         ]),
   );
+}
+void showToast({
+  @required message,
+  @required ToastState ?state
+}){
+  Fluttertoast.showToast(
+      msg: message ,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state!),
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+}
+enum ToastState{success,error,warning}
+Color chooseToastColor(ToastState state)
+{
+  Color color;
+  switch(state)
+  {
+    case ToastState.success:
+      color=Colors.green;
+      break;
+    case ToastState.error:
+      color=Colors.red;
+      break;
+    case ToastState.warning:
+      color=Colors.amber;
+      break;
+  }
+  return color;
 }

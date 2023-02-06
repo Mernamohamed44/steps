@@ -43,14 +43,14 @@ class AppLayout extends StatelessWidget {
                                   cubit.changeBottomNav(index);
                                 },
                                 labelType: NavigationRailLabelType.all,
-                                destinations: [
+                                destinations: const [
                                   NavigationRailDestination(
-                                    icon: const Image(
+                                    icon: Image(
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
                                             'assets/images/dashboardicon.png')),
-                                    selectedIcon: const Image(
+                                    selectedIcon: Image(
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
@@ -61,12 +61,12 @@ class AppLayout extends StatelessWidget {
                                     ),
                                   ),
                                   NavigationRailDestination(
-                                    icon: const Image(
+                                    icon: Image(
                                         height: 20,
                                         width: 16,
                                         image:
                                             AssetImage('assets/images/analytics.png')),
-                                    selectedIcon: const Image(
+                                    selectedIcon: Image(
                                         height: 20,
                                         width: 16,
                                         image:
@@ -77,12 +77,12 @@ class AppLayout extends StatelessWidget {
                                     ),
                                   ),
                                   NavigationRailDestination(
-                                    icon: const Image(
+                                    icon: Image(
                                         height: 24,
                                         width: 24,
                                         image:
                                             AssetImage('assets/images/settings.png')),
-                                    selectedIcon: const Image(
+                                    selectedIcon: Image(
                                         height: 24,
                                         width: 24,
                                         image:

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/modules/analytics/screens/analytics_screen.dart';
@@ -9,8 +10,12 @@ import 'package:steps/modules/settings/screen/settings_screen.dart';
 
 class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(InitialState());
-
   static StepsCubit get(context) => BlocProvider.of(context);
+  var emailController=TextEditingController();
+  var passwordController=TextEditingController();
+  var  fNameController=TextEditingController();
+  var lNameController=TextEditingController();
+
   int currentIndex = 0;
 
   changeBottomNav(index) {
@@ -38,7 +43,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SignUpStateSuccessState());
     }).catchError((error) {
       print("error is ${error.toString()}");
-      emit(SignUpStateErrorState());
+      emit(SignUpStateErrorState(error.toString()));
     });
   }
 
