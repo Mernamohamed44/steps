@@ -5,12 +5,13 @@ import '../../../style/costraints.dart';
 
 class IconBox extends StatelessWidget {
   String image='assets/images/temperature.png';
-   IconBox(this.image, {Key? key}) : super(key: key);
+   var txt;
+   IconBox(this.image,this.txt, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQueryHelper.sizeFromWidth(context, 15),
+        width: MediaQueryHelper.sizeFromWidth(context, 13),
         height: MediaQueryHelper.sizeFromHeight(context, 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -22,7 +23,7 @@ class IconBox extends StatelessWidget {
           children: [
             Image.asset("$image", height: 45),
            SizedBox(width: 5),
-            Text('45°', style: AppTextStyles.box_icons),
+            Text('$txt°', style: AppTextStyles.box_icons),
           ],
         ));
   }

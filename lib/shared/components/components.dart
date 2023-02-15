@@ -126,7 +126,7 @@ Widget SmallStaticsCard(
     margin: const EdgeInsets.all(5),
     padding: const EdgeInsets.all(30),
     width: MediaQueryHelper.sizeFromWidth(context, 5),
-    height: MediaQueryHelper.sizeFromHeight(context, 4),
+    height: MediaQueryHelper.sizeFromHeight(context, 6),
     decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(14)),
         //color: AppColor.grayAccentColor

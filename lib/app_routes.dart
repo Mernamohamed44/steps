@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/modules/sign_in/screen/login.dart';
 import 'package:steps/modules/sign_up/screen/sign_up_screen.dart';
@@ -12,11 +14,15 @@ class AppRoutes{
     {
       case signUp:
         return MaterialPageRoute(
-          builder: (_) =>SignUpScreen()
+          builder: (_) =>BlocProvider(
+            create: (context) => StepsCubit()..getDataWeather(),
+              child: SignUpScreen())
         );
       case signIn:
         return MaterialPageRoute(
-            builder: (_) =>SignInScreen()
+            builder: (_) =>BlocProvider(
+                create: (context) => StepsCubit(),
+                child: SignInScreen())
         );
       case dashboard:
         return MaterialPageRoute(
