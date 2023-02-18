@@ -124,18 +124,16 @@ class StepsCubit extends Cubit<StepsState> {
     return user;
   }
 
-  WeatherModel ?  weatherModel;
-   WeatherModel? weather;
-   getDataWeather()async{
-   emit(GetWeatherDataStateLoadingState());
-   weatherModel= await ApiWeather().getWeather().then((value){
-     weather=value;
-     emit(GetWeatherDataSuccessState());
-   }
-   ).catchError((error){
-     print('error is ${error.toString()}');
-     emit(CreateUserErrorState());
-   }
-   );
+  WeatherModel? weatherModel;
+  WeatherModel? weather;
+  getDataWeather() async {
+    emit(GetWeatherDataStateLoadingState());
+    weatherModel = await ApiWeather().getWeather().then((value) {
+      weather = value;
+      emit(GetWeatherDataSuccessState(weather!));
+    }).catchError((error) {
+      print('error is ${error.toString()}');
+      emit(CreateUserErrorState());
+    });
   }
 }

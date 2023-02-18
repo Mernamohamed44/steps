@@ -46,6 +46,8 @@ dependencies:
   flutter_bluetooth_serial:
   dio:
   google_sign_in:
+  intl:
+  angles:
 
 dev_dependencies:
   flutter_test:

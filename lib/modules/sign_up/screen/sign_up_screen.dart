@@ -5,7 +5,7 @@ import 'package:steps/cubit/states/states.dart';
 import 'package:steps/shared/components/components.dart';
 import 'package:steps/shared/constants/constants.dart';
 import 'package:steps/style/colors.dart';
-import 'package:steps/style/costraints.dart';
+import 'package:steps/style/constrians.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -198,8 +198,7 @@ class SignUpScreen extends StatelessWidget {
                               Container(
                                 width: 400,
                                 decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: AppColor.blueColor),
+                                  border: Border.all(color: AppColor.blueColor),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(5)),
                                 ),
@@ -220,8 +219,7 @@ class SignUpScreen extends StatelessWidget {
                                         ),
                                         Text('Sign up With Google',
                                             style: TextStyle(
-                                                color:
-                                                    AppColor.grayDrkColor)),
+                                                color: AppColor.grayDrkColor)),
                                       ],
                                     )),
                               ),

@@ -120,8 +120,7 @@ class SignInScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Image(
-                                image:
-                                    AssetImage("assets/images/google 1.png"),
+                                image: AssetImage("assets/images/google 1.png"),
                                 width: 20,
                                 height: 20,
                               ),

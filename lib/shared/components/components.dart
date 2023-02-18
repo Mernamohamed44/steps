@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:steps/modules/settings/screen/widgets/custom_switch.dart';
 import 'package:steps/style/colors.dart';
-import 'package:steps/style/costraints.dart';
+import 'package:steps/style/constrians.dart';
 
 Widget SettingsElements(
     {required color,

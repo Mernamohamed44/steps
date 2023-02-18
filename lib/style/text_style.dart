@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-
 abstract class AppTextStyles {
-
   /// - weight: w300
   /// - family: cairo
-   static const TextStyle titles = TextStyle(fontWeight: FontWeight.w500,fontSize: 31 ,letterSpacing: 1);
-
+  static const TextStyle titles =
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 31, letterSpacing: 1);
 
   /// - weight: w400
   /// - family: cairo
-  static const TextStyle box_icons = TextStyle(fontWeight: FontWeight.w500,fontSize: 18 ,letterSpacing: 1);
+  static const TextStyle box_icons =
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 18, letterSpacing: 1);
 
   /// - weight: w500
   /// - family: cairo
-  static const TextStyle w500 = TextStyle(fontWeight: FontWeight.w500,fontSize: 20);
+  static const TextStyle w500 =
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 20);
 
   /// - weight: w600
   /// - family: cairo

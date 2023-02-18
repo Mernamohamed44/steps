@@ -14,13 +14,13 @@ class WeatherModel {
     required this.daily,
   });
 
-  final  latitude;
-  final  longitude;
-  final  generationtimeMs;
-  final  utcOffsetSeconds;
+  final latitude;
+  final longitude;
+  final generationtimeMs;
+  final utcOffsetSeconds;
   final String timezone;
   final String timezoneAbbreviation;
-  final  elevation;
+  final elevation;
   final CurrentWeather? currentWeather;
   final HourlyUnits? hourlyUnits;
   final Hourly? hourly;
@@ -29,12 +29,12 @@ class WeatherModel {
 
   WeatherModel copyWith({
     latitude,
-     longitude,
-     generationtimeMs,
-     utcOffsetSeconds,
+    longitude,
+    generationtimeMs,
+    utcOffsetSeconds,
     String? timezone,
     String? timezoneAbbreviation,
-     elevation,
+    elevation,
     CurrentWeather? currentWeather,
     HourlyUnits? hourlyUnits,
     Hourly? hourly,
@@ -57,7 +57,7 @@ class WeatherModel {
     );
   }
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json){
+  factory WeatherModel.fromJson(Map<String, dynamic> json) {
     return WeatherModel(
       latitude: json["latitude"] ?? 0.0,
       longitude: json["longitude"] ?? 0.0,
@@ -66,14 +66,19 @@ class WeatherModel {
       timezone: json["timezone"] ?? "",
       timezoneAbbreviation: json["timezone_abbreviation"] ?? "",
       elevation: json["elevation"] ?? 0.0,
-      currentWeather: json["current_weather"] == null ? null : CurrentWeather.fromJson(json["current_weather"]),
-      hourlyUnits: json["hourly_units"] == null ? null : HourlyUnits.fromJson(json["hourly_units"]),
+      currentWeather: json["current_weather"] == null
+          ? null
+          : CurrentWeather.fromJson(json["current_weather"]),
+      hourlyUnits: json["hourly_units"] == null
+          ? null
+          : HourlyUnits.fromJson(json["hourly_units"]),
       hourly: json["hourly"] == null ? null : Hourly.fromJson(json["hourly"]),
-      dailyUnits: json["daily_units"] == null ? null : DailyUnits.fromJson(json["daily_units"]),
+      dailyUnits: json["daily_units"] == null
+          ? null
+          : DailyUnits.fromJson(json["daily_units"]),
       daily: json["daily"] == null ? null : Daily.fromJson(json["daily"]),
     );
   }
-
 }
 
 class CurrentWeather {
@@ -85,17 +90,17 @@ class CurrentWeather {
     required this.time,
   });
 
-  final  temperature;
-  final  windspeed;
-  final  winddirection;
-  final  weathercode;
+  final temperature;
+  final windspeed;
+  final winddirection;
+  final weathercode;
   final String time;
 
-  CurrentWeather copyWith(
-      {temperature,
-     windspeed,
-     winddirection,
-     weathercode,
+  CurrentWeather copyWith({
+    temperature,
+    windspeed,
+    winddirection,
+    weathercode,
     String? time,
   }) {
     return CurrentWeather(
@@ -107,7 +112,7 @@ class CurrentWeather {
     );
   }
 
-  factory CurrentWeather.fromJson(Map<String, dynamic> json){
+  factory CurrentWeather.fromJson(Map<String, dynamic> json) {
     return CurrentWeather(
       temperature: json["temperature"] ?? 0.0,
       windspeed: json["windspeed"] ?? 0.0,
@@ -116,7 +121,6 @@ class CurrentWeather {
       time: json["time"] ?? "",
     );
   }
-
 }
 
 class Daily {
@@ -142,14 +146,20 @@ class Daily {
     );
   }
 
-  factory Daily.fromJson(Map<String, dynamic> json){
+  factory Daily.fromJson(Map<String, dynamic> json) {
     return Daily(
-      time: json["time"] == null ? [] : List<DateTime>.from(json["time"]!.map((x) => x == null ? null : DateTime.parse(x))),
-      sunrise: json["sunrise"] == null ? [] : List<String>.from(json["sunrise"]!.map((x) => x)),
-      sunset: json["sunset"] == null ? [] : List<String>.from(json["sunset"]!.map((x) => x)),
+      time: json["time"] == null
+          ? []
+          : List<DateTime>.from(
+              json["time"]!.map((x) => x == null ? null : DateTime.parse(x))),
+      sunrise: json["sunrise"] == null
+          ? []
+          : List<String>.from(json["sunrise"]!.map((x) => x)),
+      sunset: json["sunset"] == null
+          ? []
+          : List<String>.from(json["sunset"]!.map((x) => x)),
     );
   }
-
 }
 
 class DailyUnits {
@@ -175,14 +185,13 @@ class DailyUnits {
     );
   }
 
-  factory DailyUnits.fromJson(Map<String, dynamic> json){
+  factory DailyUnits.fromJson(Map<String, dynamic> json) {
     return DailyUnits(
       time: json["time"] ?? "",
       sunrise: json["sunrise"] ?? "",
       sunset: json["sunset"] ?? "",
     );
   }
-
 }
 
 class Hourly {
@@ -216,16 +225,25 @@ class Hourly {
     );
   }
 
-  factory Hourly.fromJson(Map<String, dynamic> json){
+  factory Hourly.fromJson(Map<String, dynamic> json) {
     return Hourly(
-      time: json["time"] == null ? [] : List<String>.from(json["time"]!.map((x) => x)),
-      temperature2M: json["temperature_2m"] == null ? [] : List<double>.from(json["temperature_2m"]!.map((x) => x)),
-      precipitation: json["precipitation"] == null ? [] : List<double>.from(json["precipitation"]!.map((x) => x)),
-      windspeed10M: json["windspeed_10m"] == null ? [] : List<double>.from(json["windspeed_10m"]!.map((x) => x)),
-      winddirection120M: json["winddirection_120m"] == null ? [] : List<int>.from(json["winddirection_120m"]!.map((x) => x)),
+      time: json["time"] == null
+          ? []
+          : List<String>.from(json["time"]!.map((x) => x)),
+      temperature2M: json["temperature_2m"] == null
+          ? []
+          : List<double>.from(json["temperature_2m"]!.map((x) => x)),
+      precipitation: json["precipitation"] == null
+          ? []
+          : List<double>.from(json["precipitation"]!.map((x) => x)),
+      windspeed10M: json["windspeed_10m"] == null
+          ? []
+          : List<double>.from(json["windspeed_10m"]!.map((x) => x)),
+      winddirection120M: json["winddirection_120m"] == null
+          ? []
+          : List<int>.from(json["winddirection_120m"]!.map((x) => x)),
     );
   }
-
 }
 
 class HourlyUnits {
@@ -259,7 +277,7 @@ class HourlyUnits {
     );
   }
 
-  factory HourlyUnits.fromJson(Map<String, dynamic> json){
+  factory HourlyUnits.fromJson(Map<String, dynamic> json) {
     return HourlyUnits(
       time: json["time"] ?? "",
       temperature2M: json["temperature_2m"] ?? "",
@@ -268,5 +286,4 @@ class HourlyUnits {
       winddirection120M: json["winddirection_120m"] ?? "",
     );
   }
-
 }

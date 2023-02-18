@@ -1,3 +1,5 @@
+import 'package:steps/models/weather_model.dart';
+
 abstract class StepsState {}
 
 class InitialState extends StepsState {}
@@ -36,9 +38,13 @@ class SignInWithGoogleStateErrorState extends StepsState {
   final String errorMsg;
   SignInWithGoogleStateErrorState(this.errorMsg);
 }
+
 class GetWeatherDataStateLoadingState extends StepsState {}
 
-class GetWeatherDataSuccessState extends StepsState {}
+class GetWeatherDataSuccessState extends StepsState {
+  WeatherModel weatherModel;
+  GetWeatherDataSuccessState(this.weatherModel);
+}
 
 class GetWeatherDataStateErrorState extends StepsState {
   final String errorMsg;

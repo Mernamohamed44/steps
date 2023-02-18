@@ -4,27 +4,25 @@ import 'package:steps/app_routes.dart';
 import 'package:steps/network/local/shared_pref.dart';
 
 import 'shared/constants/constants.dart';
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
   await CacheHelper.init();
-  token=CacheHelper.getData(key:'token');
-  runApp(
-      MyApp(
+  token = CacheHelper.getData(key: 'token');
+  runApp(MyApp(
     appRoutes: AppRoutes(),
   ));
 }
 
-class MyApp extends StatelessWidget{
-   const MyApp({Key? key, required this.appRoutes}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key, required this.appRoutes}) : super(key: key);
   final AppRoutes appRoutes;
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: appRoutes.generateRoutes ,
+      onGenerateRoute: appRoutes.generateRoutes,
     );
   }
 }
-
-
