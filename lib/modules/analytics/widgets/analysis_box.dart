@@ -7,10 +7,31 @@ import '../../../style/text_style.dart';
 import 'chart.dart';
 
 class AnalysisBox extends StatelessWidget {
-  const AnalysisBox({Key? key}) : super(key: key);
+  AnalysisBox(
+      {required this.title,
+      required this.imgpath,
+      required this.styletxt,
+      Key? key})
+      : super(key: key);
+  String title;
+  String imgpath;
+  Color styletxt;
+
+  SelectionBehavior? _selectionBehavior;
+
+//   late List<_ChartData> data;
+  TooltipBehavior? _tooltip;
+
 
   @override
   Widget build(BuildContext context) {
+    final List<ChartData> chartData = <ChartData>[
+      ChartData('w1', 128, 129, 90),
+      ChartData('w2', 123, 100, 93),
+      ChartData('w3', 128, 129, 30),
+      ChartData('w4', 87, 95, 71),
+    ];
+ _tooltip = TooltipBehavior(enable: true);
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -18,13 +39,13 @@ class AnalysisBox extends StatelessWidget {
         height: MediaQueryHelper.sizeFromHeight(context, 3.5),
         //  width: MediaQueryHelper.sizeFromWidth(context, 3),
         decoration: BoxDecoration(
-          //  color: Colors.grey,
+            //  color: Colors.grey,
             borderRadius: BorderRadius.circular(20)),
 
         child: Row(
           children: [
             SizedBox(
-              width: MediaQueryHelper.sizeFromWidth(context, 5),
+              width: MediaQueryHelper.sizeFromWidth(context, 5.5),
               height: 200,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20),
@@ -32,7 +53,7 @@ class AnalysisBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Daily revenue',
+                    Text(title,
                         style: AppTextStyles.analysis_titles
                             .copyWith(color: AppColor.blacktext)),
                     const SizedBox(
@@ -57,8 +78,8 @@ class AnalysisBox extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 5),
-                          child: Image.asset('assets/images/up.png',
-                              color: AppColor.blueColor),
+                          child: Image.asset(imgpath,
+                              color: styletxt),
                         ),
 
                         RichText(
@@ -68,7 +89,7 @@ class AnalysisBox extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   style: AppTextStyles.w500
-                                      .copyWith(color: AppColor.blueColor),
+                                      .copyWith(color: styletxt),
                                   text: "+12%",
                                 ),
                                 TextSpan(
@@ -103,23 +124,43 @@ class AnalysisBox extends StatelessWidget {
                   SizedBox(
                       height: 150,
                       child: SfCartesianChart(
-                          backgroundColor: Colors.purpleAccent,
                           primaryXAxis: CategoryAxis(),
-                          series: <LineSeries<SalesData, String>>[
-                            LineSeries<SalesData, String>(
-                                // Bind data source
-                                dataSource: <SalesData>[
-                                  SalesData('Jan', 35),
-                                  SalesData('Feb', 28),
-                                  SalesData('Mar', 34),
-                                  SalesData('Apr', 32),
-                                  SalesData('May', 40)
-                                ],
-                                xValueMapper: (SalesData sales, _) =>
-                                    sales.year,
-                                yValueMapper: (SalesData sales, _) =>
-                                    sales.sales)
-                          ]))
+                          selectionType: SelectionType.point,
+                          tooltipBehavior: _tooltip,
+                          series: <ChartSeries<ChartData, String>>[
+                            ColumnSeries<ChartData, String>(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                name: 'potassium',
+
+                                color: Color(0xffCFA841),
+                                selectionBehavior: _selectionBehavior,
+                                dataSource: chartData,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.y),
+                            ColumnSeries<ChartData, String>(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                color: Color(0xff4BA26A),
+                                name: "phosphorous",
+                                selectionBehavior: _selectionBehavior,
+                                dataSource: chartData,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.y1),
+                            ColumnSeries<ChartData, String>(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                selectionBehavior: _selectionBehavior,
+                                name: "Nitrogen",
+                                color: Color(0xffF6C602),
+                                dataSource: chartData,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.y2)
+                          ]),
+                  )
                   //   chartToRun()
                 ],
               ),
@@ -131,9 +172,11 @@ class AnalysisBox extends StatelessWidget {
   }
 }
 
-class SalesData {
-  SalesData(this.year, this.sales);
+class ChartData {
+  ChartData(this.x, this.y, this.y1, this.y2);
 
-  final String year;
-  final double sales;
+  final String x;
+  final double? y;
+  final double? y1;
+  final double? y2;
 }

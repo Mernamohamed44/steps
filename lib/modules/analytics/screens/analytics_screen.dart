@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
+import 'package:steps/style/images.dart';
 
 import '../../../style/text_style.dart';
 import '../widgets/analysis_box.dart';
+import '../widgets/large_analytics.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({Key? key}) : super(key: key);
@@ -24,29 +27,28 @@ class AnalyticsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    width: MediaQueryHelper.sizeFromWidth(context, 2.3),
-                    color: Colors.greenAccent,
+                    width: MediaQueryHelper.sizeFromWidth(context, 2.5),
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        AnalysisBox(),
-                        AnalysisBox(),
-                        AnalysisBox(),
+                      children:  [
+                         AnalysisBox(title: 'Daily revenue',imgpath: AppImages.up,styletxt: AppColor.blueColor),
+                        LAnalytics()
                       ],
                     ),
                   ),
 
                   ///tttttttttttt
                   Container(
-                    width: MediaQueryHelper.sizeFromWidth(context, 2.8),
-                    color: Colors.greenAccent,
+                    width: MediaQueryHelper.sizeFromWidth(context, 2.5),
+
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text("data"),
-                        Text("data"),
-                        Text("data"),
+                         AnalysisBox(title: 'Consumption',imgpath: AppImages.down,styletxt: AppColor.red),
+                         AnalysisBox(title: 'Estimated saving',imgpath: AppImages.up,styletxt: AppColor.blueColor),
+
                       ],
                     ),
                   ),
