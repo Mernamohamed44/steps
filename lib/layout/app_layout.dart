@@ -36,7 +36,8 @@ class AppLayout extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               NavigationRail(
-                                backgroundColor: AppColor.scaffoldBackGroundColor,
+                                backgroundColor:
+                                    AppColor.scaffoldBackGroundColor,
                                 indicatorColor: Colors.red,
                                 selectedIndex: cubit.currentIndex,
                                 onDestinationSelected: (int index) {
@@ -57,39 +58,42 @@ class AppLayout extends StatelessWidget {
                                             'assets/images/dashboardicon.png')),
                                     label: Text(
                                       'Dashboard',
-                                      style: TextStyle(color: AppColor.grayColor),
+                                      style:
+                                          TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                   NavigationRailDestination(
                                     icon: Image(
                                         height: 20,
                                         width: 16,
-                                        image:
-                                            AssetImage('assets/images/analytics.png')),
+                                        image: AssetImage(
+                                            'assets/images/analytics.png')),
                                     selectedIcon: Image(
                                         height: 20,
                                         width: 16,
-                                        image:
-                                            AssetImage('assets/images/analytics.png')),
+                                        image: AssetImage(
+                                            'assets/images/analytics.png')),
                                     label: Text(
                                       'Analytics',
-                                      style: TextStyle(color: AppColor.grayColor),
+                                      style:
+                                          TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                   NavigationRailDestination(
                                     icon: Image(
                                         height: 24,
                                         width: 24,
-                                        image:
-                                            AssetImage('assets/images/settings.png')),
+                                        image: AssetImage(
+                                            'assets/images/settings.png')),
                                     selectedIcon: Image(
                                         height: 24,
                                         width: 24,
-                                        image:
-                                            AssetImage('assets/images/settings.png')),
+                                        image: AssetImage(
+                                            'assets/images/settings.png')),
                                     label: Text(
                                       'Settings',
-                                      style: TextStyle(color: AppColor.grayColor),
+                                      style:
+                                          TextStyle(color: AppColor.grayColor),
                                     ),
                                   ),
                                 ],
