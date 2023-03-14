@@ -86,23 +86,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       children: [
                         SmallStaticsCard(
                             context: context,
-                            image:Stack(children: [
-                              Center(
-                                child: Image(
-                                  image: AssetImage("assets/images/sky.png"),
-                                  width: 35,
-                                  height: 35,),
-                              ),
-                              Center(
-                                child: Image(
-                                  image: AssetImage("assets/images/co2.png"),
-                                  width: 15,
-                                  height: 15,
-                                  alignment: Alignment.bottomCenter,
+                            image: Stack(
+                              children: [
+                                Center(
+                                  child: Image(
+                                    image: AssetImage("assets/images/sky.png"),
+                                    width: 35,
+                                    height: 35,
+                                  ),
                                 ),
-                              ),
-
-                            ],),
+                                Center(
+                                  child: Image(
+                                    image: AssetImage("assets/images/co2.png"),
+                                    width: 15,
+                                    height: 15,
+                                    alignment: Alignment.bottomCenter,
+                                  ),
+                                ),
+                              ],
+                            ),
                             title: "CO Reduction",
                             num: "12",
                             measure_unit: "ton"),
@@ -112,7 +114,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: Image(
                                 image: AssetImage("assets/images/battery.png"),
                                 width: 30,
-                                height: 30,),
+                                height: 30,
+                              ),
                             ),
                             title: "Capacity",
                             num: "12",
@@ -123,7 +126,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               Container(
-                
                 width: MediaQueryHelper.sizeFromWidth(context, 2.4),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,21 +141,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Stack(
                       alignment: Alignment.topRight,
                       children: [
-                        Card(elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
                           child: Container(
-
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               //color: Colors.grey,
 
-                              borderRadius: BorderRadius.circular(
-                                20
-                              ),
+                              borderRadius: BorderRadius.circular(20),
 
                               // color: AppColor.accentblue
                             ),
-
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -173,7 +173,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         width: 150,
                                       ),
                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           const Text('Daily revenue'),
                                           const SizedBox(
@@ -205,7 +206,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   color: AppColor.accentblue,
                                   borderRadius: BorderRadius.circular(10)),
                               child: DropdownButton(
-                                 underline: SizedBox(),
+                                  underline: SizedBox(),
                                   icon: const Icon(Icons.arrow_drop_down,
                                       color: Colors.black),
                                   elevation: 16,
@@ -232,7 +233,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: Image(
                                 image: AssetImage("assets/images/energy 2.png"),
                                 width: 30,
-                                height: 30,),
+                                height: 30,
+                              ),
                             ),
                             title: "CO Reduction",
                             num: "12",
@@ -241,9 +243,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             context: context,
                             image: Center(
                               child: Image(
-                                image: AssetImage("assets/images/lightbulb.png"),
+                                image:
+                                    AssetImage("assets/images/lightbulb.png"),
                                 width: 30,
-                                height: 30,),
+                                height: 30,
+                              ),
                             ),
                             title: "Capacity",
                             num: "12",
@@ -268,4 +272,3 @@ class _DashboardScreenState extends State<DashboardScreen> {
  *
  * ة
  */
-

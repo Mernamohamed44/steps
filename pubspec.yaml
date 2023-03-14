@@ -36,11 +36,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   bloc_provider:
   flutter_bloc:
+#  flutter_charts: ^0.5.0
+  syncfusion_flutter_charts: ^20.4.48
   firebase_auth:
   firebase_core:
   shared_preferences:
   conditional_builder_null_safety:
   cloud_firestore:
+  fluttertoast:
+  flutter_switch:
+  flutter_bluetooth_serial:
 
 dev_dependencies:
   flutter_test:
