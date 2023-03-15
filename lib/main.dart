@@ -13,23 +13,23 @@ void main() async {
   await CacheHelper.init();
   token = CacheHelper.getData(key: 'token');
   runApp(MyApp(
-   // appRoutes: AppRoutes(),
+   appRoutes: AppRoutes(),
 
   ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key,
-  //  required this.appRoutes
+    required this.appRoutes
   }) : super(key: key);
- // final AppRoutes appRoutes;
+ final AppRoutes appRoutes;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    home: AppLayout(),
-    //  onGenerateRoute: appRoutes.generateRoutes,
+  //  home: AppLayout(),
+      onGenerateRoute: appRoutes.generateRoutes,
     );
   }
 }
