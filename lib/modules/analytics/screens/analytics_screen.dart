@@ -28,12 +28,14 @@ class AnalyticsScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQueryHelper.sizeFromWidth(context, 2.5),
-
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  [
-                         AnalysisBox(title: 'Daily revenue',imgpath: AppImages.up,styletxt: AppColor.blueColor),
+                      children: [
+                        AnalysisBox(
+                            title: 'Daily revenue',
+                            imgpath: AppImages.up,
+                            styletxt: AppColor.blueColor),
                         LAnalytics()
                       ],
                     ),
@@ -42,13 +44,110 @@ class AnalyticsScreen extends StatelessWidget {
                   ///tttttttttttt
                   Container(
                     width: MediaQueryHelper.sizeFromWidth(context, 2.5),
-
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                         AnalysisBox(title: 'Consumption',imgpath: AppImages.down,styletxt: AppColor.red),
-                         AnalysisBox(title: 'Estimated saving',imgpath: AppImages.up,styletxt: AppColor.blueColor),
-
+                        AnalysisBox(
+                            title: 'Consumption',
+                            imgpath: AppImages.down,
+                            styletxt: AppColor.red),
+                        AnalysisBox(
+                            title: 'Estimated saving',
+                            imgpath: AppImages.up,
+                            styletxt: AppColor.blueColor),
+                        Card(
+                          color: AppColor.blueColor,
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Container(
+                              margin: EdgeInsets.all(10),
+                              height:
+                                  MediaQueryHelper.sizeFromHeight(context, 3.5),
+                              //  width: MediaQueryHelper.sizeFromWidth(context, 3),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                            //  style: AppTextStyles.analysis_titles,
+                                            //    text: "+12%",
+                                            children: [
+                                              TextSpan(
+                                                style: AppTextStyles
+                                                    .analysis_titles
+                                                    .copyWith(
+                                                        color:
+                                                            AppColor.blacktext,
+                                                        fontSize: 24,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                text: "Weather\n",
+                                              ),
+                                              TextSpan(
+                                                  style: AppTextStyles.box_icons
+                                                      .copyWith(
+                                                          color: AppColor
+                                                              .blacktext,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                  text: "Updated 40 mins ago"),
+                                            ]),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            child:
+                                                Image.asset(AppImages.cloudy),
+                                            backgroundColor: AppColor.blueColor
+                                                .withOpacity(0.9),
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                                //  style: AppTextStyles.analysis_titles,
+                                                //    text: "+12%",
+                                                children: [
+                                                  TextSpan(
+                                                    style: AppTextStyles
+                                                        .analysis_titles
+                                                        .copyWith(
+                                                            color: AppColor
+                                                                .blacktext,
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                    text: "45°C\n",
+                                                  ),
+                                                  TextSpan(
+                                                      style: AppTextStyles
+                                                          .box_icons
+                                                          .copyWith(
+                                                              color: AppColor
+                                                                  .blacktext,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                      text: "Temprature"),
+                                                ]),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(),
+                                      Row(),
+                                    ],
+                                  )
+                                ],
+                              )),
+                        )
                       ],
                     ),
                   ),
