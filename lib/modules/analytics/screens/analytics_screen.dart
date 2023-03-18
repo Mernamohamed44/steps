@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steps/modules/analytics/widgets/degree_box.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/costraints.dart';
 import 'package:steps/style/images.dart';
@@ -68,6 +69,8 @@ class AnalyticsScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -102,47 +105,9 @@ class AnalyticsScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          CircleAvatar(
-                                            child:
-                                                Image.asset(AppImages.cloudy),
-                                            backgroundColor: AppColor.blueColor
-                                                .withOpacity(0.9),
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                //  style: AppTextStyles.analysis_titles,
-                                                //    text: "+12%",
-                                                children: [
-                                                  TextSpan(
-                                                    style: AppTextStyles
-                                                        .analysis_titles
-                                                        .copyWith(
-                                                            color: AppColor
-                                                                .blacktext,
-                                                            fontSize: 24,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                    text: "45°C\n",
-                                                  ),
-                                                  TextSpan(
-                                                      style: AppTextStyles
-                                                          .box_icons
-                                                          .copyWith(
-                                                              color: AppColor
-                                                                  .blacktext,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300),
-                                                      text: "Temprature"),
-                                                ]),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(),
-                                      Row(),
+                                      DegreeBox(txt: 'Temprature', imgpath: AppImages.cloudy, degree: '45°C'),
+                                      DegreeBox(txt: 'Irradiation', imgpath: AppImages.sunny, degree: '10J/mm2'),
+                                      DegreeBox(txt: 'Wind', imgpath: AppImages.wind, degree: '15 m/s'),
                                     ],
                                   )
                                 ],
