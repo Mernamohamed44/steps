@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:steps/style/colors.dart';
+
 abstract class AppTextStyles {
   /// - weight: w300
   /// - family: cairo
@@ -13,12 +15,17 @@ abstract class AppTextStyles {
 
   /// - weight: w500
   /// - family: cairo
+
   static const TextStyle w500 =
       TextStyle(fontWeight: FontWeight.w500, fontSize: 20);
 
+  static const TextStyle date = TextStyle(
+      fontWeight: FontWeight.w400, fontSize: 18, color: AppColor.grayColor);
+
   /// - weight: w600
   /// - family: cairo
-  static const TextStyle w600 = TextStyle(fontWeight: FontWeight.w600);
+  static const TextStyle analysis_titles = TextStyle(
+      fontWeight: FontWeight.w500, fontSize: 20, color: AppColor.grayColor);
 
   /// - weight: w700
   /// - family: cairo

@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/models/user_model.dart';
 import 'package:steps/models/weather_model.dart';
-import 'package:steps/modules/analytics_screen.dart';
+import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
 import 'package:steps/network/remote/weather_api.dart';

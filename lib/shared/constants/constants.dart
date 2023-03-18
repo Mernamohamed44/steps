@@ -12,5 +12,3 @@ final numDayInYear = dateNow.difference(yearStart).inDays;
 double segma = -23.45 * cos(360 * (numDayInYear + 10) / 365);
 int alfa = (15 * (DateTime.now().hour) - 12);
 
-//'${weatherData.currentWeather!.temperature}°'
-// Angle vangle= Angle.asin(sunLocation);

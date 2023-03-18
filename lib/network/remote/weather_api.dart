@@ -6,8 +6,8 @@ class ApiWeather {
   Dio? dio;
   ApiWeather() {
     BaseOptions baseOptions = BaseOptions(
-        receiveTimeout: 20 * 1000,
-        sendTimeout: 20 * 1000,
+        // receiveTimeout: 20 * 1000,
+        // sendTimeout: 20 * 1000,
         receiveDataWhenStatusError: false);
     dio = Dio(baseOptions);
   }
