@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:steps/modules/analytics/widgets/degree_box.dart';
 import 'package:steps/style/colors.dart';
-import 'package:steps/style/costraints.dart';
+import 'package:steps/style/constrians.dart';
 import 'package:steps/style/images.dart';
 
 import '../../../style/text_style.dart';
@@ -69,8 +69,8 @@ class AnalyticsScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20)),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -105,9 +105,18 @@ class AnalyticsScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      DegreeBox(txt: 'Temprature', imgpath: AppImages.cloudy, degree: '45°C'),
-                                      DegreeBox(txt: 'Irradiation', imgpath: AppImages.sunny, degree: '10J/mm2'),
-                                      DegreeBox(txt: 'Wind', imgpath: AppImages.wind, degree: '15 m/s'),
+                                      DegreeBox(
+                                          txt: 'Temprature',
+                                          imgpath: AppImages.cloudy,
+                                          degree: '45°C'),
+                                      DegreeBox(
+                                          txt: 'Irradiation',
+                                          imgpath: AppImages.sunny,
+                                          degree: '10J/mm2'),
+                                      DegreeBox(
+                                          txt: 'Wind',
+                                          imgpath: AppImages.wind,
+                                          degree: '15 m/s'),
                                     ],
                                   )
                                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:steps/style/colors.dart';
 
 abstract class AppTextStyles {
@@ -15,11 +16,11 @@ abstract class AppTextStyles {
   /// - weight: w500
   /// - family: cairo
 
+  static const TextStyle w500 =
+      TextStyle(fontWeight: FontWeight.w500, fontSize: 20);
+
   static const TextStyle date = TextStyle(
       fontWeight: FontWeight.w400, fontSize: 18, color: AppColor.grayColor);
-
-  static const TextStyle w500 = TextStyle(fontWeight: FontWeight.w500,fontSize: 20);
-
 
   /// - weight: w600
   /// - family: cairo

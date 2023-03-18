@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:steps/style/costraints.dart';
+import 'package:steps/style/constrians.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 
 import '../../../style/colors.dart';
 import '../../../style/text_style.dart';
