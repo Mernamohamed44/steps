@@ -18,6 +18,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.appRoutes}) : super(key: key);
   final AppRoutes appRoutes;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -9,6 +9,6 @@ String url =
 final yearStart = DateTime(2022, 12, 31);
 final dateNow = DateTime.now();
 final numDayInYear = dateNow.difference(yearStart).inDays;
-double segma = -23.45 * cos(360 * (numDayInYear + 10) / 365);
+double segma = -1*(-23.45 * cos(360 * (numDayInYear + 10) / 365));
 int alfa = (15 * (DateTime.now().hour) - 12);
 
