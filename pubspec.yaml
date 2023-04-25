@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -36,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   bloc_provider:
   flutter_bloc:
+  flutter_charts: ^0.5.0
+  syncfusion_flutter_charts: ^20.4.48
   firebase_auth:
   firebase_core:
   shared_preferences:
@@ -46,10 +49,13 @@ dependencies:
   flutter_bluetooth_serial:
   dio:
   google_sign_in:
+  intl:
+  angles:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

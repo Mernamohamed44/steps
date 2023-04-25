@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:steps/style/colors.dart';
+
 class CustomSwitchItem extends StatefulWidget {
   const CustomSwitchItem({Key? key}) : super(key: key);
   @override
@@ -8,7 +9,7 @@ class CustomSwitchItem extends StatefulWidget {
 }
 
 class _CustomSwitchItemState extends State<CustomSwitchItem> {
-  bool status=false;
+  bool status = false;
   @override
   Widget build(BuildContext context) {
     return FlutterSwitch(
