@@ -3,13 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/models/user_model.dart';
 import 'package:steps/models/weather_model.dart';
 import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
-import 'package:steps/network/remote/weather_api.dart';
+import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/shared/components/components.dart';
 
 class StepsCubit extends Cubit<StepsState> {
@@ -125,15 +126,32 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   WeatherModel? weatherModel;
-  WeatherModel? weather;
+  var azimuth;
+  var elevation;
   getDataWeather() async {
-    emit(GetWeatherDataStateLoadingState());
-    weatherModel = await ApiWeather().getWeather().then((value) {
-      weather = value;
-      emit(GetWeatherDataSuccessState(weather!));
+    emit(GetWeatherDataLoadingState());
+    DioHelper.get(
+            'forecast?latitude=31.04&longitude=31.38&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_120m&daily=sunrise,sunset&current_weather=true&timezone=Africa%2FCairo')
+        .then((value) {
+      weatherModel = WeatherModel.fromJson(value.data);
+      final latitude = weatherModel!.latitude;
+      final longitude = weatherModel!.longitude;
+      final instant = Instant(
+          year: DateTime.now().year,
+          month: DateTime.now().month,
+          day: DateTime.now().day,
+          hour: DateTime.now().hour,
+          timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
+      final calc = SolarCalculator(instant, latitude, longitude);
+       azimuth=calc.sunHorizontalPosition.azimuth.floorToDouble();
+       elevation=calc.sunHorizontalPosition.elevation;
+      if (calc.isHoursOfDarkness) print('===> IS DARK <===');
+      emit(GetWeatherDataSuccessState());
     }).catchError((error) {
-      print('error is ${error.toString()}');
-      emit(CreateUserErrorState());
+      print(error.toString());
+      emit(GetWeatherDataStateErrorState(error.toString()));
     });
   }
+
+
 }

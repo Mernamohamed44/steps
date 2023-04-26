@@ -39,11 +39,10 @@ class SignInWithGoogleStateErrorState extends StepsState {
   SignInWithGoogleStateErrorState(this.errorMsg);
 }
 
-class GetWeatherDataStateLoadingState extends StepsState {}
+class GetWeatherDataLoadingState extends StepsState {}
 
 class GetWeatherDataSuccessState extends StepsState {
-  WeatherModel weatherModel;
-  GetWeatherDataSuccessState(this.weatherModel);
+
 }
 
 class GetWeatherDataStateErrorState extends StepsState {

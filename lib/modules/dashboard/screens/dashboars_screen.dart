@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:angles/angles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/models/weather_model.dart';
@@ -40,26 +40,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return BlocConsumer<StepsCubit, StepsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        WeatherModel? weatherData;
-        if (state is GetWeatherDataSuccessState) {
-          weatherData = state.weatherModel;
-          double sunLocationV = sin(segma) * sin(weatherData.latitude) +
-              cos(segma) * cos(weatherData.latitude) * cos(alfa);
-          Angle vAngle = Angle.asin(sunLocationV);
-          Angle? hAngle;
-          double sunLocationH;
-          if (alfa < 0) {
-            sunLocationH = (sin(segma) * cos(weatherData.latitude)) -
-                (cos(segma) * sin(weatherData.latitude) * cos(alfa)) /
-                    vAngle.cos;
-            hAngle = Angle.acos(sunLocationH);
-          } else {
-            hAngle = Angle.acos(1) -
-                Angle.acos((sin(segma) * cos(weatherData.latitude)) -
-                    (cos(segma) * sin(weatherData.latitude) * cos(alfa)) /
-                        vAngle.cos);
-          }
-          print(hAngle);
+        var sunPositionInfo=BlocProvider.of<StepsCubit>(context);
+        var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
+        if (state is GetWeatherDataLoadingState) {
+          return Expanded(
+              child: Container(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator()));
+        } else {
           return Expanded(
             child: Container(
                 padding: const EdgeInsets.only(top: 44, right: 55, left: 37),
@@ -86,25 +74,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             "Status",
                             style: AppTextStyles.w500,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: AppColor.accentblue),
+                          Card(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Image.asset("assets/images/solar-cell.png",
+                                Image.asset("assets/images/solarsun.gif",
                                     height: MediaQueryHelper.sizeFromHeight(
-                                        context, 2.5)),
+                                        context, 2.4)),
                                 Column(
                                   children: [
-                                    IconBox('assets/images/temperature.png',
-                                        vAngle),
+                                    IconBox(
+                                        'assets/images/temperature.png', '${sunPositionInfo.azimuth}°'),
                                     const SizedBox(
                                       height: 25,
                                     ),
                                     IconBox('assets/images/temperature2.png',
-                                        '${weatherData.currentWeather!.temperature}°'),
+                                        '${weatherData!.currentWeather!.temperature}°'),
                                     const SizedBox(
                                       height: 25,
                                     ),
@@ -114,6 +102,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ],
                             ),
                           ),
+
                           Row(
                             //crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -302,10 +291,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 )),
           );
         }
-        return Expanded(
-            child: Container(
-                alignment: Alignment.center,
-                child: const CircularProgressIndicator()));
       },
     );
   }

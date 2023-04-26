@@ -49,8 +49,9 @@ dependencies:
   flutter_bluetooth_serial:
   dio:
   google_sign_in:
-  intl:
-  angles:
+  solar_calculator: ^1.0.3
+  internet_connection_checker:
+  snackbar:
 
 dev_dependencies:
   flutter_test:
