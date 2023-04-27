@@ -8,8 +8,9 @@ Widget SettingsElements(
     {required color,
     required icon,
     required txt,
-    Color txtcolor = Colors.white,
-    String status = 'on'}) {
+      required Widget customSwitch,
+   required Color txtcolor ,
+  required  String status }) {
   return Container(
     padding: const EdgeInsets.all(15),
     width: 230,
@@ -25,7 +26,7 @@ Widget SettingsElements(
             CircleAvatar(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
             Spacer(),
-            const CustomSwitchItem(),
+             customSwitch,
           ],
         ),
         const Spacer(),

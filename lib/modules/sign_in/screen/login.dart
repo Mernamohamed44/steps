@@ -29,7 +29,7 @@ class SignInScreen extends StatelessWidget {
         }
         if (state is SignInStateSuccessState) {
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(dashboard);
+          Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
         }
 
         if (state is SignInStateErrorState) {
@@ -38,7 +38,7 @@ class SignInScreen extends StatelessWidget {
         }
         if (state is SignInWithGoogleStateSuccessState) {
           Navigator.pop(context);
-          Navigator.of(context).pushNamed(dashboard);
+          Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
         }
 
         if (state is SignInWithGoogleStateLoadingState) {

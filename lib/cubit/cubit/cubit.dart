@@ -10,8 +10,14 @@ import 'package:steps/models/weather_model.dart';
 import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
+import 'package:steps/modules/sign_in/screen/login.dart';
+import 'package:steps/network/local/shared_pref.dart';
 import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/shared/components/components.dart';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(InitialState());
@@ -36,13 +42,15 @@ class StepsCubit extends Cubit<StepsState> {
       {required String fName,
       required String lName,
       required String email,
-      required String password}) {
+      required String password,
+      }) {
     emit(SignUpStateLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       createUser(
           fName: fName, lName: lName, email: email, uId: value.user!.uid);
+
       emit(SignUpStateSuccessState());
     }).catchError((error) {
       print("error is ${error.toString()}");
@@ -78,7 +86,10 @@ class StepsCubit extends Cubit<StepsState> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      emit(SignInStateSuccessState());
+          CacheHelper.saveData(key: 'token', value:model!.uId );
+
+
+          emit(SignInStateSuccessState());
     }).catchError((error) {
       print("error is ${error.toString()}");
       emit(SignInStateErrorState(error.toString()));
@@ -143,8 +154,8 @@ class StepsCubit extends Cubit<StepsState> {
           hour: DateTime.now().hour,
           timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
       final calc = SolarCalculator(instant, latitude, longitude);
-       azimuth=calc.sunHorizontalPosition.azimuth.floorToDouble();
-       elevation=calc.sunHorizontalPosition.elevation;
+      azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
+      elevation = calc.sunHorizontalPosition.elevation;
       if (calc.isHoursOfDarkness) print('===> IS DARK <===');
       emit(GetWeatherDataSuccessState());
     }).catchError((error) {
@@ -153,5 +164,26 @@ class StepsCubit extends Cubit<StepsState> {
     });
   }
 
+  void sendData() async {
+    String? address='';
+    try {
+      BluetoothConnection connection =
+          await BluetoothConnection.toAddress(address);
+      print('Connected to the device');
 
+      connection.input!.listen((Uint8List data) {
+        print('Data incoming: ${ascii.decode(data)}');
+        connection.output.add(data); // Sending data
+
+        if (ascii.decode(data).contains('!')) {
+          connection.finish(); // Closing connection
+          print('Disconnecting by local host');
+        }
+      }).onDone(() {
+        print('Disconnected by remote request');
+      });
+    } catch (exception) {
+      print('Cannot connect, exception occured');
+    }
+  }
 }

@@ -51,7 +51,7 @@ dependencies:
   google_sign_in:
   solar_calculator: ^1.0.3
   internet_connection_checker:
-  snackbar:
+  bluetooth_enable_fork: ^0.1.4
 
 dev_dependencies:
   flutter_test:
