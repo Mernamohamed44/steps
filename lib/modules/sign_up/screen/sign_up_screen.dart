@@ -197,36 +197,7 @@ class SignUpScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                  width: 400,
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: AppColor.blueColor),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(5)),
-                                  ),
-                                  child: TextButton(
-                                      onPressed: () {},
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Image(
-                                            image: AssetImage(
-                                                "assets/images/google 1.png"),
-                                            width: 20,
-                                            height: 20,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text('Sign up With Google',
-                                              style: TextStyle(
-                                                  color:
-                                                      AppColor.grayDrkColor)),
-                                        ],
-                                      )),
-                                ),
+
                               ],
                             ),
                           ),

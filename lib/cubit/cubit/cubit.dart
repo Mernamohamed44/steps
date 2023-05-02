@@ -1,7 +1,9 @@
+import 'package:bluetooth_enable_fork/bluetooth_enable_fork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/states/states.dart';
@@ -10,13 +12,9 @@ import 'package:steps/models/weather_model.dart';
 import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
-import 'package:steps/modules/sign_in/screen/login.dart';
 import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/shared/components/components.dart';
-import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(InitialState());
@@ -126,6 +124,7 @@ class StepsCubit extends Cubit<StepsState> {
         showToast(
             message: 'Error occurred using Google Sign-In. Try again.',
             state: ToastState.error);
+        emit(SignInWithGoogleStateErrorState(e.toString()));
       }
     }
 
@@ -159,27 +158,20 @@ class StepsCubit extends Cubit<StepsState> {
       emit(GetWeatherDataStateErrorState(error.toString()));
     });
   }
+  bool statusWIfi = false;
+  bool statusBluetooth = false;
+  bool statusServer = false;
 
-  void sendData() async {
-    String? address='';
-    try {
-      BluetoothConnection connection =
-          await BluetoothConnection.toAddress(address);
-      print('Connected to the device');
-
-      connection.input!.listen((Uint8List data) {
-        print('Data incoming: ${ascii.decode(data)}');
-        connection.output.add(data); // Sending data
-
-        if (ascii.decode(data).contains('!')) {
-          connection.finish(); // Closing connection
-          print('Disconnecting by local host');
-        }
-      }).onDone(() {
-        print('Disconnected by remote request');
-      });
-    } catch (exception) {
-      print('Cannot connect, exception occured');
-    }
+  Future turnOffBluetooth(val) async {
+    await FlutterBluetoothSerial.instance.requestDisable();
+    statusBluetooth=val;
+    emit(EnableBluetoothState());
   }
+
+  Future<void> enableBT(val) async {
+    BluetoothEnable.enableBluetooth;
+    statusBluetooth=val;
+    emit(UnEnableBluetoothState());
+  }
+
 }

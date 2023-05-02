@@ -49,3 +49,5 @@ class GetWeatherDataStateErrorState extends StepsState {
   final String errorMsg;
   GetWeatherDataStateErrorState(this.errorMsg);
 }
+class EnableBluetoothState extends StepsState{}
+class UnEnableBluetoothState extends StepsState{}
