@@ -42,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
 
           if (state is SignUpStateSuccessState) {
             Navigator.pop(context);
-            Navigator.push(context!,MaterialPageRoute(builder: (_)=>SignInScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
           }
 
           if (state is SignUpStateErrorState) {

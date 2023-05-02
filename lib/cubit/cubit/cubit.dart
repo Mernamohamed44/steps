@@ -86,12 +86,9 @@ class StepsCubit extends Cubit<StepsState> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-          CacheHelper.saveData(key: 'token', value:model!.uId );
-
-
           emit(SignInStateSuccessState());
     }).catchError((error) {
-      print("error is ${error.toString()}");
+      print("error is $error");
       emit(SignInStateErrorState(error.toString()));
     });
   }

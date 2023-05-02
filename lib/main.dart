@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -9,23 +10,23 @@ import 'shared/constants/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-  await CacheHelper.init();
-  token = CacheHelper.getData(key: 'token');
-  print(token);
-  runApp(MyApp());
+  await Firebase.initializeApp();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final User? user = _auth.currentUser;
+  runApp(MyApp(user: user,));
 }
 
 class MyApp extends StatelessWidget {
+ final User? user;
   const MyApp({
-    Key? key,
+    Key? key, required this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: token == null ? SignUpScreen() : const AppLayout(),
+      home: user == null ? SignUpScreen() : const AppLayout(),
     );
   }
 }

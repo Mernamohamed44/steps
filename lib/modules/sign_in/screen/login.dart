@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
+import 'package:steps/layout/app_layout.dart';
 import 'package:steps/shared/components/components.dart';
 import 'package:steps/shared/constants/constants.dart';
 
@@ -13,7 +14,8 @@ class SignInScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<StepsCubit, StepsState>(
+    return BlocProvider(create:(context)=>StepsCubit() ,
+    child: BlocConsumer<StepsCubit, StepsState>(
       listener: (BuildContext context, state) {
         if (state is SignInStateLoadingState) {
           Center(
@@ -29,7 +31,7 @@ class SignInScreen extends StatelessWidget {
         }
         if (state is SignInStateSuccessState) {
           Navigator.pop(context);
-          Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (_)=>AppLayout()));
         }
 
         if (state is SignInStateErrorState) {
@@ -38,7 +40,7 @@ class SignInScreen extends StatelessWidget {
         }
         if (state is SignInWithGoogleStateSuccessState) {
           Navigator.pop(context);
-          Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (_)=>AppLayout()));
         }
 
         if (state is SignInWithGoogleStateLoadingState) {
@@ -114,7 +116,7 @@ class SignInScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border.all(color: AppColor.blueColor),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
+                            const BorderRadius.all(Radius.circular(5)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -150,6 +152,6 @@ class SignInScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ),);
   }
 }
