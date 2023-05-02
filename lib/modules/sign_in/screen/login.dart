@@ -4,7 +4,6 @@ import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/shared/components/components.dart';
-import 'package:steps/shared/constants/constants.dart';
 
 import 'package:steps/style/colors.dart';
 

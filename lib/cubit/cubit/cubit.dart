@@ -11,7 +11,6 @@ import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
 import 'package:steps/modules/sign_in/screen/login.dart';
-import 'package:steps/network/local/shared_pref.dart';
 import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/shared/components/components.dart';
 import 'dart:convert';

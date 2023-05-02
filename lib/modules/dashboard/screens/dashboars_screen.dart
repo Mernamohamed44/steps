@@ -6,7 +6,6 @@ import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
 import 'package:steps/models/weather_model.dart';
-import 'package:steps/shared/constants/constants.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:steps/style/text_style.dart';
@@ -81,9 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Image.asset("assets/images/solarsun.gif",
-                                    height: MediaQueryHelper.sizeFromHeight(
-                                        context, 2.4)),
+
                                 Column(
                                   children: [
                                     IconBox(

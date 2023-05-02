@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/modules/sign_up/screen/sign_up_screen.dart';
-import 'package:steps/network/local/shared_pref.dart';
 
-import 'shared/constants/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

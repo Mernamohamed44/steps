@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:steps/models/weather_model.dart';
 import 'package:steps/shared/components/components.dart';
-import 'package:steps/shared/constants/constants.dart';
 
 class DioHelper {
   static const String url =
@@ -10,7 +10,7 @@ class DioHelper {
 
   static Dio dioSingleton = Dio()..options.baseUrl = url;
   static Future<Response<dynamic>> get(String path, {dynamic body}) async {
-    if (token!=null) {
+    if (FirebaseAuth.instance.currentUser!=null) {
       bool result = await InternetConnectionChecker().hasConnection;
       if (result == true) {
         print('YAY! Free cute dog pics!');
@@ -18,7 +18,7 @@ class DioHelper {
         showToast(message: 'You are disconnected from the internet', state: ToastState.error);
       }
       dioSingleton.options.headers = {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${FirebaseAuth.instance.currentUser}',
         'Accept': 'application/json',
         'Accept-Language': 'ar',
       };
