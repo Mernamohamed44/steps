@@ -7,89 +7,133 @@ import 'package:steps/style/colors.dart';
 
 
 
-class NearbyDevicesScreen extends StatefulWidget {
-  /// If true, discovery starts on page start, otherwise user must press action button.
-  final bool start;
+class SelectBondedDevicePage extends StatefulWidget {
+  /// If true, on page start there is performed discovery upon the bonded devices.
+  /// Then, if they are not avaliable, they would be disabled from the selection.
+  final bool checkAvailability;
 
-  const NearbyDevicesScreen({super.key, this.start = true});
+  const SelectBondedDevicePage({super.key, this.checkAvailability = true});
 
   @override
-  _DiscoveryPage createState() => _DiscoveryPage();
+  _SelectBondedDevicePage createState() => _SelectBondedDevicePage();
 }
 
-class _DiscoveryPage extends State<NearbyDevicesScreen> {
-  StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
-  List<BluetoothDiscoveryResult> results =
-  List<BluetoothDiscoveryResult>.empty(growable: true);
-  bool isDiscovering = false;
+enum _DeviceAvailability {
+  no,
+  maybe,
+  yes,
+}
 
-  _DiscoveryPage();
+class _DeviceWithAvailability {
+  BluetoothDevice device;
+  _DeviceAvailability availability;
+  int? rssi;
+
+  _DeviceWithAvailability(this.device, this.availability, [this.rssi]);
+}
+
+class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
+  List<_DeviceWithAvailability> devices =
+  List<_DeviceWithAvailability>.empty(growable: true);
+
+  // Availability
+  StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
+  bool _isDiscovering = false;
+
+  _SelectBondedDevicePage();
 
   @override
   void initState() {
     super.initState();
 
-    isDiscovering = widget.start;
-    if (isDiscovering) {
+    _isDiscovering = widget.checkAvailability;
+
+    if (_isDiscovering) {
       _startDiscovery();
     }
+
+    // Setup a list of the bonded devices
+    FlutterBluetoothSerial.instance
+        .getBondedDevices()
+        .then((List<BluetoothDevice> bondedDevices) {
+      setState(() {
+        devices = bondedDevices
+            .map(
+              (device) => _DeviceWithAvailability(
+            device,
+            widget.checkAvailability
+                ? _DeviceAvailability.maybe
+                : _DeviceAvailability.yes,
+          ),
+        )
+            .toList();
+      });
+    });
   }
 
   void _restartDiscovery() {
     setState(() {
-      results.clear();
-      isDiscovering = true;
+      _isDiscovering = true;
     });
 
     _startDiscovery();
   }
 
   void _startDiscovery() {
-    _streamSubscription =
+    _discoveryStreamSubscription =
         FlutterBluetoothSerial.instance.startDiscovery().listen((r) {
           setState(() {
-            final existingIndex = results.indexWhere(
-                    (element) => element.device.address == r.device.address);
-            if (existingIndex >= 0) {
-              results[existingIndex] = r;
-            } else {
-              results.add(r);
+            Iterator i = devices.iterator;
+            while (i.moveNext()) {
+              var _device = i.current;
+              if (_device.device == r.device) {
+                _device.availability = _DeviceAvailability.yes;
+                _device.rssi = r.rssi;
+              }
             }
           });
         });
 
-    _streamSubscription!.onDone(() {
+    _discoveryStreamSubscription?.onDone(() {
       setState(() {
-        isDiscovering = false;
+        _isDiscovering = false;
       });
     });
   }
 
-  // @TODO . One day there should be `_pairDevice` on long tap on something... ;)
-
   @override
   void dispose() {
     // Avoid memory leak (`setState` after dispose) and cancel discovery
-    _streamSubscription?.cancel();
+    _discoveryStreamSubscription?.cancel();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<BluetoothDeviceListEntry> list = devices
+        .map((_device) => BluetoothDeviceListEntry(
+      device: _device.device,
+      rssi: _device.rssi,
+      enabled: _device.availability == _DeviceAvailability.yes,
+      onTap: () {
+        Navigator.of(context).pop(_device.device);
+      },
+    ))
+        .toList();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.blueColor,
-        title: isDiscovering
-            ? const Text('Discovering devices')
-            : const Text('Discovered devices'),
+        title: const Text('Select device'),
         actions: <Widget>[
-          isDiscovering
+          _isDiscovering
               ? FittedBox(
             child: Container(
               margin: const EdgeInsets.all(16.0),
               child: const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.white,
+                ),
               ),
             ),
           )
@@ -99,68 +143,7 @@ class _DiscoveryPage extends State<NearbyDevicesScreen> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: results.length,
-        itemBuilder: (BuildContext context, index) {
-          BluetoothDiscoveryResult result = results[index];
-          final device = result.device;
-          final address = device.address;
-          return BluetoothDeviceListEntry(
-            device: device,
-            rssi: result.rssi,
-            onTap: () {
-              Navigator.of(context).pop(result.device);
-            },
-            onLongPress: () async {
-              try {
-                bool bonded = false;
-                if (device.isBonded) {
-                  print('Unbonding from ${device.address}...');
-                  await FlutterBluetoothSerial.instance
-                      .removeDeviceBondWithAddress(address);
-                  print('Unbonding from ${device.address} has succed');
-                } else {
-                  print('Bonding with ${device.address}...');
-                  bonded = (await FlutterBluetoothSerial.instance
-                      .bondDeviceAtAddress(address))!;
-                  print(
-                      'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
-                }
-                setState(() {
-                  results[results.indexOf(result)] = BluetoothDiscoveryResult(
-                      device: BluetoothDevice(
-                        name: device.name ?? '',
-                        address: address,
-                        type: device.type,
-                        bondState: bonded
-                            ? BluetoothBondState.bonded
-                            : BluetoothBondState.none,
-                      ),
-                      rssi: result.rssi);
-                });
-              } catch (ex) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Error occured while bonding'),
-                      content: Text(ex.toString()),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text("Close"),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }
-            },
-          );
-        },
-      ),
+      body: ListView(children: list),
     );
   }
 }
