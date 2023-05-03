@@ -246,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_scan_bluetooth:
+    dependency: "direct main"
+    description:
+      name: flutter_scan_bluetooth
+      sha256: "0ddf2f670476e0a3d02b1a1d8c4ab7fd29412b15be7a1f6a7d21cdb108a44ae3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
   flutter_switch:
     dependency: "direct main"
     description:

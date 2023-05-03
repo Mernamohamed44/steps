@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_scan_bluetooth/flutter_scan_bluetooth.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
+import 'package:steps/modules/devices_nearby_screen/devices_nearby_screen.dart';
 import 'package:steps/shared/components/components.dart';
 import 'package:steps/style/colors.dart';
 
@@ -142,7 +144,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 100,),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: defaultButton(w: 150,onPress: (){},
+                  child: defaultButton(w: 150,onPress: ()async{
+                    final BluetoothDevice? selectedDevice =
+                        await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return NearbyDevicesScreen();
+                        },
+                      ),
+                    );
+
+                    if (selectedDevice != null) {
+                      print('Discovery -> selected ' + selectedDevice.address);
+                    } else {
+                      print('Discovery -> no device selected');
+                    }
+                  },
                     txt: 'Scan Devices to connect'
                   ),
                 ),
