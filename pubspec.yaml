@@ -52,7 +52,7 @@ dependencies:
   solar_calculator: ^1.0.3
   internet_connection_checker:
   bluetooth_enable_fork: ^0.1.4
-  flutter_scan_bluetooth: ^2.1.2
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:

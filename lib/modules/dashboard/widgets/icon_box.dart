@@ -11,8 +11,8 @@ class IconBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQueryHelper.sizeFromWidth(context, 11),
-        height: MediaQueryHelper.sizeFromHeight(context, 15),
+        width: MediaQueryHelper.sizeFromWidth(context, 10),
+        height: MediaQueryHelper.sizeFromHeight(context, 13),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: Colors.white),
         child: Row(

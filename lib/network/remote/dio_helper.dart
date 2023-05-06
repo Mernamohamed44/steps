@@ -6,7 +6,7 @@ import 'package:steps/shared/components/components.dart';
 
 class DioHelper {
   static const String url =
-      'https://api.open-meteo.com/v1/';
+      'https://api.weatherapi.com/v1/';
 
   static Dio dioSingleton = Dio()..options.baseUrl = url;
   static Future<Response<dynamic>> get(String path, {dynamic body}) async {

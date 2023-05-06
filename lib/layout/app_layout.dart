@@ -13,7 +13,9 @@ class AppLayout extends StatelessWidget {
       create: (context) => StepsCubit()..getDataWeather(),
       child: BlocConsumer<StepsCubit, StepsState>(
         builder: (BuildContext context, state) {
-          var cubit = StepsCubit.get(context);
+          final cubit = StepsCubit.get(context);
+       //  final getDataWeather=StepsCubit.get(context).getDataWeather();
+         //final angleConstrains=StepsCubit.get(context).angleConstrains();
           return Scaffold(
             backgroundColor: AppColor.scaffoldBackGroundColor,
             body: SafeArea(
@@ -55,7 +57,7 @@ class AppLayout extends StatelessWidget {
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
-                                            'assets/images/dashboardicon.png')),
+                                            'assets/images/dashboard1.png')),
                                     label: Text(
                                       'Dashboard',
                                       style:
@@ -72,7 +74,7 @@ class AppLayout extends StatelessWidget {
                                         height: 20,
                                         width: 16,
                                         image: AssetImage(
-                                            'assets/images/analytics.png')),
+                                            'assets/images/analytics2.png')),
                                     label: Text(
                                       'Analytics',
                                       style:
@@ -84,7 +86,7 @@ class AppLayout extends StatelessWidget {
                                         height: 24,
                                         width: 24,
                                         image: AssetImage(
-                                            'assets/images/settings.png')),
+                                            'assets/images/setting1.png')),
                                     selectedIcon: Image(
                                         height: 24,
                                         width: 24,

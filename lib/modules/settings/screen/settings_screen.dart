@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
@@ -10,12 +11,11 @@ import 'package:steps/shared/components/components.dart';
 import 'package:steps/style/colors.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
-
+   const SettingsScreen({Key? key}) : super(key: key);
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
-}
 
+}
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
@@ -48,37 +48,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SettingsElements(
-                        status: cubit.statusWIfi ? 'On' : 'off',
-                        txtcolor:
-                        cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor,
-                        color: cubit.statusWIfi
-                            ? AppColor.blueColor
-                            : AppColor.grayAccentColor,
-                        icon: Icon(
-                          Icons.wifi_outlined,
-                          color:
-                          cubit. statusWIfi ? Colors.white : AppColor.grayDrkColor,
-                        ),
-                        txt: 'Wifi',
-                        customSwitch: FlutterSwitch(
-                          activeColor: Colors.white,
-                          toggleColor: AppColor.blueColor,
-                          inactiveColor: AppColor.grayDrkColor,
-                          inactiveToggleColor: Colors.white,
-                          width: 50.0,
-                          height: 20.0,
-                          toggleSize: 40.0,
-                          value: cubit.statusWIfi,
-                          borderRadius: 30.0,
-                          padding: 2.0,
-                          //showOnOff: true,
-                          onToggle: (val) {
-                            setState(() {
-                              cubit. statusWIfi = val;
-                            });
-                          },
-                        )),
-                    SettingsElements(
+                      warning: '',
+                        warningColor:cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor,
                         status:cubit. statusBluetooth ? 'On' : 'off',
                         txtcolor: cubit.statusBluetooth
                             ? Colors.white
@@ -112,16 +83,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                         )),
                     SettingsElements(
+                        warningColor:cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor,
+                      warning: 'assets/images/info 4.png',
+                        status: cubit.statusWIfi ? 'On' : 'off',
+                        txtcolor:
+                        cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor,
+                        color: cubit.statusWIfi
+                            ? AppColor.blueColor
+                            : AppColor.grayAccentColor,
+                        icon: Image.asset('assets/images/paper-plane 1.png',color: cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor),
+                        txt: 'Optimization',
+                        customSwitch: FlutterSwitch(
+                          activeColor: Colors.white,
+                          toggleColor: AppColor.blueColor,
+                          inactiveColor: AppColor.grayDrkColor,
+                          inactiveToggleColor: Colors.white,
+                          width: 50.0,
+                          height: 20.0,
+                          toggleSize: 40.0,
+                          value: cubit.statusWIfi,
+                          borderRadius: 30.0,
+                          padding: 2.0,
+                          //showOnOff: true,
+                          onToggle: (val) {
+                            setState(() {
+                              cubit. statusWIfi = val;
+                            });
+                          },
+                        )),
+                   // SvgPicture.asset('assets/images/opt.svg'),
+                    SettingsElements(
+                        warning: 'assets/images/info 4.png',
+                        warningColor:cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
+
                         txtcolor:
                         cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
                         color: cubit.statusServer
                             ? AppColor.blueColor
                             : AppColor.grayAccentColor,
-                        icon: const Icon(Icons.sensors_rounded,
-                            color: AppColor.grayDrkColor),
-                        txt: 'Server',
-                        status: cubit.statusServer ? 'connect' : 'disconnect',
-                        // txtcolor: const Color(0xFF656464),
+                        icon:Image.asset('assets/images/tap 1.png',color: cubit.statusServer ? Colors.white : AppColor.grayDrkColor),
+                        txt: 'Manual Control',
+                        status: cubit.statusServer ? 'on' : 'off',
                         customSwitch: FlutterSwitch(
                           activeColor: Colors.white,
                           toggleColor: AppColor.blueColor,
@@ -150,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     await Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return SelectBondedDevicePage(checkAvailability: false);
+                          return const SelectBondedDevicePage(checkAvailability: false);
                         },
                       ),
                     );

@@ -136,19 +136,19 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   getDataWeather() async {
     emit(GetWeatherDataLoadingState());
-    DioHelper.get(
-            'forecast?latitude=31.04&longitude=31.38&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_120m&daily=sunrise,sunset&current_weather=true&timezone=Africa%2FCairo')
-        .then((value) {
+    DioHelper.get('current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura'
+    )        .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
-      final latitude = weatherModel!.latitude;
-      final longitude = weatherModel!.longitude;
+      final latitude = weatherModel!.location!.lat;
+      final longitude = weatherModel!.location!.lat;
+      print(weatherModel!.location!.lat);
       final instant = Instant(
           year: DateTime.now().year,
           month: DateTime.now().month,
           day: DateTime.now().day,
           hour: DateTime.now().hour,
           timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
-      final calc = SolarCalculator(instant, latitude, longitude);
+      final calc = SolarCalculator(instant, latitude!, longitude!);
       azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
       elevation = calc.sunHorizontalPosition.elevation;
       if (calc.isHoursOfDarkness) print('===> IS DARK <===');
@@ -172,6 +172,24 @@ class StepsCubit extends Cubit<StepsState> {
     BluetoothEnable.enableBluetooth;
     statusBluetooth=val;
     emit(UnEnableBluetoothState());
+  }
+  angleConstrains()
+  {
+    if(weatherModel!.current!.windKph!>=80)
+    {
+   //  azimuth=0;
+     elevation=0;
+     if((weatherModel!.current!.condition =='overcast' )||( weatherModel!.current!.condition =='cloudly')||( weatherModel!.current!.condition =='minst')){
+       azimuth=0;
+       elevation=0;
+
+         if((weatherModel!.current!.condition =='Patchy rain possible' )||( weatherModel!.current!.condition =='Patchy light rain')||( weatherModel!.current!.condition =='Light rain')||( weatherModel!.current!.condition =='Light rain')||( weatherModel!.current!.condition =='Moderate rain at times')||( weatherModel!.current!.condition =='Moderate rain')||( weatherModel!.current!.condition =='Moderate rain')||( weatherModel!.current!.condition =='Heavy rain at times')||( weatherModel!.current!.condition =='Heavy rain')||( weatherModel!.current!.condition =='Heavy rain at times')||( weatherModel!.current!.condition =='Light rain shower')||( weatherModel!.current!.condition =='Moderate or heavy rain shower')||( weatherModel!.current!.condition =='Torrential rain shower')||( weatherModel!.current!.condition =='Patchy light rain with thunder')||( weatherModel!.current!.condition =='Moderate or heavy rain with thunder')){
+           azimuth=0;
+           elevation=90;
+         }
+     }
+    }
+    emit(AngleConstrainsState());
   }
 
 }

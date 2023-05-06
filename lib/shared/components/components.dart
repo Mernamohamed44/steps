@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:steps/modules/settings/screen/widgets/custom_switch.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 
@@ -10,7 +9,10 @@ Widget SettingsElements(
     required txt,
       required Widget customSwitch,
    required Color txtcolor ,
-  required  String status }) {
+  required  String status ,
+      String? warning,
+      Color ? warningColor
+    }) {
   return Container(
     padding: const EdgeInsets.all(15),
     width: 230,
@@ -30,9 +32,15 @@ Widget SettingsElements(
           ],
         ),
         const Spacer(),
-        Text(txt,
-            style: TextStyle(
-                color: txtcolor, fontSize: 20, fontWeight: FontWeight.w500)),
+        Row(
+          children: [
+            Text(txt,
+                style: TextStyle(
+                    color: txtcolor, fontSize: 20, fontWeight: FontWeight.w500)),
+            Spacer(),
+            warning ==''?SizedBox():Image.asset(warning!,color:warningColor,)
+          ],
+        ),
         Text(status,
             style: TextStyle(
               color: txtcolor,

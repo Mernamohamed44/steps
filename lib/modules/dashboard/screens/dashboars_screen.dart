@@ -1,11 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/cubit/states/states.dart';
-import 'package:steps/models/weather_model.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:steps/style/text_style.dart';
@@ -13,33 +9,15 @@ import 'package:steps/style/text_style.dart';
 import '../../../shared/components/components.dart';
 import '../widgets/icon_box.dart';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
-
-  @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  String? selectedValue;
-
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(
-        value: "Today",
-        child: Text("Today"),
-      ),
-      const DropdownMenuItem(value: "Yesterday", child: Text("Yesterday")),
-    ];
-    return menuItems;
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<StepsCubit, StepsState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var sunPositionInfo=BlocProvider.of<StepsCubit>(context);
+        var sunPositionInfo = BlocProvider.of<StepsCubit>(context);
         var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
         if (state is GetWeatherDataLoadingState) {
           return Expanded(
@@ -73,33 +51,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             "Status",
                             style: AppTextStyles.w500,
                           ),
-                          Card(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
+                          Container(
 
-                                Column(
-                                  children: [
-                                    IconBox(
-                                        'assets/images/temperature.png', '${sunPositionInfo.azimuth}°'),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    IconBox('assets/images/temperature2.png',
-                                        '${weatherData!.currentWeather!.temperature}°'),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    IconBox('assets/images/charge.png', '45'),
-                                  ],
+                            decoration: BoxDecoration(
+                                color: AppColor.accentblue,
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset('assets/images/solar-cell.png',width:350,height: 250,),
+                                Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: Column(
+                                    children: [
+                                      IconBox('assets/images/temperature.png',
+                                          '${sunPositionInfo.azimuth}°h'),
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      IconBox('assets/images/temperature.png',
+                                          '${sunPositionInfo.elevation.floorToDouble()}°v'),
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      IconBox('assets/images/temperature2.png',
+                                          '${weatherData!.current!.tempC!}°c'),
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      IconBox('assets/images/charge.png', '2h'),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
                           ),
-
                           Row(
                             //crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -217,33 +203,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 30.0,
-                                  width: 115.0,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: AppColor.accentblue,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: DropdownButton(
-                                        underline: const SizedBox(),
-                                        icon: const Icon(Icons.arrow_drop_down,
-                                            color: Colors.black),
-                                        elevation: 16,
-                                        borderRadius: BorderRadius.circular(10),
-                                        value: selectedValue,
-                                        onChanged: (String? value) {
-                                          setState(() {
-                                            selectedValue = value;
-                                          });
-                                        },
-                                        items: dropdownItems),
                                   ),
                                 ),
                               ),

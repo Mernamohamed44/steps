@@ -123,17 +123,17 @@ class AnalyticsScreen extends StatelessWidget {
                                             DegreeBox(
                                                 txt: 'Temprature',
                                                 imgpath: AppImages.cloudy,
-                                                degree: '${weatherData!.currentWeather!.temperature}°'),
+                                                degree: '${weatherData!.current!.tempC}°'),
                                             DegreeBox(
                                                 txt: 'Irradiation',
                                                 imgpath: AppImages.sunny,
-                                                degree: '${weatherData.currentWeather!.winddirection} J/mm2'),
+                                                degree: '20 J/mm2'),
                                           ],
                                         ),
                                         DegreeBox(
                                             txt: 'Wind',
                                             imgpath: AppImages.wind,
-                                            degree: '${weatherData.currentWeather!.windspeed} m/s'),
+                                            degree: '${weatherData.current!.windKph} m/s'),
                                       ],
                                     )),
                               )

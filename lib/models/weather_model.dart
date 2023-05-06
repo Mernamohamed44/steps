@@ -1,289 +1,201 @@
 class WeatherModel {
-  WeatherModel({
-    required this.latitude,
-    required this.longitude,
-    required this.generationtimeMs,
-    required this.utcOffsetSeconds,
-    required this.timezone,
-    required this.timezoneAbbreviation,
-    required this.elevation,
-    required this.currentWeather,
-    required this.hourlyUnits,
-    required this.hourly,
-    required this.dailyUnits,
-    required this.daily,
-  });
+  Location? location;
+  Current? current;
 
-  final latitude;
-  final longitude;
-  final generationtimeMs;
-  final utcOffsetSeconds;
-  final String timezone;
-  final String timezoneAbbreviation;
-  final elevation;
-  final CurrentWeather? currentWeather;
-  final HourlyUnits? hourlyUnits;
-  final Hourly? hourly;
-  final DailyUnits? dailyUnits;
-  final Daily? daily;
+  WeatherModel({this.location, this.current});
 
-  WeatherModel copyWith({
-    latitude,
-    longitude,
-    generationtimeMs,
-    utcOffsetSeconds,
-    String? timezone,
-    String? timezoneAbbreviation,
-    elevation,
-    CurrentWeather? currentWeather,
-    HourlyUnits? hourlyUnits,
-    Hourly? hourly,
-    DailyUnits? dailyUnits,
-    Daily? daily,
-  }) {
-    return WeatherModel(
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-      generationtimeMs: generationtimeMs ?? this.generationtimeMs,
-      utcOffsetSeconds: utcOffsetSeconds ?? this.utcOffsetSeconds,
-      timezone: timezone ?? this.timezone,
-      timezoneAbbreviation: timezoneAbbreviation ?? this.timezoneAbbreviation,
-      elevation: elevation ?? this.elevation,
-      currentWeather: currentWeather ?? this.currentWeather,
-      hourlyUnits: hourlyUnits ?? this.hourlyUnits,
-      hourly: hourly ?? this.hourly,
-      dailyUnits: dailyUnits ?? this.dailyUnits,
-      daily: daily ?? this.daily,
-    );
+  WeatherModel.fromJson(Map<String, dynamic> json) {
+    location = json['location'] != null
+        ? Location.fromJson(json['location'])
+        : null;
+    current =
+    json['current'] != null ? Current.fromJson(json['current']) : null;
   }
 
-  factory WeatherModel.fromJson(Map<String, dynamic> json) {
-    return WeatherModel(
-      latitude: json["latitude"] ?? 0.0,
-      longitude: json["longitude"] ?? 0.0,
-      generationtimeMs: json["generationtime_ms"] ?? 0.0,
-      utcOffsetSeconds: json["utc_offset_seconds"] ?? 0.0,
-      timezone: json["timezone"] ?? "",
-      timezoneAbbreviation: json["timezone_abbreviation"] ?? "",
-      elevation: json["elevation"] ?? 0.0,
-      currentWeather: json["current_weather"] == null
-          ? null
-          : CurrentWeather.fromJson(json["current_weather"]),
-      hourlyUnits: json["hourly_units"] == null
-          ? null
-          : HourlyUnits.fromJson(json["hourly_units"]),
-      hourly: json["hourly"] == null ? null : Hourly.fromJson(json["hourly"]),
-      dailyUnits: json["daily_units"] == null
-          ? null
-          : DailyUnits.fromJson(json["daily_units"]),
-      daily: json["daily"] == null ? null : Daily.fromJson(json["daily"]),
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (location != null) {
+      data['location'] = location!.toJson();
+    }
+    if (current != null) {
+      data['current'] = current!.toJson();
+    }
+    return data;
   }
 }
 
-class CurrentWeather {
-  CurrentWeather({
-    required this.temperature,
-    required this.windspeed,
-    required this.winddirection,
-    required this.weathercode,
-    required this.time,
-  });
+class Location {
+  String? name;
+  String? region;
+  String? country;
+  var lat;
+  var lon;
+  String? tzId;
+  var localtimeEpoch;
+  String? localtime;
 
-  final temperature;
-  final windspeed;
-  final winddirection;
-  final weathercode;
-  final String time;
+  Location(
+      {this.name,
+        this.region,
+        this.country,
+        this.lat,
+        this.lon,
+        this.tzId,
+        this.localtimeEpoch,
+        this.localtime});
 
-  CurrentWeather copyWith({
-    temperature,
-    windspeed,
-    winddirection,
-    weathercode,
-    String? time,
-  }) {
-    return CurrentWeather(
-      temperature: temperature ?? this.temperature,
-      windspeed: windspeed ?? this.windspeed,
-      winddirection: winddirection ?? this.winddirection,
-      weathercode: weathercode ?? this.weathercode,
-      time: time ?? this.time,
-    );
+  Location.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    region = json['region'];
+    country = json['country'];
+    lat = json['lat'];
+    lon = json['lon'];
+    tzId = json['tz_id'];
+    localtimeEpoch = json['localtime_epoch'];
+    localtime = json['localtime'];
   }
 
-  factory CurrentWeather.fromJson(Map<String, dynamic> json) {
-    return CurrentWeather(
-      temperature: json["temperature"] ?? 0.0,
-      windspeed: json["windspeed"] ?? 0.0,
-      winddirection: json["winddirection"] ?? 0.0,
-      weathercode: json["weathercode"] ?? 0.0,
-      time: json["time"] ?? "",
-    );
-  }
-}
-
-class Daily {
-  Daily({
-    required this.time,
-    required this.sunrise,
-    required this.sunset,
-  });
-
-  final List<DateTime> time;
-  final List<String> sunrise;
-  final List<String> sunset;
-
-  Daily copyWith({
-    List<DateTime>? time,
-    List<String>? sunrise,
-    List<String>? sunset,
-  }) {
-    return Daily(
-      time: time ?? this.time,
-      sunrise: sunrise ?? this.sunrise,
-      sunset: sunset ?? this.sunset,
-    );
-  }
-
-  factory Daily.fromJson(Map<String, dynamic> json) {
-    return Daily(
-      time: json["time"] == null
-          ? []
-          : List<DateTime>.from(
-              json["time"]!.map((x) => x == null ? null : DateTime.parse(x))),
-      sunrise: json["sunrise"] == null
-          ? []
-          : List<String>.from(json["sunrise"]!.map((x) => x)),
-      sunset: json["sunset"] == null
-          ? []
-          : List<String>.from(json["sunset"]!.map((x) => x)),
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['region'] = region;
+    data['country'] = country;
+    data['lat'] = lat;
+    data['lon'] = lon;
+    data['tz_id'] = tzId;
+    data['localtime_epoch'] = localtimeEpoch;
+    data['localtime'] = localtime;
+    return data;
   }
 }
 
-class DailyUnits {
-  DailyUnits({
-    required this.time,
-    required this.sunrise,
-    required this.sunset,
-  });
+class Current {
+  var lastUpdatedEpoch;
+  String? lastUpdated;
+ var tempC;
+  var tempF;
+  var isDay;
+  Condition? condition;
+  var windMph;
+  var windKph;
+  var windDegree;
+  String? windDir;
+  var pressureMb;
+  var pressureIn;
+  var precipMm;
+  var precipIn;
+  var humidity;
+  var cloud;
+  var feelslikeC;
+  var feelslikeF;
+  var visKm;
+  var visMiles;
+  var uv;
+  var gustMph;
+  var gustKph;
 
-  final String time;
-  final String sunrise;
-  final String sunset;
+  Current(
+      {this.lastUpdatedEpoch,
+        this.lastUpdated,
+        this.tempC,
+        this.tempF,
+        this.isDay,
+        this.condition,
+        this.windMph,
+        this.windKph,
+        this.windDegree,
+        this.windDir,
+        this.pressureMb,
+        this.pressureIn,
+        this.precipMm,
+        this.precipIn,
+        this.humidity,
+        this.cloud,
+        this.feelslikeC,
+        this.feelslikeF,
+        this.visKm,
+        this.visMiles,
+        this.uv,
+        this.gustMph,
+        this.gustKph});
 
-  DailyUnits copyWith({
-    String? time,
-    String? sunrise,
-    String? sunset,
-  }) {
-    return DailyUnits(
-      time: time ?? this.time,
-      sunrise: sunrise ?? this.sunrise,
-      sunset: sunset ?? this.sunset,
-    );
+  Current.fromJson(Map<String, dynamic> json) {
+    lastUpdatedEpoch = json['last_updated_epoch'];
+    lastUpdated = json['last_updated'];
+    tempC = json['temp_c'];
+    tempF = json['temp_f'];
+    isDay = json['is_day'];
+    condition = json['condition'] != null
+        ? Condition.fromJson(json['condition'])
+        : null;
+    windMph = json['wind_mph'];
+    windKph = json['wind_kph'];
+    windDegree = json['wind_degree'];
+    windDir = json['wind_dir'];
+    pressureMb = json['pressure_mb'];
+    pressureIn = json['pressure_in'];
+    precipMm = json['precip_mm'];
+    precipIn = json['precip_in'];
+    humidity = json['humidity'];
+    cloud = json['cloud'];
+    feelslikeC = json['feelslike_c'];
+    feelslikeF = json['feelslike_f'];
+    visKm = json['vis_km'];
+    visMiles = json['vis_miles'];
+    uv = json['uv'];
+    gustMph = json['gust_mph'];
+    gustKph = json['gust_kph'];
   }
 
-  factory DailyUnits.fromJson(Map<String, dynamic> json) {
-    return DailyUnits(
-      time: json["time"] ?? "",
-      sunrise: json["sunrise"] ?? "",
-      sunset: json["sunset"] ?? "",
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['last_updated_epoch'] = lastUpdatedEpoch;
+    data['last_updated'] = lastUpdated;
+    data['temp_c'] = tempC;
+    data['temp_f'] = tempF;
+    data['is_day'] = isDay;
+    if (condition != null) {
+      data['condition'] = condition!.toJson();
+    }
+    data['wind_mph'] = windMph;
+    data['wind_kph'] = windKph;
+    data['wind_degree'] = windDegree;
+    data['wind_dir'] = windDir;
+    data['pressure_mb'] = pressureMb;
+    data['pressure_in'] = pressureIn;
+    data['precip_mm'] = precipMm;
+    data['precip_in'] = precipIn;
+    data['humidity'] = humidity;
+    data['cloud'] = cloud;
+    data['feelslike_c'] = feelslikeC;
+    data['feelslike_f'] = feelslikeF;
+    data['vis_km'] = visKm;
+    data['vis_miles'] = visMiles;
+    data['uv'] = uv;
+    data['gust_mph'] = gustMph;
+    data['gust_kph'] = gustKph;
+    return data;
   }
 }
 
-class Hourly {
-  Hourly({
-    required this.time,
-    required this.temperature2M,
-    required this.precipitation,
-    required this.windspeed10M,
-    required this.winddirection120M,
-  });
+class Condition {
+  String? text;
+  String? icon;
+  var code;
 
-  final List<String> time;
-  final List temperature2M;
-  final List precipitation;
-  final List windspeed10M;
-  final List winddirection120M;
+  Condition({this.text, this.icon, this.code});
 
-  Hourly copyWith({
-    List<String>? time,
-    List? temperature2M,
-    List? precipitation,
-    List? windspeed10M,
-    List? winddirection120M,
-  }) {
-    return Hourly(
-      time: time ?? this.time,
-      temperature2M: temperature2M ?? this.temperature2M,
-      precipitation: precipitation ?? this.precipitation,
-      windspeed10M: windspeed10M ?? this.windspeed10M,
-      winddirection120M: winddirection120M ?? this.winddirection120M,
-    );
+  Condition.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    icon = json['icon'];
+    code = json['code'];
   }
 
-  factory Hourly.fromJson(Map<String, dynamic> json) {
-    return Hourly(
-      time: json["time"] == null
-          ? []
-          : List<String>.from(json["time"]!.map((x) => x)),
-      temperature2M: json["temperature_2m"] == null
-          ? []
-          : List<double>.from(json["temperature_2m"]!.map((x) => x)),
-      precipitation: json["precipitation"] == null
-          ? []
-          : List<double>.from(json["precipitation"]!.map((x) => x)),
-      windspeed10M: json["windspeed_10m"] == null
-          ? []
-          : List<double>.from(json["windspeed_10m"]!.map((x) => x)),
-      winddirection120M: json["winddirection_120m"] == null
-          ? []
-          : List<int>.from(json["winddirection_120m"]!.map((x) => x)),
-    );
-  }
-}
-
-class HourlyUnits {
-  HourlyUnits({
-    required this.time,
-    required this.temperature2M,
-    required this.precipitation,
-    required this.windspeed10M,
-    required this.winddirection120M,
-  });
-
-  final String time;
-  final String temperature2M;
-  final String precipitation;
-  final String windspeed10M;
-  final String winddirection120M;
-
-  HourlyUnits copyWith({
-    String? time,
-    String? temperature2M,
-    String? precipitation,
-    String? windspeed10M,
-    String? winddirection120M,
-  }) {
-    return HourlyUnits(
-      time: time ?? this.time,
-      temperature2M: temperature2M ?? this.temperature2M,
-      precipitation: precipitation ?? this.precipitation,
-      windspeed10M: windspeed10M ?? this.windspeed10M,
-      winddirection120M: winddirection120M ?? this.winddirection120M,
-    );
-  }
-
-  factory HourlyUnits.fromJson(Map<String, dynamic> json) {
-    return HourlyUnits(
-      time: json["time"] ?? "",
-      temperature2M: json["temperature_2m"] ?? "",
-      precipitation: json["precipitation"] ?? "",
-      windspeed10M: json["windspeed_10m"] ?? "",
-      winddirection120M: json["winddirection_120m"] ?? "",
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['text'] = text;
+    data['icon'] = icon;
+    data['code'] = code;
+    return data;
   }
 }
