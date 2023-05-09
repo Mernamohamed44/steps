@@ -4,7 +4,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:steps/cubit/cubit/cubit.dart';
 
 class ChatScreen extends StatefulWidget {
   final BluetoothDevice server;
@@ -149,13 +151,18 @@ class _ChatPage extends State<ChatScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: isConnected
-                          ? () => _sendMessage(textEditingController.text)
-                          : null),
+                BlocBuilder(
+                  builder: (context,state){
+                    final cubit=BlocProvider.of<StepsCubit>(context);
+                    return  Container(
+                      margin: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                          icon: const Icon(Icons.send),
+                          onPressed: isConnected
+                              ? () => _sendMessage('${cubit.azimuth}h')
+                              : null),
+                    );
+                  },
                 ),
               ],
             )

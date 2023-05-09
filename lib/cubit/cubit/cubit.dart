@@ -15,7 +15,6 @@ import 'package:steps/modules/settings/screen/settings_screen.dart';
 import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/shared/components/components.dart';
 
-
 class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(InitialState());
   static StepsCubit get(context) => BlocProvider.of(context);
@@ -35,12 +34,12 @@ class StepsCubit extends Cubit<StepsState> {
     const AnalyticsScreen(),
     const SettingsScreen()
   ];
-  signup(
-      {required String fName,
-      required String lName,
-      required String email,
-      required String password,
-      }) {
+  signup({
+    required String fName,
+    required String lName,
+    required String email,
+    required String password,
+  }) {
     emit(SignUpStateLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
@@ -83,7 +82,7 @@ class StepsCubit extends Cubit<StepsState> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-          emit(SignInStateSuccessState());
+      emit(SignInStateSuccessState());
     }).catchError((error) {
       print("error is $error");
       emit(SignInStateErrorState(error.toString()));
@@ -136,8 +135,9 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   getDataWeather() async {
     emit(GetWeatherDataLoadingState());
-    DioHelper.get('current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura'
-    )        .then((value) {
+    DioHelper.get(
+            'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
+        .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
       final longitude = weatherModel!.location!.lat;
@@ -158,38 +158,53 @@ class StepsCubit extends Cubit<StepsState> {
       emit(GetWeatherDataStateErrorState(error.toString()));
     });
   }
+
   bool statusWIfi = false;
   bool statusBluetooth = false;
   bool statusServer = false;
 
   Future turnOffBluetooth(val) async {
     await FlutterBluetoothSerial.instance.requestDisable();
-    statusBluetooth=val;
+    statusBluetooth = val;
     emit(EnableBluetoothState());
   }
 
   Future<void> enableBT(val) async {
     BluetoothEnable.enableBluetooth;
-    statusBluetooth=val;
+    statusBluetooth = val;
     emit(UnEnableBluetoothState());
   }
-  angleConstrains()
-  {
-    if(weatherModel!.current!.windKph!>=80)
-    {
-   //  azimuth=0;
-     elevation=0;
-     if((weatherModel!.current!.condition =='overcast' )||( weatherModel!.current!.condition =='cloudly')||( weatherModel!.current!.condition =='minst')){
-       azimuth=0;
-       elevation=0;
 
-         if((weatherModel!.current!.condition =='Patchy rain possible' )||( weatherModel!.current!.condition =='Patchy light rain')||( weatherModel!.current!.condition =='Light rain')||( weatherModel!.current!.condition =='Light rain')||( weatherModel!.current!.condition =='Moderate rain at times')||( weatherModel!.current!.condition =='Moderate rain')||( weatherModel!.current!.condition =='Moderate rain')||( weatherModel!.current!.condition =='Heavy rain at times')||( weatherModel!.current!.condition =='Heavy rain')||( weatherModel!.current!.condition =='Heavy rain at times')||( weatherModel!.current!.condition =='Light rain shower')||( weatherModel!.current!.condition =='Moderate or heavy rain shower')||( weatherModel!.current!.condition =='Torrential rain shower')||( weatherModel!.current!.condition =='Patchy light rain with thunder')||( weatherModel!.current!.condition =='Moderate or heavy rain with thunder')){
-           azimuth=0;
-           elevation=90;
-         }
-     }
+  angleConstrains() {
+    if (weatherModel!.current!.windKph! >= 80) {
+      //  azimuth=0;
+      elevation = 0;
+      if ((weatherModel!.current!.condition == 'overcast') ||
+          (weatherModel!.current!.condition == 'cloudly') ||
+          (weatherModel!.current!.condition == 'minst')) {
+        azimuth = 0;
+        elevation = 0;
+
+        if ((weatherModel!.current!.condition == 'Patchy rain possible') ||
+            (weatherModel!.current!.condition == 'Patchy light rain') ||
+            (weatherModel!.current!.condition == 'Light rain') ||
+            (weatherModel!.current!.condition == 'Moderate rain at times') ||
+            (weatherModel!.current!.condition == 'Moderate rain') ||
+            (weatherModel!.current!.condition == 'Heavy rain at times') ||
+            (weatherModel!.current!.condition == 'Heavy rain') ||
+            (weatherModel!.current!.condition == 'Light rain shower') ||
+            (weatherModel!.current!.condition ==
+                'Moderate or heavy rain shower') ||
+            (weatherModel!.current!.condition == 'Torrential rain shower') ||
+            (weatherModel!.current!.condition ==
+                'Patchy light rain with thunder') ||
+            (weatherModel!.current!.condition ==
+                'Moderate or heavy rain with thunder')) {
+          azimuth = 0;
+          elevation = 90;
+        }
+      }
     }
     emit(AngleConstrainsState());
   }
-
 }

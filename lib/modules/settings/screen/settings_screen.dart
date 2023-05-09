@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 15,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SettingsElements(
                       warning: '',
@@ -82,6 +82,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             }
                           },
                         )),
+                    SizedBox(
+                      width: 30,
+                    ),
                     SettingsElements(
                         warningColor:cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor,
                       warning: 'assets/images/info 4.png',
@@ -92,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ? AppColor.blueColor
                             : AppColor.grayAccentColor,
                         icon: Image.asset('assets/images/paper-plane 1.png',color: cubit.statusWIfi ? Colors.white : AppColor.grayDrkColor),
-                        txt: 'Optimization',
+                        txt: cubit.statusWIfi ?'Optimization':'Manual Control',
                         customSwitch: FlutterSwitch(
                           activeColor: Colors.white,
                           toggleColor: AppColor.blueColor,
@@ -112,36 +115,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                         )),
                    // SvgPicture.asset('assets/images/opt.svg'),
-                    SettingsElements(
-                        warning: 'assets/images/info 4.png',
-                        warningColor:cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
-
-                        txtcolor:
-                        cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
-                        color: cubit.statusServer
-                            ? AppColor.blueColor
-                            : AppColor.grayAccentColor,
-                        icon:Image.asset('assets/images/tap 1.png',color: cubit.statusServer ? Colors.white : AppColor.grayDrkColor),
-                        txt: 'Manual Control',
-                        status: cubit.statusServer ? 'on' : 'off',
-                        customSwitch: FlutterSwitch(
-                          activeColor: Colors.white,
-                          toggleColor: AppColor.blueColor,
-                          inactiveColor: AppColor.grayDrkColor,
-                          inactiveToggleColor: Colors.white,
-                          width: 50.0,
-                          height: 20.0,
-                          toggleSize: 40.0,
-                          value: cubit.statusServer,
-                          borderRadius: 30.0,
-                          padding: 2.0,
-                          //showOnOff: true,
-                          onToggle: (val) {
-                            setState(() {
-                              cubit.statusServer = val;
-                            });
-                          },
-                        )),
+                   //  SettingsElements(
+                   //      warning: 'assets/images/info 4.png',
+                   //      warningColor:cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
+                   //
+                   //      txtcolor:
+                   //      cubit.statusServer ? Colors.white : AppColor.grayDrkColor,
+                   //      color: cubit.statusServer
+                   //          ? AppColor.blueColor
+                   //          : AppColor.grayAccentColor,
+                   //      icon:Image.asset('assets/images/tap 1.png',color: cubit.statusServer ? Colors.white : AppColor.grayDrkColor),
+                   //      txt: 'Manual Control',
+                   //      status: cubit.statusServer ? 'on' : 'off',
+                   //      customSwitch: FlutterSwitch(
+                   //        activeColor: Colors.white,
+                   //        toggleColor: AppColor.blueColor,
+                   //        inactiveColor: AppColor.grayDrkColor,
+                   //        inactiveToggleColor: Colors.white,
+                   //        width: 50.0,
+                   //        height: 20.0,
+                   //        toggleSize: 40.0,
+                   //        value: cubit.statusServer,
+                   //        borderRadius: 30.0,
+                   //        padding: 2.0,
+                   //        //showOnOff: true,
+                   //        onToggle: (val) {
+                   //          setState(() {
+                   //            cubit.statusServer = val;
+                   //          });
+                   //        },
+                   //      )),
                   ],
                 ),
                 const SizedBox(height: 100,),
