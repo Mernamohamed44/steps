@@ -41,7 +41,8 @@ class SignUpScreen extends StatelessWidget {
 
           if (state is SignUpStateSuccessState) {
             Navigator.pop(context);
-            Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => SignInScreen()));
           }
 
           if (state is SignUpStateErrorState) {
@@ -114,8 +115,9 @@ class SignUpScreen extends StatelessWidget {
                                           child: defaultTextField(
                                             txt: 'Last Name',
                                             controller: cubit.lNameController,
-                                            validate: (String value) {
-                                              if (value.isEmpty) {
+                                            validate: (value) {
+                                              if (value != null &&
+                                                  value.isEmpty) {
                                                 return 'The Last name Field is not allowed to be empty ';
                                               }
                                               return null;
@@ -138,8 +140,8 @@ class SignUpScreen extends StatelessWidget {
                                   child: defaultTextField(
                                     txt: 'Enter Your Email',
                                     controller: cubit.emailController,
-                                    validate: (String value) {
-                                      if (value.isEmpty) {
+                                    validate: (value) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Email Field is not allowed to be empty ';
                                       }
                                       return null;
@@ -159,8 +161,8 @@ class SignUpScreen extends StatelessWidget {
                                     isPass: true,
                                     txt: 'Password',
                                     controller: cubit.passwordController,
-                                    validate: (String value) {
-                                      if (value.isEmpty) {
+                                    validate: (value) {
+                                      if (value != null && value.isEmpty) {
                                         return 'Password Field is not allowed to be empty ';
                                       }
                                       return null;
@@ -197,7 +199,6 @@ class SignUpScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
-
                               ],
                             ),
                           ),
@@ -207,7 +208,10 @@ class SignUpScreen extends StatelessWidget {
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Navigator.push(context,MaterialPageRoute(builder: (_)=>SignInScreen()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => SignInScreen()));
                                   },
                                   child: const Text(
                                     'Sign In',

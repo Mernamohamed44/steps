@@ -7,12 +7,11 @@ Widget SettingsElements(
     {required color,
     required icon,
     required txt,
-      required Widget customSwitch,
-   required Color txtcolor ,
-  required  String status ,
-      String? warning,
-      Color ? warningColor
-    }) {
+    required Widget customSwitch,
+    required Color txtcolor,
+    required String status,
+    String? warning,
+    Color? warningColor}) {
   return Container(
     padding: const EdgeInsets.all(15),
     width: 230,
@@ -28,7 +27,7 @@ Widget SettingsElements(
             CircleAvatar(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
             Spacer(),
-             customSwitch,
+            customSwitch,
           ],
         ),
         const Spacer(),
@@ -36,9 +35,16 @@ Widget SettingsElements(
           children: [
             Text(txt,
                 style: TextStyle(
-                    color: txtcolor, fontSize: 20, fontWeight: FontWeight.w500)),
+                    color: txtcolor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500)),
             Spacer(),
-            warning ==''?SizedBox():Image.asset(warning!,color:warningColor,)
+            warning == ''
+                ? SizedBox()
+                : Image.asset(
+                    warning!,
+                    color: warningColor,
+                  )
           ],
         ),
         Text(status,
@@ -71,7 +77,7 @@ Widget defaultTextField(
     {String? txt,
     IconData? prefixIcon,
     IconData? suffixIcon,
-    Function? validate,
+    String? Function(String?)? validate,
     Function? suffixOnPress,
     bool isPass = false,
     TextInputType? type,
@@ -82,7 +88,7 @@ Widget defaultTextField(
     onFieldSubmitted: onSubmit,
     keyboardType: type,
     obscureText: isPass ? true : false,
-    validator: (value) => validate!(value),
+    validator: validate,
     decoration: InputDecoration(
       focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Color(0xFF34C4D8), width: 2.0),
