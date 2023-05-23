@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../style/text_style.dart';
 
 class DialogWidget extends StatefulWidget {
-  const DialogWidget({super.key});
-
+  const DialogWidget({super.key, this.applyFunction});
+  final void Function()? applyFunction;
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
 }
@@ -16,7 +16,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     '1 Month',
     'Always'
   ];
-  String dropdownValue = "";
+  late String dropdownValue;
   @override
   void initState() {
     dropdownValue = list.first;
@@ -64,14 +64,14 @@ class _DialogWidgetState extends State<DialogWidget> {
                   style: AppTextStyles.date
                       .copyWith(color: const Color(0xFF778289), fontSize: 20),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Expanded(
                   child: BorderedContainer(
                       child: Text("Horizontal",
                           style: AppTextStyles.date.copyWith(
                               color: const Color(0xFF778289), fontSize: 20))),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Expanded(
                   child: BorderedContainer(
                     child: Text("Vertical",
@@ -89,27 +89,29 @@ class _DialogWidgetState extends State<DialogWidget> {
                   style: AppTextStyles.date
                       .copyWith(color: const Color(0xFF778289), fontSize: 20),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Expanded(
-                  child: DropdownButton<String>(
-                    borderRadius: BorderRadius.circular(8),
-                    
-                    isExpanded: true,
-                    value: dropdownValue,
-                    elevation: 16,
-                    style: AppTextStyles.date
-                        .copyWith(color: const Color(0xFF778289), fontSize: 20),
-                    onChanged: (String? value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    items: list.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  child: BorderedContainer(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: DropdownButton<String>(
+                      borderRadius: BorderRadius.circular(8),
+                      isExpanded: true,
+                      value: dropdownValue,
+                      elevation: 16,
+                      style: AppTextStyles.date.copyWith(
+                          color: const Color(0xFF778289), fontSize: 20),
+                      onChanged: (String? value) {
+                        setState(() {
+                          dropdownValue = value!;
+                        });
+                      },
+                      items: list.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ],
@@ -123,19 +125,21 @@ class _DialogWidgetState extends State<DialogWidget> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
                       padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10)),
+                          const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 10)),
                     ),
                     child: Text(
                       "Cancel",
                       style: AppTextStyles.date
                           .copyWith(color: Colors.black, fontSize: 20),
                     )),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: widget.applyFunction,
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 10)),
+                            const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10)),
                         backgroundColor:
                             MaterialStateProperty.all(const Color(0xFF10BAD2))),
                     child: Text(
@@ -153,12 +157,14 @@ class _DialogWidgetState extends State<DialogWidget> {
 }
 
 class BorderedContainer extends StatelessWidget {
-  const BorderedContainer({super.key, required this.child});
+  const BorderedContainer({super.key, required this.child, this.padding});
   final Widget child;
+  final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+      padding:
+          padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
