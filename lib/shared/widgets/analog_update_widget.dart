@@ -25,57 +25,44 @@ class AnalogUpdateWidget extends StatelessWidget {
             height: 30,
             width: 30,
           ),
-          SizedBox(width: 10),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("Angle update",
-                style: AppTextStyles.titles.copyWith(fontSize: 30)),
-            SizedBox(height: 15),
-            Text(
-              message,
-              style: AppTextStyles.date.copyWith(
-                  fontSize: 23,
-                  color: Color(0xFF787878),
-                  fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 30),
-            InkWell(
-              onTap: () => showDialog(
-                  context: context, builder: (context) => DialogWidget()),
-              child: Ink(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                      border: Border.all(color: Color(0xFFD9D9D9))),
-                  child: Text("Change angle",
-                      style: AppTextStyles.w500
-                          .copyWith(color: Color(0xFF656464))),
-                ),
-              ),
-            ),
-          ]),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Angle update",
+                      style: AppTextStyles.titles.copyWith(fontSize: 30)),
+                  const SizedBox(height: 15),
+                  Text(
+                    message,
+                    style: AppTextStyles.date.copyWith(
+                        fontSize: 23,
+                        color: const Color(0xFF787878),
+                        fontWeight: FontWeight.w400),
+                    softWrap: true,
+                  ),
+                  const SizedBox(height: 30),
+                  InkWell(
+                    onTap: () => showDialog(
+                        context: context, builder: (context) =>  DialogWidget(applyFunction: (){},)),
+                    child: Ink(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.white,
+                            border: Border.all(color: const Color(0xFFD9D9D9))),
+                        child: Text("Change angle",
+                            style: AppTextStyles.w500
+                                .copyWith(color: const Color(0xFF656464))),
+                      ),
+                    ),
+                  ),
+                ]),
+          ),
         ],
       ),
     );
   }
 }
-
-// class LinedText extends StatelessWidget {
-//   const LinedText(this.text, {super.key, this.style});
-//   final TextStyle? style;
-//   final String text;
-//   @override
-//   Widget build(BuildContext context) {
-//     List<String> words = text.split(" ");
-//     return Wrap(
-//       crossAxisAlignment: WrapCrossAlignment.start,
-//       children: words
-//           .map((e) => Text(
-//                 "$e ",
-//                 style: style,
-//               ))
-//           .toList(),
-//     );
-//   }
-// }
