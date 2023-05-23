@@ -162,6 +162,7 @@ class StepsCubit extends Cubit<StepsState> {
   bool statusWIfi = false;
   bool statusBluetooth = false;
   bool statusServer = false;
+  bool statusOptimization = false;
 
   Future turnOffBluetooth(val) async {
     await FlutterBluetoothSerial.instance.requestDisable();

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 
-Widget SettingsElements(
+Widget settingsElements(
     {required color,
     required icon,
     required txt,
     required Widget customSwitch,
-    required Color txtcolor,
+    required Color txtColor,
     required String status,
+    String? msg,
     String? warning,
     Color? warningColor}) {
   return Container(
@@ -26,7 +28,7 @@ Widget SettingsElements(
           children: [
             CircleAvatar(
                 child: icon, backgroundColor: Colors.white.withOpacity(.5)),
-            Spacer(),
+            const Spacer(),
             customSwitch,
           ],
         ),
@@ -35,21 +37,40 @@ Widget SettingsElements(
           children: [
             Text(txt,
                 style: TextStyle(
-                    color: txtcolor,
+                    color: txtColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w500)),
-            Spacer(),
+            const Spacer(),
             warning == ''
-                ? SizedBox()
-                : Image.asset(
-                    warning!,
-                    color: warningColor,
+                ? const SizedBox()
+                : JustTheTooltip(
+                    borderRadius: BorderRadius.circular(8),
+                    waitDuration: Duration(milliseconds: 300),
+                    content: SizedBox(
+                      width: 275,
+                      child: msg != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                msg,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                    child: Image.asset(
+                      warning!,
+                      color: warningColor,
+                    ),
                   )
           ],
         ),
         Text(status,
             style: TextStyle(
-              color: txtcolor,
+              color: txtColor,
               fontSize: 15,
             ))
       ],
@@ -198,3 +219,23 @@ Color chooseToastColor(ToastState state) {
   }
   return color;
 }
+// JustTheTooltip(
+//   child: Material(
+//     color: Colors.grey.shade800,
+//     shape: const CircleBorder(),
+//     elevation: 4.0,
+//     child: const Padding(
+//       padding: EdgeInsets.all(8.0),
+//       child: Icon(
+//         Icons.add,
+//         color: Colors.white,
+//       ),
+//     ),
+//   ),
+//   content: const Padding(
+//     padding: EdgeInsets.all(8.0),
+//     child: Text(
+//       'Bacon ipsum dolor amet kevin turducken brisket pastrami, salami ribeye spare ribs tri-tip sirloin shoulder venison shank burgdoggen chicken pork belly. Short loin filet mignon shoulder rump beef ribs meatball kevin.',
+//     ),
+//   ),
+// )
