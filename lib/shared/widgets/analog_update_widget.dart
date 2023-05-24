@@ -5,9 +5,10 @@ import 'dialog_widget.dart';
 
 class AnalogUpdateWidget extends StatelessWidget {
   const AnalogUpdateWidget(
-      {super.key, required this.message, this.isError = false});
+      {super.key, required this.message, this.isError = false, this.applyFunction});
   final String message;
   final bool isError;
+  final applyFunction;
 
   @override
   Widget build(BuildContext context) {

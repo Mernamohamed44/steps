@@ -44,6 +44,7 @@ class DashboardScreen extends StatelessWidget {
                         style: AppTextStyles.titles,
                       ),
                       AnalogUpdateWidget(
+                        //applyFunction:sunPositionInfo.sendMessage() ,
                         message:
                             "The angle need to be adjusted to 45° for the vertical and 60° for the horizontal due to the rainy weather.",
                       ),

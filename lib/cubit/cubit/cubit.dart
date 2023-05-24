@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:bluetooth_enable_fork/bluetooth_enable_fork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -208,4 +211,41 @@ class StepsCubit extends Cubit<StepsState> {
     }
     emit(AngleConstrainsState());
   }
+
+  BluetoothConnection? connection;
+  static final clientID = 0;
+  final ScrollController listScrollController = ScrollController();
+  List<_Message> messages = List<_Message>.empty(growable: true);
+
+   sendMessage(String text) async {
+    text = text.trim();
+    // textEditingController.clear();
+
+    if (text.isNotEmpty) {
+      try {
+        connection!.output.add(Uint8List.fromList(utf8.encode("$text\r\n")));
+        await connection!.output.allSent;
+
+        messages.add(_Message(clientID, text));
+
+        Future.delayed(const Duration(milliseconds: 333)).then((_) {
+          listScrollController.animateTo(
+              listScrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 333),
+              curve: Curves.easeOut);
+        });
+        emit(SendAngleSuccessState());
+      } catch (e) {
+        // Ignore error, but notify state
+        emit(SendAngleErrorState());
+      }
+    }
+  }
+}
+
+class _Message {
+  int whom;
+  String text;
+
+  _Message(this.whom, this.text);
 }

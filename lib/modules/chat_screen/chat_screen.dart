@@ -31,8 +31,7 @@ class _ChatPage extends State<ChatScreen> {
   List<_Message> messages = List<_Message>.empty(growable: true);
   String _messageBuffer = '';
 
-  final TextEditingController textEditingController =
-  TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
   final ScrollController listScrollController = ScrollController();
 
   bool isConnecting = true;
@@ -102,10 +101,10 @@ class _ChatPage extends State<ChatScreen> {
             width: 222.0,
             decoration: BoxDecoration(
                 color:
-                message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                    message.whom == clientID ? Colors.blueAccent : Colors.grey,
                 borderRadius: BorderRadius.circular(7.0)),
             child: Text(
-                    (text) {
+                (text) {
                   return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
                 }(message.text.trim()),
                 style: const TextStyle(color: Colors.white)),
@@ -120,8 +119,8 @@ class _ChatPage extends State<ChatScreen> {
           title: (isConnecting
               ? Text('Connecting chat to $serverName...')
               : isConnected
-              ? Text('Live chat with $serverName')
-              : Text('Chat log with $serverName'))),
+                  ? Text('Live chat with $serverName')
+                  : Text('Chat log with $serverName'))),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -143,8 +142,8 @@ class _ChatPage extends State<ChatScreen> {
                         hintText: isConnecting
                             ? 'Wait until connected...'
                             : isConnected
-                            ? 'Type your message...'
-                            : 'Chat got disconnected',
+                                ? 'Type your message...'
+                                : 'Chat got disconnected',
                         hintStyle: const TextStyle(color: Colors.grey),
                       ),
                       enabled: isConnected,
@@ -152,9 +151,9 @@ class _ChatPage extends State<ChatScreen> {
                   ),
                 ),
                 BlocBuilder(
-                  builder: (context,state){
-                    final cubit=BlocProvider.of<StepsCubit>(context);
-                    return  Container(
+                  builder: (context, state) {
+                    final cubit = BlocProvider.of<StepsCubit>(context);
+                    return Container(
                       margin: const EdgeInsets.all(8.0),
                       child: IconButton(
                           icon: const Icon(Icons.send),
@@ -207,7 +206,7 @@ class _ChatPage extends State<ChatScreen> {
             1,
             backspacesCounter > 0
                 ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
+                    0, _messageBuffer.length - backspacesCounter)
                 : _messageBuffer + dataString.substring(0, index),
           ),
         );
@@ -216,7 +215,7 @@ class _ChatPage extends State<ChatScreen> {
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
-          0, _messageBuffer.length - backspacesCounter)
+              0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
   }

@@ -52,3 +52,5 @@ class GetWeatherDataStateErrorState extends StepsState {
 class EnableBluetoothState extends StepsState{}
 class UnEnableBluetoothState extends StepsState{}
 class AngleConstrainsState extends StepsState{}
+class SendAngleSuccessState extends StepsState{}
+class SendAngleErrorState extends StepsState{}
