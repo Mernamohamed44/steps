@@ -14,8 +14,8 @@ class AppLayout extends StatelessWidget {
       child: BlocConsumer<StepsCubit, StepsState>(
         builder: (BuildContext context, state) {
           final cubit = StepsCubit.get(context);
-       //  final getDataWeather=StepsCubit.get(context).getDataWeather();
-         //final angleConstrains=StepsCubit.get(context).angleConstrains();
+          //  final getDataWeather=StepsCubit.get(context).getDataWeather();
+          //final angleConstrains=StepsCubit.get(context).angleConstrains();
           return Scaffold(
             backgroundColor: AppColor.scaffoldBackGroundColor,
             body: SafeArea(
@@ -35,16 +35,15 @@ class AppLayout extends StatelessWidget {
                           height: 218,
                         ),
                         Expanded(
-                          child: Row(
-                            children: <Widget>[
-                              NavigationRail(
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              height: 250,
+                              child: NavigationRail(
                                 backgroundColor:
                                     AppColor.scaffoldBackGroundColor,
                                 indicatorColor: Colors.red,
                                 selectedIndex: cubit.currentIndex,
-                                onDestinationSelected: (int index) {
-                                  cubit.changeBottomNav(index);
-                                },
+                                onDestinationSelected: cubit.changeBottomNav,
                                 labelType: NavigationRailLabelType.all,
                                 destinations: const [
                                   NavigationRailDestination(
@@ -100,7 +99,7 @@ class AppLayout extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
