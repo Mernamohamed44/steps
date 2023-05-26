@@ -86,46 +86,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     SizedBox(
                       width: 30,
                     ),
-                    settingsElements(
-                        warningColor: cubit.statusOptimization
-                            ? Colors.white
-                            : AppColor.grayDrkColor,
-                        warning: 'assets/images/info 4.png',
-                        status: cubit.statusOptimization ? 'On' : 'off',
-                        txtColor: cubit.statusOptimization
-                            ? Colors.white
-                            : AppColor.grayDrkColor,
-                        color: cubit.statusOptimization
-                            ? AppColor.blueColor
-                            : AppColor.grayAccentColor,
-                        icon: Image.asset('assets/images/paper-plane 1.png',
-                            color: cubit.statusOptimization
-                                ? Colors.white
-                                : AppColor.grayDrkColor),
-                        txt: 'Optimization',
-                        customSwitch: FlutterSwitch(
-                          activeColor: Colors.white,
-                          toggleColor: AppColor.blueColor,
-                          inactiveColor: AppColor.grayDrkColor,
-                          inactiveToggleColor: Colors.white,
-                          width: 50.0,
-                          height: 20.0,
-                          toggleSize: 40.0,
-                          value: cubit.statusOptimization,
-                          borderRadius: 30.0,
-                          padding: 2.0,
-                          //showOnOff: true,
-                          onToggle: (val) {
-                            setState(() {
-                              cubit.statusOptimization = val;
-                            });
-                          },
-                        ),
-                        msg:
-                            "A message which appears when a cursor is positioned over an icon, image, hyperlink, or other element in a graphical user interface."),
-                    SizedBox(
-                      width: 30,
-                    ),
+                    // settingsElements(
+                    //     warningColor: cubit.statusOptimization
+                    //         ? Colors.white
+                    //         : AppColor.grayDrkColor,
+                    //     warning: 'assets/images/info 4.png',
+                    //     status: cubit.statusOptimization ? 'On' : 'off',
+                    //     txtColor: cubit.statusOptimization
+                    //         ? Colors.white
+                    //         : AppColor.grayDrkColor,
+                    //     color: cubit.statusOptimization
+                    //         ? AppColor.blueColor
+                    //         : AppColor.grayAccentColor,
+                    //     icon: Image.asset('assets/images/paper-plane 1.png',
+                    //         color: cubit.statusOptimization
+                    //             ? Colors.white
+                    //             : AppColor.grayDrkColor),
+                    //     txt: 'Optimization',
+                    //     customSwitch: FlutterSwitch(
+                    //       activeColor: Colors.white,
+                    //       toggleColor: AppColor.blueColor,
+                    //       inactiveColor: AppColor.grayDrkColor,
+                    //       inactiveToggleColor: Colors.white,
+                    //       width: 50.0,
+                    //       height: 20.0,
+                    //       toggleSize: 40.0,
+                    //       value: cubit.statusOptimization,
+                    //       borderRadius: 30.0,
+                    //       padding: 2.0,
+                    //       //showOnOff: true,
+                    //       onToggle: (val) {
+                    //         setState(() {
+                    //           cubit.statusOptimization = val;
+                    //         });
+                    //       },
+                    //     ),
+                    //     msg:
+                    //         "A message which appears when a cursor is positioned over an icon, image, hyperlink, or other element in a graphical user interface."),
+                    // SizedBox(
+                    //   width: 30,
+                    // ),
                     settingsElements(
                         warningColor: cubit.statusWIfi
                             ? Colors.white
@@ -139,14 +139,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ? AppColor.blueColor
                             : AppColor.grayAccentColor,
                         icon: Image.asset(
-                          'assets/images/tap.png',
+                          cubit.statusWIfi
+                              ? 'assets/images/tap.png'
+                              : 'assets/images/paper-plane 1.png',
                           color: cubit.statusWIfi
                               ? Colors.white
                               : AppColor.grayDrkColor,
                           height: 24,
                           width: 24,
                         ),
-                        txt: 'Manual Control',
+                        txt: cubit.statusWIfi
+                            ? 'Manual Control'
+                            : 'Optimization',
                         customSwitch: FlutterSwitch(
                           activeColor: Colors.white,
                           toggleColor: AppColor.blueColor,

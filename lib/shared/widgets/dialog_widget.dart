@@ -28,7 +28,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     return Dialog(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(25.0),
         child: SizedBox(
           width: MediaQuery.of(context).size.width / 2,
@@ -68,19 +68,40 @@ class _DialogWidgetState extends State<DialogWidget> {
                   ),
                   const SizedBox(width: 15),
                   Expanded(
-                    child: BorderedContainer(
-                        child: Text("Horizontal",
-                            style: AppTextStyles.date.copyWith(
-                                color: const Color(0xFF778289), fontSize: 20))),
+                    child: TextFormField(
+                      style: AppTextStyles.date.copyWith(
+                          color: const Color(0xFF778289), fontSize: 20),
+                      decoration: InputDecoration(
+                          hintText: "Horizontal",
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(7),
+                              borderSide: BorderSide(
+                                width: 1.3,
+                                color: const Color(0xFFB8BBC2),
+                              ))),
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Expanded(
-                    child: BorderedContainer(
-                      child: Text("Vertical",
-                          style: AppTextStyles.date.copyWith(
-                              color: const Color(0xFF778289), fontSize: 20)),
+                    child: TextFormField(
+                      style: AppTextStyles.date.copyWith(
+                          color: const Color(0xFF778289), fontSize: 20),
+                      decoration: InputDecoration(
+                          hintText: "Vertical",
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(7),
+                              borderSide: BorderSide(
+                                width: 1.3,
+                                color: const Color(0xFFB8BBC2),
+                              ))),
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 15),
