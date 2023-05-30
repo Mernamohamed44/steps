@@ -246,7 +246,7 @@ void _startChat(BuildContext context, BluetoothDevice server) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) {
-        return ChatScreen(server: server);
+        return ChatPage(server: server);
       },
     ),
   );

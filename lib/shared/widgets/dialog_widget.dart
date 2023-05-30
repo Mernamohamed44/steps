@@ -22,6 +22,8 @@ class _DialogWidgetState extends State<DialogWidget> {
     dropdownValue = list.first;
     super.initState();
   }
+  TextEditingController horizontal = TextEditingController();
+  TextEditingController vertical = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   const SizedBox(width: 15),
                   Expanded(
                     child: TextFormField(
+                      controller: horizontal,
                       style: AppTextStyles.date.copyWith(
                           color: const Color(0xFF778289), fontSize: 20),
                       decoration: InputDecoration(
@@ -87,6 +90,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   const SizedBox(width: 15),
                   Expanded(
                     child: TextFormField(
+                      controller:vertical ,
                       style: AppTextStyles.date.copyWith(
                           color: const Color(0xFF778289), fontSize: 20),
                       decoration: InputDecoration(
