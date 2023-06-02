@@ -81,9 +81,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                               horizontal: 16, vertical: 12),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(7),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1.3,
-                                color: const Color(0xFFB8BBC2),
+                                color: Color(0xFFB8BBC2),
                               ))),
                     ),
                   ),
@@ -100,9 +100,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                               horizontal: 16, vertical: 12),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(7),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 1.3,
-                                color: const Color(0xFFB8BBC2),
+                                color: Color(0xFFB8BBC2),
                               ))),
                     ),
                   ),
@@ -124,6 +124,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                         borderRadius: BorderRadius.circular(8),
                         isExpanded: true,
                         value: dropdownValue,
+
                         elevation: 16,
                         style: AppTextStyles.date.copyWith(
                             color: const Color(0xFF778289), fontSize: 20),

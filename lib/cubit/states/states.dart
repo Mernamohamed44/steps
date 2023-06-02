@@ -41,16 +41,21 @@ class SignInWithGoogleStateErrorState extends StepsState {
 
 class GetWeatherDataLoadingState extends StepsState {}
 
-class GetWeatherDataSuccessState extends StepsState {
-
-}
+class GetWeatherDataSuccessState extends StepsState {}
 
 class GetWeatherDataStateErrorState extends StepsState {
   final String errorMsg;
   GetWeatherDataStateErrorState(this.errorMsg);
 }
-class EnableBluetoothState extends StepsState{}
-class UnEnableBluetoothState extends StepsState{}
-class AngleConstrainsState extends StepsState{}
-class SendAngleSuccessState extends StepsState{}
-class SendAngleErrorState extends StepsState{}
+
+class EnableBluetoothState extends StepsState {}
+
+class UnEnableBluetoothState extends StepsState {}
+
+class AngleConstrainsState extends StepsState {}
+
+class SendAngleSuccessState extends StepsState {}
+
+class SendAngleErrorState extends StepsState {}
+
+class UnShowWarningState extends StepsState {}
