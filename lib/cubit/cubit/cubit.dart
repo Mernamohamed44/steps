@@ -217,7 +217,7 @@ class StepsCubit extends Cubit<StepsState> {
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
 
-   sendMessage(String text) async {
+  sendMessage(String text) async {
     text = text.trim();
     // textEditingController.clear();
 
@@ -240,6 +240,12 @@ class StepsCubit extends Cubit<StepsState> {
         emit(SendAngleErrorState());
       }
     }
+  }
+
+  bool isShowing = true;
+  void closeWarning() {
+    isShowing = false;
+    emit(UnShowWarningState());
   }
 }
 

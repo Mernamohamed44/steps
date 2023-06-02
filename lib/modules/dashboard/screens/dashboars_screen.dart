@@ -36,6 +36,7 @@ class DashboardScreen extends StatelessWidget {
                   color: Color(0xFFFBFDFF),
                 ),
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics( ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -43,26 +44,29 @@ class DashboardScreen extends StatelessWidget {
                         "Dashboard",
                         style: AppTextStyles.titles,
                       ),
-                      AnalogUpdateWidget(
-                      //  applyFunction: sunPositionInfo.sendMessage(),
-                        message:
-                            "The angle need to be adjusted to 45° for the vertical and 60° for the horizontal due to the rainy weather.",
-                      ),
+                      if (sunPositionInfo.isShowing)
+                        const AnalogUpdateWidget(
+                          //  applyFunction: sunPositionInfo.sendMessage(),
+                          message:
+                              "The angle need to be adjusted to 45° for the vertical and 60° for the horizontal due to the rainy weather.",
+                        ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SizedBox(
-                            width: MediaQueryHelper.sizeFromWidth(context, 2.4),
+                          Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(height: 10),
                                 const Text(
                                   "Status",
                                   style: AppTextStyles.w500,
                                 ),
+                                const SizedBox(height: 10),
                                 Container(
-                                  decoration: BoxDecoration(
+                                  height: 380,
+                                  decoration: const BoxDecoration(
                                       color: AppColor.accentblue,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(20))),
@@ -153,19 +157,18 @@ class DashboardScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: MediaQueryHelper.sizeFromWidth(context, 2.4),
+                          const SizedBox(width: 20),
+                          Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
-                                  height: 50,
-                                ),
+                                const SizedBox(height: 10),
                                 const Text(
                                   "Summary",
                                   style: AppTextStyles.w500,
                                 ),
+                                const SizedBox(height: 10),
                                 Stack(
                                   alignment: Alignment.topRight,
                                   children: [
@@ -175,6 +178,7 @@ class DashboardScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: Container(
+                                        height: 380,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
                                           //color: Colors.grey,
