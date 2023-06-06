@@ -217,10 +217,9 @@ class StepsCubit extends Cubit<StepsState> {
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
 
-  sendMessage(String text) async {
-    text = text.trim();
-    // textEditingController.clear();
-
+  Future<void> sendMessage(
+      {required String horizontal, required String vertical}) async {
+    String text = _setText(horizontal, vertical);
     if (text.isNotEmpty) {
       try {
         connection!.output.add(Uint8List.fromList(utf8.encode("$text\r\n")));
@@ -240,6 +239,16 @@ class StepsCubit extends Cubit<StepsState> {
         emit(SendAngleErrorState());
       }
     }
+    print("send message");
+  }
+
+  String _setText(String horizontal, String vertical) {
+    if (horizontal.isNotEmpty) {
+      return "h $horizontal";
+    } else if (vertical.isNotEmpty) {
+      return "v $vertical";
+    }
+    return "";
   }
 
   bool isShowing = true;

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../style/text_style.dart';
 
 class DialogWidget extends StatefulWidget {
-  const DialogWidget({super.key, this.applyFunction});
-  final void Function()? applyFunction;
+  const DialogWidget({super.key, required this.applyFunction});
+  final Future<void> Function(
+      {required String horizontal, required String vertical}) applyFunction;
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
 }
@@ -22,6 +23,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     dropdownValue = list.first;
     super.initState();
   }
+
   TextEditingController horizontal = TextEditingController();
   TextEditingController vertical = TextEditingController();
 
@@ -90,7 +92,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   const SizedBox(width: 15),
                   Expanded(
                     child: TextFormField(
-                      controller:vertical ,
+                      controller: vertical,
                       style: AppTextStyles.date.copyWith(
                           color: const Color(0xFF778289), fontSize: 20),
                       decoration: InputDecoration(
@@ -124,7 +126,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                         borderRadius: BorderRadius.circular(8),
                         isExpanded: true,
                         value: dropdownValue,
-
                         elevation: 16,
                         style: AppTextStyles.date.copyWith(
                             color: const Color(0xFF778289), fontSize: 20),
@@ -165,7 +166,11 @@ class _DialogWidgetState extends State<DialogWidget> {
                       )),
                   const SizedBox(width: 10),
                   ElevatedButton(
-                      onPressed: widget.applyFunction,
+                      onPressed: () => widget
+                          .applyFunction(
+                              horizontal: horizontal.text,
+                              vertical: vertical.text)
+                          .then((value) => Navigator.pop(context)),
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
                               const EdgeInsets.symmetric(

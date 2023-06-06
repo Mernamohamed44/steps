@@ -7,14 +7,13 @@ import '../../style/text_style.dart';
 import 'dialog_widget.dart';
 
 class AnalogUpdateWidget extends StatelessWidget {
-  const AnalogUpdateWidget(
-      {super.key,
-      required this.message,
-      this.isError = false,
-      this.applyFunction});
+  const AnalogUpdateWidget({
+    super.key,
+    required this.message,
+    this.isError = false,
+  });
   final String message;
   final bool isError;
-  final void Function()? applyFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class AnalogUpdateWidget extends StatelessWidget {
                       onTap: () => showDialog(
                           context: context,
                           builder: (context) =>
-                              DialogWidget(applyFunction: applyFunction)),
+                              DialogWidget(applyFunction: cubit.sendMessage)),
                       child: Ink(
                         child: Container(
                           padding: const EdgeInsets.all(10),
