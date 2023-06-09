@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:steps/modules/bluetooth_device_list_entry.dart';
 import 'package:steps/style/colors.dart';
 

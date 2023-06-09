@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:steps/style/colors.dart';
+import 'package:steps/style/images.dart';
 
 import '../../cubit/cubit/cubit.dart';
 import '../../cubit/states/states.dart';
@@ -12,6 +14,7 @@ class AnalogUpdateWidget extends StatelessWidget {
     required this.message,
     this.isError = false,
   });
+
   final String message;
   final bool isError;
 
@@ -54,8 +57,9 @@ class AnalogUpdateWidget extends StatelessWidget {
                     InkWell(
                       onTap: () => showDialog(
                           context: context,
-                          builder: (context) =>
-                              DialogWidget(applyFunction: cubit.sendMessage)),
+                          builder: (context) => cubit.server != null
+                              ? DialogWidget(applyFunction: cubit.sendMessage)
+                              : _NoServerDialog()),
                       child: Ink(
                         child: Container(
                           padding: const EdgeInsets.all(10),
@@ -78,5 +82,30 @@ class AnalogUpdateWidget extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class _NoServerDialog extends StatelessWidget {
+  const _NoServerDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            //   Icon(Icons.warning,color: AppColor.red,size:30),
+            Image.asset('assets/images/warning.png', height: 40),
+            const SizedBox(width: 5),
+
+            const Text("Go to settings and connect to bluetooth device",
+                style: AppTextStyles.analysis_titles),
+          ],
+        ),
+      ),
+    );
   }
 }
