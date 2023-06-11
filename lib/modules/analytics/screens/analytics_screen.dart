@@ -16,16 +16,17 @@ class AnalyticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StepsCubit,StepsState>(
+    return BlocBuilder<StepsCubit, StepsState>(
       builder: (BuildContext context, state) {
+        StepsCubit cubit = BlocProvider.of<StepsCubit>(context);
+
         var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
         if (state is GetWeatherDataLoadingState) {
           return Expanded(
               child: Container(
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator()));
-        }
-        else {
+        } else {
           return Expanded(
             child: Stack(
               children: [
@@ -47,9 +48,11 @@ class AnalyticsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AnalysisBox(
-                                  title: 'Daily revenue',
-                                  imgpath: AppImages.up,
-                                  styletxt: AppColor.blueColor),
+                                title: 'Daily revenue',
+                                imgpath: AppImages.up,
+                                styletxt: AppColor.blueColor,
+                                // data: [],
+                              ),
                               LAnalytics()
                             ],
                           ),
@@ -62,68 +65,79 @@ class AnalyticsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               AnalysisBox(
-                                  title: 'Consumption',
-                                  imgpath: AppImages.down,
-                                  styletxt: AppColor.red),
+                                title: 'Consumption',
+                                imgpath: AppImages.down,
+                                styletxt: AppColor.red,
+                                // data: cubit.consumptionModel,
+                              ),
                               AnalysisBox(
-                                  title: 'Estimated saving',
-                                  imgpath: AppImages.up,
-                                  styletxt: AppColor.blueColor),
+                                title: 'Estimated saving',
+                                imgpath: AppImages.up,
+                                styletxt: AppColor.blueColor,
+                                // data: cubit.consumptionModel,
+                              ),
                               Card(
                                 color: AppColor.blueColor,
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Container(
-
                                     margin: EdgeInsets.all(10),
-                                    height:
-                                    MediaQueryHelper.sizeFromHeight(context, 3.5),
+                                    height: MediaQueryHelper.sizeFromHeight(
+                                        context, 3.5),
                                     //  width: MediaQueryHelper.sizeFromWidth(context, 3),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20)),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             RichText(
                                               text: TextSpan(
-                                                //  style: AppTextStyles.analysis_titles,
-                                                //    text: "+12%",
+                                                  //  style: AppTextStyles.analysis_titles,
+                                                  //    text: "+12%",
                                                   children: [
                                                     TextSpan(
                                                       style: AppTextStyles
                                                           .analysis_titles
                                                           .copyWith(
-                                                          color:
-                                                          AppColor.blacktext,
-                                                          fontSize: 24,
-                                                          fontWeight:
-                                                          FontWeight.w400),
+                                                              color: AppColor
+                                                                  .blackText,
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
                                                       text: "Weather\n",
                                                     ),
                                                     TextSpan(
-                                                        style: AppTextStyles.box_icons
+                                                        style: AppTextStyles
+                                                            .box_icons
                                                             .copyWith(
-                                                            color: AppColor
-                                                                .blacktext,
-                                                            fontWeight:
-                                                            FontWeight.w300),
-                                                        text: "Updated 40 mins ago"),
+                                                                color: AppColor
+                                                                    .blackText,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300),
+                                                        text:
+                                                            "Updated 40 mins ago"),
                                                   ]),
                                             ),
                                           ],
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             DegreeBox(
                                                 txt: 'Temprature',
                                                 imgpath: AppImages.cloudy,
-                                                degree: '${weatherData!.current!.tempC}°'),
+                                                degree:
+                                                    '${weatherData!.current!.tempC}°'),
                                             DegreeBox(
                                                 txt: 'Irradiation',
                                                 imgpath: AppImages.sunny,
@@ -133,7 +147,8 @@ class AnalyticsScreen extends StatelessWidget {
                                         DegreeBox(
                                             txt: 'Wind',
                                             imgpath: AppImages.wind,
-                                            degree: '${weatherData.current!.windKph} m/s'),
+                                            degree:
+                                                '${weatherData.current!.windKph} m/s'),
                                       ],
                                     )),
                               )
@@ -153,8 +168,7 @@ class AnalyticsScreen extends StatelessWidget {
             ),
           );
         }
-        },
-
+      },
     );
   }
 }

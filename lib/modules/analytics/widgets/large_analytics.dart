@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 import '../../../style/colors.dart';
 import '../../../style/text_style.dart';
 
@@ -121,14 +120,14 @@ class _LAnalyticsState extends State<LAnalytics> {
                           children: [
                             TextSpan(
                               style: AppTextStyles.analysis_titles.copyWith(
-                                  color: AppColor.blacktext,
+                                  color: AppColor.blackText,
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400),
                               text: "Energy Production\n",
                             ),
                             TextSpan(
                                 style: AppTextStyles.box_icons.copyWith(
-                                    color: AppColor.blacktext,
+                                    color: AppColor.blackText,
                                     fontWeight: FontWeight.w300),
                                 text: "Updated 40 mins ago"),
                           ]),
@@ -141,7 +140,7 @@ class _LAnalyticsState extends State<LAnalytics> {
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: AppColor.accentblue,
+                              color: AppColor.accentBlue,
                               borderRadius: BorderRadius.circular(10)),
                           child: DropdownButton(
                               underline: SizedBox(),
@@ -170,7 +169,6 @@ class _LAnalyticsState extends State<LAnalytics> {
                           //     trackPadding: 0.5,
                           // trackBorderWidth: 0.3,
 
-
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
@@ -180,7 +178,6 @@ class _LAnalyticsState extends State<LAnalytics> {
                           dataSource: chartData,
                           xValueMapper: (ChartData data, _) => data.x,
                           yValueMapper: (ChartData data, _) => data.y),
-
                       ColumnSeries<ChartData, String>(
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
@@ -191,7 +188,6 @@ class _LAnalyticsState extends State<LAnalytics> {
                           dataSource: chartData,
                           xValueMapper: (ChartData data, _) => data.x,
                           yValueMapper: (ChartData data, _) => data.y1),
-
                     ]),
               ],
             ),

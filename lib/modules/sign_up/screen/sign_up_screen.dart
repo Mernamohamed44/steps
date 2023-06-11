@@ -33,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
                 height: 50,
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator(
-                  color: AppColor.accentblue,
+                  color: AppColor.accentBlue,
                 ),
               ),
             );

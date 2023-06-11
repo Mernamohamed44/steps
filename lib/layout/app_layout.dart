@@ -10,7 +10,10 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StepsCubit()..getDataWeather(),
+      create: (context) => StepsCubit()
+        ..getDataWeather()
+        ..getConsumption()
+        ..getProduction(),
       child: BlocConsumer<StepsCubit, StepsState>(
         builder: (BuildContext context, state) {
           final cubit = StepsCubit.get(context);
