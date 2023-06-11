@@ -219,25 +219,19 @@ class StepsCubit extends Cubit<StepsState> {
 
   BluetoothConnection? connection;
   static final clientID = 0;
+   BluetoothDevice? server;
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
 
   Future<void> sendMessage(
       {required String horizontal, required String vertical}) async {
     String text = _setText(horizontal, vertical);
+    print(text);
     if (text.isNotEmpty) {
       try {
         connection!.output.add(Uint8List.fromList(utf8.encode("$text\r\n")));
         await connection!.output.allSent;
-
         messages.add(_Message(clientID, text));
-
-        Future.delayed(const Duration(milliseconds: 333)).then((_) {
-          listScrollController.animateTo(
-              listScrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 333),
-              curve: Curves.easeOut);
-        });
         emit(SendAngleSuccessState());
       } catch (e) {
         // Ignore error, but notify state
@@ -249,9 +243,9 @@ class StepsCubit extends Cubit<StepsState> {
 
   String _setText(String horizontal, String vertical) {
     if (horizontal.isNotEmpty) {
-      return "h $horizontal";
+      return "h${horizontal.trim()}";
     } else if (vertical.isNotEmpty) {
-      return "v $vertical";
+      return "v${vertical.trim()}";
     }
     return "";
   }
@@ -290,6 +284,76 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
+  bool isDisconnecting = false;
+void setServer(BluetoothDevice device)async{
+  server =device;
+await  _initConnection();
+}
+Future<void>  _initConnection() async{
+  if(connection!= null){
+  }
+  else{
+  BluetoothConnection.toAddress(server!.address).then((_connection) {
+    print('Connected to the device');
+    connection = _connection;
+
+    connection!.input!.listen(_onDataReceived).onDone(() {
+      print("connected");
+    });
+  }).catchError((error) {
+    print('Cannot connect, exception occurred');
+    print(error);
+  });}
+}
+  String _messageBuffer = '';
+  void _onDataReceived(Uint8List data) {
+    // Allocate buffer for parsed data
+    int backspacesCounter = 0;
+    data.forEach((byte) {
+      if (byte == 8 || byte == 127) {
+        backspacesCounter++;
+      }
+    });
+    Uint8List buffer = Uint8List(data.length - backspacesCounter);
+    int bufferIndex = buffer.length;
+
+    // Apply backspace control character
+    backspacesCounter = 0;
+    for (int i = data.length - 1; i >= 0; i--) {
+      if (data[i] == 8 || data[i] == 127) {
+        backspacesCounter++;
+      } else {
+        if (backspacesCounter > 0) {
+          backspacesCounter--;
+        } else {
+          buffer[--bufferIndex] = data[i];
+        }
+      }
+    }
+
+    // Create message if there is new line character
+    String dataString = String.fromCharCodes(buffer);
+    int index = buffer.indexOf(13);
+    if (~index != 0) {
+
+        messages.add(
+          _Message(
+            1,
+            backspacesCounter > 0
+                ? _messageBuffer.substring(
+                0, _messageBuffer.length - backspacesCounter)
+                : _messageBuffer + dataString.substring(0, index),
+          ),
+        );
+        _messageBuffer = dataString.substring(index);
+    } else {
+      _messageBuffer = (backspacesCounter > 0
+          ? _messageBuffer.substring(
+          0, _messageBuffer.length - backspacesCounter)
+          : _messageBuffer + dataString);
+    }
+  }
+
 }
 
 class _Message {

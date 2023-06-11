@@ -226,7 +226,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         if (selectedDevice != null) {
                           print(
                               'Connect -> selected ' + selectedDevice.address);
-                          _startChat(context, selectedDevice);
+                          cubit.setServer(selectedDevice);
+                          // _startChat(context, selectedDevice);
                         } else {
                           print('Connect -> no device selected');
                         }
@@ -241,13 +242,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 }
-
-void _startChat(BuildContext context, BluetoothDevice server) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) {
-        return ChatPage(server: server);
-      },
-    ),
-  );
-}
+//
+// void _startChat(BuildContext context, BluetoothDevice server) {
+//   Navigator.of(context).push(
+//     MaterialPageRoute(
+//       builder: (context) {
+//         return ChatPage(server: server);
+//       },
+//     ),
+//   );
+// }
