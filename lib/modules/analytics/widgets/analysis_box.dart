@@ -55,7 +55,7 @@ class AnalysisBox extends StatelessWidget {
                   children: [
                     Text(title,
                         style: AppTextStyles.analysis_titles
-                            .copyWith(color: AppColor.blacktext)),
+                            .copyWith(color: AppColor.blackText)),
                     const SizedBox(
                       height: 20,
                     ),
@@ -69,7 +69,7 @@ class AnalysisBox extends StatelessWidget {
                         Text(
                           'kWh',
                           style: AppTextStyles.box_icons.copyWith(
-                              color: AppColor.blacktext,
+                              color: AppColor.blackText,
                               fontWeight: FontWeight.w300),
                         ),
                       ],
@@ -94,7 +94,7 @@ class AnalysisBox extends StatelessWidget {
                                 ),
                                 TextSpan(
                                     style: AppTextStyles.box_icons.copyWith(
-                                        color: AppColor.blacktext,
+                                        color: AppColor.blackText,
                                         fontWeight: FontWeight.w300),
                                     text: " Today"),
                               ]),
@@ -119,7 +119,7 @@ class AnalysisBox extends StatelessWidget {
                   Text(
                     "Nov 29, 02:29 AM",
                     style: AppTextStyles.box_icons.copyWith(
-                        color: AppColor.blacktext, fontWeight: FontWeight.w300),
+                        color: AppColor.blackText, fontWeight: FontWeight.w300),
                   ),
                   SizedBox(
                       height: 150,

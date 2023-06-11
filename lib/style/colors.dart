@@ -7,7 +7,7 @@ abstract class AppColor {
   static const Color grayAccentColor = Color(0xFFF4F6FA);
   static const Color grayDrkColor = Color(0xFF656464);
   static const Color textHeadingColor = Color(0xFF3C394D);
-  static const Color blacktext = Color(0xFF000000);
+  static const Color blackText = Color(0xFF000000);
   static const Color red = Color(0xFFF6562E);
-  static const Color accentblue = Color.fromRGBO(16, 186, 210, 0.1);
+  static const Color accentBlue = Color.fromRGBO(16, 186, 210, 0.1);
 }

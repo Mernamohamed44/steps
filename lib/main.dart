@@ -11,13 +11,16 @@ void main() async {
   await Firebase.initializeApp();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final User? user = _auth.currentUser;
-  runApp(MyApp(user: user,));
+  runApp(MyApp(
+    user: user,
+  ));
 }
 
 class MyApp extends StatelessWidget {
- final User? user;
+  final User? user;
   const MyApp({
-    Key? key, required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override

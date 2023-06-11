@@ -36,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
                   color: Color(0xFFFBFDFF),
                 ),
                 child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics( ),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -45,7 +45,7 @@ class DashboardScreen extends StatelessWidget {
                         style: AppTextStyles.titles,
                       ),
                       if (sunPositionInfo.isShowing)
-                         const AnalogUpdateWidget(
+                        const AnalogUpdateWidget(
                           message:
                               "The angle need to be adjusted to 45° for the vertical and 60° for the horizontal due to the rainy weather.",
                         ),
@@ -66,7 +66,7 @@ class DashboardScreen extends StatelessWidget {
                                 Container(
                                   height: 380,
                                   decoration: const BoxDecoration(
-                                      color: AppColor.accentblue,
+                                      color: AppColor.accentBlue,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(20))),
                                   child: Row(

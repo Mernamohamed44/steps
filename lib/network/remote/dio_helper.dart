@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:steps/models/weather_model.dart';
 import 'package:steps/shared/components/components.dart';
 
 class DioHelper {
