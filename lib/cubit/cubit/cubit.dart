@@ -264,6 +264,7 @@ Future<void>  _initConnection() async{
     connection = _connection;
 
     connection!.input!.listen(_onDataReceived).onDone(() {
+
       print("connected");
     });
   }).catchError((error) {
