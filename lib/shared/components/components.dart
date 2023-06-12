@@ -13,7 +13,6 @@ Widget settingsElements(
     required String status,
     String? msg,
     String? warning,
-
     Color? warningColor}) {
   return Container(
     padding: const EdgeInsets.all(15),
@@ -180,7 +179,7 @@ Widget SmallStaticsCard(
             Text(title, style: const TextStyle(color: AppColor.grayColor)),
             RichText(
                 text: TextSpan(
-                    style: const TextStyle(color: AppColor.blacktext),
+                    style: const TextStyle(color: AppColor.blackText),
                     children: [
                   TextSpan(text: num, style: const TextStyle(fontSize: 25)),
                   TextSpan(

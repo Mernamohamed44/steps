@@ -16,7 +16,12 @@ import 'package:steps/modules/analytics/screens/analytics_screen.dart';
 import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/modules/settings/screen/settings_screen.dart';
 import 'package:steps/network/remote/dio_helper.dart';
+import 'package:steps/network/remote/repository.dart';
 import 'package:steps/shared/components/components.dart';
+
+import '../../models/avarege_model.dart';
+import '../../models/consumption_model.dart';
+import '../../models/production_model.dart';
 
 class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(InitialState());
@@ -249,6 +254,35 @@ class StepsCubit extends Cubit<StepsState> {
   void closeWarning() {
     isShowing = false;
     emit(UnShowWarningState());
+  }
+
+  AverageModel? averageModel;
+  void getAverage() async {
+    (await Repository.getAverage()).fold((l) => emit(ErrorState(l.message)),
+        (r) {
+      averageModel = r;
+      emit(SuccessState());
+    });
+  }
+
+  List<ConsumptionModel> consumptionModel = [];
+  void getConsumption() async {
+    (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
+        (r) {
+      consumptionModel = r;
+      emit(SuccessState());
+    });
+  }
+
+  List<ProductionModel> productionModel = [];
+  void getProduction() async {
+    (await Repository.getProduction()).fold((l) {
+      print(l.message);
+      emit(ErrorState(l.message));
+    }, (r) {
+      productionModel = r;
+      emit(SuccessState());
+    });
   }
   bool isDisconnecting = false;
 void setServer(BluetoothDevice device)async{
