@@ -10,15 +10,10 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StepsCubit()
-        ..getDataWeather()
-        ..getConsumption()
-        ..getProduction(),
+      create: (context) => StepsCubit()..apiData(),
       child: BlocConsumer<StepsCubit, StepsState>(
         builder: (BuildContext context, state) {
           final cubit = StepsCubit.get(context);
-          //  final getDataWeather=StepsCubit.get(context).getDataWeather();
-          //final angleConstrains=StepsCubit.get(context).angleConstrains();
           return Scaffold(
             backgroundColor: AppColor.scaffoldBackGroundColor,
             body: SafeArea(

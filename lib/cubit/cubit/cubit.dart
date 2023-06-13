@@ -143,13 +143,14 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   getDataWeather() async {
     emit(GetWeatherDataLoadingState());
+    print('zeft');
     DioHelper.get(
             'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
         .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
       final longitude = weatherModel!.location!.lat;
-      print(weatherModel!.location!.lat);
+      print('vvvvvvvvvvvvv${weatherModel!.location!.lat}');
       final instant = Instant(
           year: DateTime.now().year,
           month: DateTime.now().month,
@@ -158,7 +159,7 @@ class StepsCubit extends Cubit<StepsState> {
           timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
       final calc = SolarCalculator(instant, latitude!, longitude!);
       azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
-      elevation = calc.sunHorizontalPosition.elevation;
+      elevation = calc.sunHorizontalPosition.elevation.floorToDouble();
       if (calc.isHoursOfDarkness) print('===> IS DARK <===');
       emit(GetWeatherDataSuccessState());
     }).catchError((error) {
@@ -219,7 +220,7 @@ class StepsCubit extends Cubit<StepsState> {
 
   BluetoothConnection? connection;
   static final clientID = 0;
-   BluetoothDevice? server;
+  BluetoothDevice? server;
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
 
@@ -270,6 +271,7 @@ class StepsCubit extends Cubit<StepsState> {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
         (r) {
       consumptionModel = r;
+      print(consumptionModel[0].energyConsumption);
       emit(SuccessState());
     });
   }
@@ -284,27 +286,30 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
-  bool isDisconnecting = false;
-void setServer(BluetoothDevice device)async{
-  server =device;
-await  _initConnection();
-}
-Future<void>  _initConnection() async{
-  if(connection!= null){
-  }
-  else{
-  BluetoothConnection.toAddress(server!.address).then((_connection) {
-    print('Connected to the device');
-    connection = _connection;
 
-    connection!.input!.listen(_onDataReceived).onDone(() {
-      print("connected");
-    });
-  }).catchError((error) {
-    print('Cannot connect, exception occurred');
-    print(error);
-  });}
-}
+  bool isDisconnecting = false;
+  void setServer(BluetoothDevice device) async {
+    server = device;
+    await _initConnection();
+  }
+
+  Future<void> _initConnection() async {
+    if (connection != null) {
+    } else {
+      BluetoothConnection.toAddress(server!.address).then((_connection) {
+        print('Connected to the device');
+        connection = _connection;
+
+        connection!.input!.listen(_onDataReceived).onDone(() {
+          print("connected");
+        });
+      }).catchError((error) {
+        print('Cannot connect, exception occurred');
+        print(error);
+      });
+    }
+  }
+
   String _messageBuffer = '';
   void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
@@ -335,25 +340,28 @@ Future<void>  _initConnection() async{
     String dataString = String.fromCharCodes(buffer);
     int index = buffer.indexOf(13);
     if (~index != 0) {
-
-        messages.add(
-          _Message(
-            1,
-            backspacesCounter > 0
-                ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
-                : _messageBuffer + dataString.substring(0, index),
-          ),
-        );
-        _messageBuffer = dataString.substring(index);
+      messages.add(
+        _Message(
+          1,
+          backspacesCounter > 0
+              ? _messageBuffer.substring(
+                  0, _messageBuffer.length - backspacesCounter)
+              : _messageBuffer + dataString.substring(0, index),
+        ),
+      );
+      _messageBuffer = dataString.substring(index);
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
-          0, _messageBuffer.length - backspacesCounter)
+              0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
   }
 
+  void apiData() {
+    getConsumption();
+    getDataWeather();
+  }
 }
 
 class _Message {

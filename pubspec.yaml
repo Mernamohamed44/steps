@@ -54,6 +54,7 @@ dependencies:
   bluetooth_enable_fork: ^0.1.4
   just_the_tooltip: ^0.0.12
   dartz: ^0.10.1
+  battery_info:
 
 dev_dependencies:
   flutter_test:

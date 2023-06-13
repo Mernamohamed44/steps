@@ -176,7 +176,7 @@ Widget SmallStaticsCard(
               child: image,
               backgroundColor: Colors.white.withOpacity(.5)),
           Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(title, style: const TextStyle(color: AppColor.grayColor)),
+            Text(title, style: const TextStyle(color: AppColor.grayColor,fontWeight: FontWeight.bold)),
             RichText(
                 text: TextSpan(
                     style: const TextStyle(color: AppColor.blackText),
@@ -219,23 +219,3 @@ Color chooseToastColor(ToastState state) {
   }
   return color;
 }
-// JustTheTooltip(
-//   child: Material(
-//     color: Colors.grey.shade800,
-//     shape: const CircleBorder(),
-//     elevation: 4.0,
-//     child: const Padding(
-//       padding: EdgeInsets.all(8.0),
-//       child: Icon(
-//         Icons.add,
-//         color: Colors.white,
-//       ),
-//     ),
-//   ),
-//   content: const Padding(
-//     padding: EdgeInsets.all(8.0),
-//     child: Text(
-//       'Bacon ipsum dolor amet kevin turducken brisket pastrami, salami ribeye spare ribs tri-tip sirloin shoulder venison shank burgdoggen chicken pork belly. Short loin filet mignon shoulder rump beef ribs meatball kevin.',
-//     ),
-//   ),
-// )
