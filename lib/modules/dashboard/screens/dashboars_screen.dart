@@ -49,7 +49,7 @@ class DashboardScreen extends StatelessWidget {
                   ///co2 reduction equation//////
                   double co2Reduction = 0;
                   for (int i = 0; i < cubitInfo.consumptionModel.length; i++) {
-                    var co2EmissionsFactor = 0.9;
+                    var co2EmissionsFactor = 0.4;
                     var solarPanelCO2Emissions =
                         cubitInfo.consumptionModel[i].energyConsumption * 0;
                     var fossilFuelCO2Emissions =
