@@ -269,11 +269,14 @@ class StepsCubit extends Cubit<StepsState> {
   List<ConsumptionModel> consumptionModel = [];
   void getConsumption() async {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
-            (r) {
-          consumptionModel = r;
-          print(consumptionModel[0].energyConsumption);
-          emit(SuccessState());
-        });
+
+        (r) {
+      print(r);
+
+      consumptionModel = r;
+      print(consumptionModel[0].energyConsumption);
+      emit(SuccessState());
+    });
   }
 
   List<ProductionModel> productionModel = [];
@@ -282,6 +285,7 @@ class StepsCubit extends Cubit<StepsState> {
       print(l.message);
       emit(ErrorState(l.message));
     }, (r) {
+      print(r);
       productionModel = r;
       emit(SuccessState());
     });
@@ -357,6 +361,7 @@ class StepsCubit extends Cubit<StepsState> {
           : _messageBuffer + dataString);
     }
   }
+
 
   void apiData() {
     getConsumption();

@@ -19,6 +19,7 @@ class AnalyticsScreen extends StatelessWidget {
     return BlocBuilder<StepsCubit, StepsState>(
       builder: (BuildContext context, state) {
         var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
+        StepsCubit cubit =StepsCubit();
         if (state is GetWeatherDataLoadingState) {
           return Expanded(
               child: Container(
@@ -49,7 +50,7 @@ class AnalyticsScreen extends StatelessWidget {
                                 title: 'Daily revenue',
                                 imgpath: AppImages.up,
                                 styletxt: AppColor.blueColor,
-                                // data: [],
+                                data: [],
                               ),
                               LAnalytics()
                             ],
@@ -66,13 +67,13 @@ class AnalyticsScreen extends StatelessWidget {
                                 title: 'Consumption',
                                 imgpath: AppImages.down,
                                 styletxt: AppColor.red,
-                                // data: cubit.consumptionModel,
+                                data: cubit.consumptionModel,
                               ),
                               AnalysisBox(
                                 title: 'Estimated saving',
                                 imgpath: AppImages.up,
                                 styletxt: AppColor.blueColor,
-                                // data: cubit.consumptionModel,
+                                data: cubit.consumptionModel,
                               ),
                               Card(
                                 color: AppColor.blueColor,

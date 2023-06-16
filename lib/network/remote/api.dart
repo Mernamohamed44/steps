@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../models/avarege_model.dart';
 import '../../models/consumption_model.dart';
@@ -33,8 +35,9 @@ class Api {
     Dio dio = DioFactory.getDio;
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      "start_date": startDate,
-      "end_date": startDate,
+      "start_date":
+          startDate ?? DateTime.now().subtract(const Duration(days: 88)).format,
+      "end_date": endDate ?? DateTime.now().format,
     };
     final headers = <String, dynamic>{};
     final data = <String, dynamic>{};
@@ -44,8 +47,13 @@ class Api {
       extra: extra,
     ).compose(
       dio.options,
-      "/consumption?start_date=01/01/2020&end_date=1/02/2020",
-      queryParameters: endDate != null ? queryParameters : {},
+// <<<<<<< an
+      "/consumption",
+      queryParameters: queryParameters,
+// =======
+//       "/consumption?start_date=01/01/2020&end_date=1/02/2020",
+//       queryParameters: endDate != null ? queryParameters : {},
+// >>>>>>> master
       data: data,
     )));
     return ConsumptionModel.fromListJson(result.data);
@@ -56,8 +64,9 @@ class Api {
     Dio dio = DioFactory.getDio;
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      "start_date": startDate,
-      "end_date": startDate,
+      "start_date":
+          startDate ?? DateTime.now().subtract(const Duration(days: 88)).format,
+      "end_date": endDate ?? DateTime.now().format,
     };
     final headers = <String, dynamic>{};
     final data = <String, dynamic>{};
@@ -68,7 +77,7 @@ class Api {
     ).compose(
       dio.options,
       "/production",
-      queryParameters: endDate != null ? queryParameters : {},
+      queryParameters: queryParameters,
       data: data,
     )));
     return ProductionModel.fromListJson(result.data);
@@ -104,7 +113,20 @@ abstract class DioFactory {
       receiveTimeout: const Duration(minutes: 1),
       followRedirects: false,
     );
-
+    if (!kReleaseMode) {
+      // its debug mode so print app logs
+      dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseHeader: true,
+      ));
+    }
     return dio;
+  }
+}
+
+extension DateFormate on DateTime {
+  String get format {
+    return "${month.toString().padLeft(2, "0")}/${day.toString().padLeft(2, "0")}/$year";
   }
 }
