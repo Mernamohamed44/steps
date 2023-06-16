@@ -1,6 +1,6 @@
 class ConsumptionModel {
-  String date;
-  double energyConsumption;
+  var date;
+  var energyConsumption;
   ConsumptionModel({
     required this.date,
     required this.energyConsumption,
@@ -9,6 +9,7 @@ class ConsumptionModel {
       ConsumptionModel(
         date: json["date"].toString(),
         energyConsumption: double.parse(json["energy_consumption"].toString()),
+
       );
 
   static List<ConsumptionModel> fromListJson(List list) =>

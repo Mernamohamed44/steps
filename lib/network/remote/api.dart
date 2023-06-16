@@ -47,8 +47,13 @@ class Api {
       extra: extra,
     ).compose(
       dio.options,
+// <<<<<<< an
       "/consumption",
       queryParameters: queryParameters,
+// =======
+//       "/consumption?start_date=01/01/2020&end_date=1/02/2020",
+//       queryParameters: endDate != null ? queryParameters : {},
+// >>>>>>> master
       data: data,
     )));
     return ConsumptionModel.fromListJson(result.data);

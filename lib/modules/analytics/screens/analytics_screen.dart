@@ -18,8 +18,6 @@ class AnalyticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<StepsCubit, StepsState>(
       builder: (BuildContext context, state) {
-        StepsCubit cubit = BlocProvider.of<StepsCubit>(context);
-
         var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
         if (state is GetWeatherDataLoadingState) {
           return Expanded(

@@ -143,13 +143,14 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   getDataWeather() async {
     emit(GetWeatherDataLoadingState());
+    print('zeft');
     DioHelper.get(
             'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
         .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
       final longitude = weatherModel!.location!.lat;
-      print(weatherModel!.location!.lat);
+      print('vvvvvvvvvvvvv${weatherModel!.location!.lat}');
       final instant = Instant(
           year: DateTime.now().year,
           month: DateTime.now().month,
@@ -158,7 +159,7 @@ class StepsCubit extends Cubit<StepsState> {
           timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
       final calc = SolarCalculator(instant, latitude!, longitude!);
       azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
-      elevation = calc.sunHorizontalPosition.elevation;
+      elevation = calc.sunHorizontalPosition.elevation.floorToDouble();
       if (calc.isHoursOfDarkness) print('===> IS DARK <===');
       emit(GetWeatherDataSuccessState());
     }).catchError((error) {
@@ -272,6 +273,7 @@ class StepsCubit extends Cubit<StepsState> {
       print(r);
 
       consumptionModel = r;
+      print(consumptionModel[0].energyConsumption);
       emit(SuccessState());
     });
   }
@@ -357,6 +359,12 @@ class StepsCubit extends Cubit<StepsState> {
               0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
+  }
+
+
+  void apiData() {
+    getConsumption();
+    getDataWeather();
   }
 }
 
