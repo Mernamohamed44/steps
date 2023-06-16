@@ -8,8 +8,8 @@ class ProductionModel {
   });
   factory ProductionModel.fromJson(Map<String, dynamic> json) =>
       ProductionModel(
-        date: json["date"],
-        energyProduction: json["energy_production"],
+        date: json["date"].toString(),
+        energyProduction: double.parse(json["energy_production"].toString()),
       );
   static List<ProductionModel> fromListJson(List list) =>
       list.map((e) => ProductionModel.fromJson(e)).toList();
