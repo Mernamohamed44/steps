@@ -60,7 +60,9 @@ class SendAngleErrorState extends StepsState {}
 
 class UnShowWarningState extends StepsState {}
 
-class SuccessState extends StepsState {}
+class SuccessState extends StepsState {
+
+}
 
 class ErrorState extends StepsState {
   String errorMsg;

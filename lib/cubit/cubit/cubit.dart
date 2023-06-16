@@ -66,9 +66,9 @@ class StepsCubit extends Cubit<StepsState> {
 
   createUser(
       {required String email,
-      required String fName,
-      required String lName,
-      required String uId}) {
+        required String fName,
+        required String lName,
+        required String uId}) {
     model = UserModel(
       email: email,
       fName: fName,
@@ -104,11 +104,11 @@ class StepsCubit extends Cubit<StepsState> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+    await googleSignIn.signIn();
     emit(SignInWithGoogleStateLoadingState());
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+      await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -117,7 +117,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SignInWithGoogleStateSuccessState());
       try {
         final UserCredential userCredential =
-            await auth.signInWithCredential(credential);
+        await auth.signInWithCredential(credential);
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         emit(SignInWithGoogleStateErrorState(e.toString()));
@@ -143,13 +143,14 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   getDataWeather() async {
     emit(GetWeatherDataLoadingState());
+    print('zeft');
     DioHelper.get(
-            'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
+        'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
         .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
       final longitude = weatherModel!.location!.lat;
-      print(weatherModel!.location!.lat);
+      print('vvvvvvvvvvvvv${weatherModel!.location!.lat}');
       final instant = Instant(
           year: DateTime.now().year,
           month: DateTime.now().month,
@@ -158,7 +159,7 @@ class StepsCubit extends Cubit<StepsState> {
           timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
       final calc = SolarCalculator(instant, latitude!, longitude!);
       azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
-      elevation = calc.sunHorizontalPosition.elevation;
+      elevation = calc.sunHorizontalPosition.elevation.floorToDouble();
       if (calc.isHoursOfDarkness) print('===> IS DARK <===');
       emit(GetWeatherDataSuccessState());
     }).catchError((error) {
@@ -219,7 +220,7 @@ class StepsCubit extends Cubit<StepsState> {
 
   BluetoothConnection? connection;
   static final clientID = 0;
-   BluetoothDevice? server;
+  BluetoothDevice? server;
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
 
@@ -259,19 +260,20 @@ class StepsCubit extends Cubit<StepsState> {
   AverageModel? averageModel;
   void getAverage() async {
     (await Repository.getAverage()).fold((l) => emit(ErrorState(l.message)),
-        (r) {
-      averageModel = r;
-      emit(SuccessState());
-    });
+            (r) {
+          averageModel = r;
+          emit(SuccessState());
+        });
   }
 
   List<ConsumptionModel> consumptionModel = [];
   void getConsumption() async {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
-        (r) {
-      consumptionModel = r;
-      emit(SuccessState());
-    });
+            (r) {
+          consumptionModel = r;
+          print(consumptionModel[0].energyConsumption);
+          emit(SuccessState());
+        });
   }
 
   List<ProductionModel> productionModel = [];
@@ -284,28 +286,30 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
+
   bool isDisconnecting = false;
-void setServer(BluetoothDevice device)async{
-  server =device;
-await  _initConnection();
-}
-Future<void>  _initConnection() async{
-  if(connection!= null){
+  void setServer(BluetoothDevice device) async {
+    server = device;
+    await _initConnection();
   }
-  else{
-  BluetoothConnection.toAddress(server!.address).then((_connection) {
-    print('Connected to the device');
-    connection = _connection;
 
-    connection!.input!.listen(_onDataReceived).onDone(() {
+  Future<void> _initConnection() async {
+    if (connection != null) {
+    } else {
+      BluetoothConnection.toAddress(server!.address).then((_connection) {
+        print('Connected to the device');
+        connection = _connection;
 
-      print("connected");
-    });
-  }).catchError((error) {
-    print('Cannot connect, exception occurred');
-    print(error);
-  });}
-}
+        connection!.input!.listen(_onDataReceived).onDone(() {
+          print("connected");
+        });
+      }).catchError((error) {
+        print('Cannot connect, exception occurred');
+        print(error);
+      });
+    }
+  }
+
   String _messageBuffer = '';
   void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
@@ -336,17 +340,16 @@ Future<void>  _initConnection() async{
     String dataString = String.fromCharCodes(buffer);
     int index = buffer.indexOf(13);
     if (~index != 0) {
-
-        messages.add(
-          _Message(
-            1,
-            backspacesCounter > 0
-                ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
-                : _messageBuffer + dataString.substring(0, index),
-          ),
-        );
-        _messageBuffer = dataString.substring(index);
+      messages.add(
+        _Message(
+          1,
+          backspacesCounter > 0
+              ? _messageBuffer.substring(
+              0, _messageBuffer.length - backspacesCounter)
+              : _messageBuffer + dataString.substring(0, index),
+        ),
+      );
+      _messageBuffer = dataString.substring(index);
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
@@ -355,6 +358,10 @@ Future<void>  _initConnection() async{
     }
   }
 
+  void apiData() {
+    getConsumption();
+    getDataWeather();
+  }
 }
 
 class _Message {

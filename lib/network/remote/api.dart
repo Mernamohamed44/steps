@@ -44,7 +44,7 @@ class Api {
       extra: extra,
     ).compose(
       dio.options,
-      "/consumption",
+      "/consumption?start_date=01/01/2020&end_date=1/02/2020",
       queryParameters: endDate != null ? queryParameters : {},
       data: data,
     )));
