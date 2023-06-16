@@ -3,6 +3,7 @@ import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../models/production_model.dart';
 import '../../../style/text_style.dart';
 import 'chart.dart';
 
@@ -11,17 +12,17 @@ class AnalysisBox extends StatelessWidget {
       {required this.title,
       required this.imgpath,
       required this.styletxt,
+      required this.data,
       Key? key})
       : super(key: key);
   String title;
   String imgpath;
   Color styletxt;
-
+  final List<dynamic> data;
   SelectionBehavior? _selectionBehavior;
 
 //   late List<_ChartData> data;
   TooltipBehavior? _tooltip;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class AnalysisBox extends StatelessWidget {
       ChartData('w3', 128, 129, 30),
       ChartData('w4', 87, 95, 71),
     ];
- _tooltip = TooltipBehavior(enable: true);
+    _tooltip = TooltipBehavior(enable: true);
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -78,8 +79,7 @@ class AnalysisBox extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 5),
-                          child: Image.asset(imgpath,
-                              color: styletxt),
+                          child: Image.asset(imgpath, color: styletxt),
                         ),
 
                         RichText(
@@ -122,44 +122,48 @@ class AnalysisBox extends StatelessWidget {
                         color: AppColor.blackText, fontWeight: FontWeight.w300),
                   ),
                   SizedBox(
-                      height: 150,
-                      child: SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          selectionType: SelectionType.point,
-                          tooltipBehavior: _tooltip,
-                          series: <ChartSeries<ChartData, String>>[
-                            ColumnSeries<ChartData, String>(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                                name: 'potassium',
-
-                                color: Color(0xffCFA841),
-                                selectionBehavior: _selectionBehavior,
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y),
-                            ColumnSeries<ChartData, String>(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                                color: Color(0xff4BA26A),
-                                name: "phosphorous",
-                                selectionBehavior: _selectionBehavior,
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y1),
-                            ColumnSeries<ChartData, String>(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                                selectionBehavior: _selectionBehavior,
-                                name: "Nitrogen",
-                                color: Color(0xffF6C602),
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y2)
-                          ]),
+                    height: 150,
+                    child: SfCartesianChart(
+                        primaryXAxis: CategoryAxis(),
+                        selectionType: SelectionType.point,
+                        tooltipBehavior: _tooltip,
+                        series: <ChartSeries<dynamic, String>>[
+                          for (int i = 0; i < data.length; i++)
+                            ColumnSeries<dynamic, String>(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              name: 'potassium',
+                              color: const Color(0xffCFA841),
+                              selectionBehavior: _selectionBehavior,
+                              dataSource: data,
+                              xValueMapper: (x, y) => i.toString(),
+                              yValueMapper: (x, y) =>
+                                  data[i].runtimeType == ProductionModel
+                                      ? data[i].energyProduction
+                                      : data[i].energyConsumption,
+                            )
+                          // ColumnSeries<ChartData, String>(
+                          //     borderRadius: BorderRadius.only(
+                          //         topLeft: Radius.circular(20),
+                          //         topRight: Radius.circular(20)),
+                          //     color: Color(0xff4BA26A),
+                          //     name: "phosphorous",
+                          //     selectionBehavior: _selectionBehavior,
+                          //     dataSource: chartData,
+                          //     xValueMapper: (ChartData data, _) => data.x,
+                          //     yValueMapper: (ChartData data, _) => data.y1),
+                          // ColumnSeries<ChartData, String>(
+                          //     borderRadius: BorderRadius.only(
+                          //         topLeft: Radius.circular(20),
+                          //         topRight: Radius.circular(20)),
+                          //     selectionBehavior: _selectionBehavior,
+                          //     name: "Nitrogen",
+                          //     color: Color(0xffF6C602),
+                          //     dataSource: chartData,
+                          //     xValueMapper: (ChartData data, _) => data.x,
+                          //     yValueMapper: (ChartData data, _) => data.y2)
+                        ]),
                   )
                   //   chartToRun()
                 ],
