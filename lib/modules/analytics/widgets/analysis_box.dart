@@ -124,10 +124,11 @@ class AnalysisBox extends StatelessWidget {
                   SizedBox(
                     height: 150,
                     child: SfCartesianChart(
+
                         primaryXAxis: CategoryAxis(),
                         selectionType: SelectionType.point,
                         tooltipBehavior: _tooltip,
-                        series: <ChartSeries<dynamic, String>>[
+                        series: [
                           for (int i = 0; i < data.length; i++)
                             ColumnSeries<dynamic, String>(
                               borderRadius: const BorderRadius.only(
@@ -137,12 +138,13 @@ class AnalysisBox extends StatelessWidget {
                               color: const Color(0xffCFA841),
                               selectionBehavior: _selectionBehavior,
                               dataSource: data,
-                              xValueMapper: (x, y) => i.toString(),
-                              yValueMapper: (x, y) =>
-                                  data[i].runtimeType == ProductionModel
-                                      ? data[i].energyProduction
-                                      : data[i].energyConsumption,
-                            )
+                              xValueMapper: (item, y) => item.date,
+                              yValueMapper: (item, y) =>
+                              item.runtimeType == ProductionModel
+                                      ? item.energyProduction
+                                      : item.energyConsumption,
+
+                            ),
                           // ColumnSeries<ChartData, String>(
                           //     borderRadius: BorderRadius.only(
                           //         topLeft: Radius.circular(20),

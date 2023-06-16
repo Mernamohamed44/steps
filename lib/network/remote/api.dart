@@ -36,7 +36,7 @@ class Api {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       "start_date":
-          startDate ?? DateTime.now().subtract(const Duration(days: 88)).format,
+          startDate ?? DateTime.now().subtract(const Duration(days: 365)).format,
       "end_date": endDate ?? DateTime.now().format,
     };
     final headers = <String, dynamic>{};
@@ -110,7 +110,9 @@ abstract class DioFactory {
       baseUrl: url,
       headers: headers,
       sendTimeout: const Duration(minutes: 1), //60 seconds
-      receiveTimeout: const Duration(minutes: 1),
+      receiveTimeout: const Duration(minutes: 5),
+      connectTimeout:        const Duration(minutes: 1),
+
       followRedirects: false,
     );
     if (!kReleaseMode) {
@@ -119,6 +121,7 @@ abstract class DioFactory {
         requestHeader: true,
         requestBody: true,
         responseHeader: true,
+        responseBody: true,
       ));
     }
     return dio;
@@ -127,6 +130,6 @@ abstract class DioFactory {
 
 extension DateFormate on DateTime {
   String get format {
-    return "${month.toString().padLeft(2, "0")}/${day.toString().padLeft(2, "0")}/$year";
+    return "${month.toString().padLeft(2, "0")}/${day.toString().padLeft(2, "0")}/$year".toString();
   }
 }

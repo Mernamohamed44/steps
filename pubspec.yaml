@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   bloc_provider:
   flutter_bloc:
+  intl: ^0.18.1
   flutter_charts: ^0.5.0
   syncfusion_flutter_charts: ^20.4.48
   firebase_auth:
