@@ -66,9 +66,9 @@ class StepsCubit extends Cubit<StepsState> {
 
   createUser(
       {required String email,
-        required String fName,
-        required String lName,
-        required String uId}) {
+      required String fName,
+      required String lName,
+      required String uId}) {
     model = UserModel(
       email: email,
       fName: fName,
@@ -104,11 +104,11 @@ class StepsCubit extends Cubit<StepsState> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     final GoogleSignInAccount? googleSignInAccount =
-    await googleSignIn.signIn();
+        await googleSignIn.signIn();
     emit(SignInWithGoogleStateLoadingState());
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -117,7 +117,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SignInWithGoogleStateSuccessState());
       try {
         final UserCredential userCredential =
-        await auth.signInWithCredential(credential);
+            await auth.signInWithCredential(credential);
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         emit(SignInWithGoogleStateErrorState(e.toString()));
@@ -141,11 +141,11 @@ class StepsCubit extends Cubit<StepsState> {
   WeatherModel? weatherModel;
   var azimuth;
   var elevation;
-  getDataWeather() async {
+  Future getDataWeather() async {
     emit(GetWeatherDataLoadingState());
     print('zeft');
     DioHelper.get(
-        'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
+            'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
         .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
@@ -223,10 +223,20 @@ class StepsCubit extends Cubit<StepsState> {
   BluetoothDevice? server;
   final ScrollController listScrollController = ScrollController();
   List<_Message> messages = List<_Message>.empty(growable: true);
-
   Future<void> sendMessage(
       {required String horizontal, required String vertical}) async {
-    String text = _setText(horizontal, vertical);
+    if (horizontal.isNotEmpty && vertical.isNotEmpty) {
+      String text = _setText(horizontal, "");
+      await _sendMessage(text);
+      text = _setText("", vertical);
+      await _sendMessage(text);
+    } else {
+      String text = _setText(horizontal, vertical);
+      _sendMessage(text);
+    }
+  }
+
+  Future<void> _sendMessage(String text) async {
     print(text);
     if (text.isNotEmpty) {
       try {
@@ -260,21 +270,17 @@ class StepsCubit extends Cubit<StepsState> {
   AverageModel? averageModel;
   void getAverage() async {
     (await Repository.getAverage()).fold((l) => emit(ErrorState(l.message)),
-            (r) {
-          averageModel = r;
-          emit(SuccessState());
-        });
+        (r) {
+      averageModel = r;
+      emit(SuccessState());
+    });
   }
 
   List<ConsumptionModel> consumptionModel = [];
   void getConsumption() async {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
-
         (r) {
-      print(r);
-
       consumptionModel = r;
-      print(consumptionModel[0].energyConsumption);
       emit(SuccessState());
     });
   }
@@ -349,7 +355,7 @@ class StepsCubit extends Cubit<StepsState> {
           1,
           backspacesCounter > 0
               ? _messageBuffer.substring(
-              0, _messageBuffer.length - backspacesCounter)
+                  0, _messageBuffer.length - backspacesCounter)
               : _messageBuffer + dataString.substring(0, index),
         ),
       );
@@ -357,15 +363,15 @@ class StepsCubit extends Cubit<StepsState> {
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
-          0, _messageBuffer.length - backspacesCounter)
+              0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
   }
 
-
   void apiData() {
     getConsumption();
     getDataWeather();
+    getProduction();
   }
 }
 
