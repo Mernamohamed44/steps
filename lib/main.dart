@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/modules/sign_up/screen/sign_up_screen.dart';
-
+import 'package:steps/work_manager_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Future.wait([
+    Firebase.initializeApp(),
+    WorkManagerHelper.initialize(),
+  ]);
+  await WorkManagerHelper.register();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final User? user = _auth.currentUser;
   HttpOverrides.global = MyHttpOverrides();
@@ -19,13 +24,15 @@ void main() async {
   ));
 }
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
+
 class MyApp extends StatelessWidget {
   final User? user;
   const MyApp({
