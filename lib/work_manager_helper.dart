@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -6,13 +7,20 @@ import 'models/avarege_model.dart';
 import 'models/weather_model.dart';
 import 'network/remote/api.dart';
 
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    await WorkManagerHelper.task();
+    return Future.value(true);
+  });
+}
+
 abstract class WorkManagerHelper {
-  @pragma('vm:entry-point')
-  static void callbackDispatcher() {
-    Workmanager().executeTask((task, inputData) async {
-      await WorkManagerHelper.task();
-      return Future.value(true);
-    });
+  static void foregroundTask() async {
+    while (true) {
+      await task();
+      await Future.delayed(const Duration(hours: 2));
+    }
   }
 
   static Future<void> initialize() => Workmanager().initialize(
@@ -49,12 +57,15 @@ abstract class WorkManagerHelper {
             _move(horizontal: "0", vertical: "90");
           }
           //todo: when it's raining
-          //todo: get the move value from the api and move around it _move(horizontal: "", vertical: "")
+          // get the move value from the api and move around it
+          _move(horizontal: azimuth.toString(), vertical: elevation.toString());
           sharedPreference.setBool("movement", await _taskPerDay());
           sharedPreference.setString("date", DateTime.now().toString());
         }
       }
+      print("task completed");
     } catch (err) {
+      print("error: $err ");
       throw Exception(err);
     }
   }
@@ -72,7 +83,24 @@ abstract class WorkManagerHelper {
   static Future<WeatherModel?> _taskPer2Hours() async {
     StepsCubit cubit = StepsCubit();
     await cubit.getDataWeather();
+    _aa(cubit.weatherModel);
     return cubit.weatherModel;
+  }
+
+  static var azimuth;
+  static var elevation;
+  static _aa(WeatherModel? weatherModel) {
+    final latitude = weatherModel!.location!.lat;
+    final longitude = weatherModel!.location!.lat;
+    final instant = Instant(
+        year: DateTime.now().year,
+        month: DateTime.now().month,
+        day: DateTime.now().day,
+        hour: DateTime.now().hour,
+        timeZoneOffset: DateTime.now().timeZoneOffset.inHours.toDouble());
+    final calc = SolarCalculator(instant, latitude!, longitude!);
+    azimuth = calc.sunHorizontalPosition.azimuth.floorToDouble();
+    elevation = calc.sunHorizontalPosition.elevation.floorToDouble();
   }
 
   static Future<void> _move({String? horizontal, String? vertical}) =>

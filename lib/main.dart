@@ -14,8 +14,8 @@ void main() async {
     Firebase.initializeApp(),
     WorkManagerHelper.initialize(),
   ]);
-  await WorkManagerHelper.register();
 
+  await WorkManagerHelper.register();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final User? user = _auth.currentUser;
   HttpOverrides.global = MyHttpOverrides();
@@ -33,7 +33,7 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final User? user;
   const MyApp({
     Key? key,
@@ -41,10 +41,21 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    WorkManagerHelper.foregroundTask();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: user == null ? SignUpScreen() : const AppLayout(),
+      home: widget.user == null ? SignUpScreen() : const AppLayout(),
     );
   }
 }
