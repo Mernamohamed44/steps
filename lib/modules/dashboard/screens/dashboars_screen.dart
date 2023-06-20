@@ -270,7 +270,7 @@ class DashboardScreen extends StatelessWidget {
                                             ],
                                           ),
                                           title: "CO₂ Reduction",
-                                          num: '$co2Reduction',
+                                          num: '${co2Reduction.ceil()}',
                                           measure_unit: "Kwh"),
                                       SmallStaticsCard(
                                           context: context,
@@ -328,8 +328,10 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   );
                 }
-                return const CircularProgressIndicator(
-                  backgroundColor: Colors.red,
+                return const Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: AppColor.blueColor,
+                  ),
                 );
               });
         }
