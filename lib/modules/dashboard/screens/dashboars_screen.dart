@@ -33,8 +33,8 @@ class DashboardScreen extends StatelessWidget {
               future: BatteryInfoPlugin().androidBatteryInfo,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  var batteryLevel = snapshot.data!.batteryLevel;
-                  var batteryCapacity = snapshot.data!.batteryCapacity;
+                  var batteryLevel = snapshot.data?.batteryLevel ?? 1;
+                  var batteryCapacity = snapshot.data?.batteryCapacity ?? 1;
                   //Load Current (in amperes) = Power Consumption (in watts) / Operating Voltage (in volts)
                   Random rnd;
                   double min = 0;
@@ -43,9 +43,10 @@ class DashboardScreen extends StatelessWidget {
                   var r = rnd.nextDouble() * (max - min) + min;
                   var loadCurrent = r;
                   var remainingTimeInMinutes =
-                      ((batteryLevel! * batteryCapacity! / 100) / loadCurrent) *
+                      ((batteryLevel * batteryCapacity / 100) / loadCurrent) *
                           60;
                   var remainingTimeInHours = remainingTimeInMinutes / 60;
+
                   ///co2 reduction equation//////
                   double co2Reduction = 0;
                   for (int i = 0; i < cubitInfo.consumptionModel.length; i++) {
@@ -270,7 +271,7 @@ class DashboardScreen extends StatelessWidget {
                                             ],
                                           ),
                                           title: "CO₂ Reduction",
-                                          num: '${co2Reduction.ceil()}',
+                                          num: '${co2Reduction.check}',
                                           measure_unit: "Kwh"),
                                       SmallStaticsCard(
                                           context: context,
@@ -337,5 +338,15 @@ class DashboardScreen extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+extension Checker on double {
+  double get check {
+    if (isNaN || isInfinite) {
+      return 0;
+    } else {
+      return this;
+    }
   }
 }

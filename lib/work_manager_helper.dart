@@ -16,9 +16,9 @@ void callbackDispatcher() {
 }
 
 abstract class WorkManagerHelper {
-  static void foregroundTask() async {
+  static void foregroundTask(StepsCubit cubit) async {
     while (true) {
-      await task();
+      await task(cubit: cubit);
       await Future.delayed(const Duration(hours: 2));
     }
   }
@@ -37,7 +37,7 @@ abstract class WorkManagerHelper {
     );
   }
 
-  static Future<void> task() async {
+  static Future<void> task({StepsCubit? cubit}) async {
     final sharedPreference = await SharedPreferences.getInstance();
     try {
       //add code execution
@@ -46,19 +46,23 @@ abstract class WorkManagerHelper {
         DateTime date = DateTime.parse(dated);
         if (date.difference(DateTime.now()).inDays == 0 ||
             await _taskPerDay()) {
-          var weather = await _taskPer2Hours();
+          var weather = await _taskPer2Hours(cubit: cubit);
           if (weather?.current?.windKph > 50) {
-            _move(horizontal: "0", vertical: "90");
+            _move(horizontal: "0", vertical: "90", cubit: cubit);
           }
           //todo: when it's raining
         } else {
-          var weather = await _taskPer2Hours();
+          var weather = await _taskPer2Hours(cubit: cubit);
           if (weather?.current?.windKph > 50) {
-            _move(horizontal: "0", vertical: "90");
+            _move(horizontal: "0", vertical: "90", cubit: cubit);
           }
           //todo: when it's raining
           // get the move value from the api and move around it
-          _move(horizontal: azimuth.toString(), vertical: elevation.toString());
+          _move(
+            horizontal: azimuth.toString(),
+            vertical: elevation.toString(),
+            cubit: cubit,
+          );
           sharedPreference.setBool("movement", await _taskPerDay());
           sharedPreference.setString("date", DateTime.now().toString());
         }
@@ -80,18 +84,17 @@ abstract class WorkManagerHelper {
     }
   }
 
-  static Future<WeatherModel?> _taskPer2Hours() async {
-    StepsCubit cubit = StepsCubit();
-    await cubit.getDataWeather();
-    _aa(cubit.weatherModel);
-    return cubit.weatherModel;
+  static Future<WeatherModel?> _taskPer2Hours({StepsCubit? cubit}) async {
+    await cubit?.getDataWeather();
+    _aa(cubit?.weatherModel);
+    return cubit?.weatherModel;
   }
 
   static var azimuth;
   static var elevation;
   static _aa(WeatherModel? weatherModel) {
     final latitude = weatherModel!.location!.lat;
-    final longitude = weatherModel!.location!.lat;
+    final longitude = weatherModel.location!.lat;
     final instant = Instant(
         year: DateTime.now().year,
         month: DateTime.now().month,
@@ -103,7 +106,11 @@ abstract class WorkManagerHelper {
     elevation = calc.sunHorizontalPosition.elevation.floorToDouble();
   }
 
-  static Future<void> _move({String? horizontal, String? vertical}) =>
-      StepsCubit()
-          .sendMessage(horizontal: horizontal ?? "", vertical: vertical ?? "");
+  static Future<void> _move(
+          {String? horizontal, String? vertical, StepsCubit? cubit}) =>
+      cubit != null
+          ? cubit.sendMessage(
+              horizontal: horizontal ?? "", vertical: vertical ?? "")
+          : StepsCubit().sendMessage(
+              horizontal: horizontal ?? "", vertical: vertical ?? "");
 }

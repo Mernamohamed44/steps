@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:steps/modules/dashboard/screens/dashboars_screen.dart';
 import 'package:steps/style/colors.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../models/consumption_model.dart';
-import '../../../models/production_model.dart';
 import '../../../style/text_style.dart';
-import 'chart.dart';
 
 class AnalysisBox extends StatelessWidget {
   AnalysisBox(
@@ -19,12 +18,18 @@ class AnalysisBox extends StatelessWidget {
   String title;
   String imgpath;
   Color styletxt;
-  final List<ConsumptionModel> data;
+  final List<dynamic> data;
 
   @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData =
-        data.map((e) => ChartData(e.date, e.energyConsumption)).toList();
+     List<ChartData> chartData = [];
+    if (data.runtimeType == List<ConsumptionModel>) {
+   chartData=   data.map((e) => ChartData(e.date, e.energyConsumption)).toList();
+    }
+    else{
+         chartData=   data.map((e) => ChartData(e.date, e.energyProduction)).toList();
+
+    }
 
     return Card(
       elevation: 10,
@@ -117,24 +122,24 @@ class AnalysisBox extends StatelessWidget {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      height: 150,
+                      height: 170,
                       child: SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
-                          // selectionType: SelectionType.point,
+                          selectionType: SelectionType.point,
                           // tooltipBehavior: _tooltip,
                           series: <ChartSeries<ChartData, int>>[
                             ColumnSeries<ChartData, int>(
-                              // borderRadius: const BorderRadius.only(
-                              //     topLeft: Radius.circular(20),
-                              //     topRight: Radius.circular(20)),
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
                               name: 'potassium',
-                              // dataLabelSettings:
-                              //     const DataLabelSettings(isVisible: true),
-                              // color: const Color(0xffCFA841),
+                              dataLabelSettings:
+                                  const DataLabelSettings(isVisible: true),
+                              color: const Color(0xffCFA841),
                               // // selectionBehavior: _selectionBehavior,
                               dataSource: chartData,
-                              xValueMapper: (item, y) => 2,
-                              yValueMapper: (item, y) => item.y!.toInt(),
+                              xValueMapper: (item, y) => y,
+                              yValueMapper: (item, y) => item.y.check,
                             ),
                           ]),
                     )
@@ -157,5 +162,5 @@ class ChartData {
   );
 
   final String x;
-  final double? y;
+  final double y;
 }

@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/modules/sign_up/screen/sign_up_screen.dart';
 import 'package:steps/work_manager_helper.dart';
+
+import 'cubit/cubit/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +36,7 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final User? user;
   const MyApp({
     Key? key,
@@ -41,21 +44,13 @@ class MyApp extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    WorkManagerHelper.foregroundTask();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: widget.user == null ? SignUpScreen() : const AppLayout(),
+    return BlocProvider(
+      create: (context) => StepsCubit()..apiData(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: user == null ? SignUpScreen() : const AppLayout(),
+      ),
     );
   }
 }
