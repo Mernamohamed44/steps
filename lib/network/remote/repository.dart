@@ -31,15 +31,15 @@ abstract class Repository {
 
   static Future<Either<Failure, List<ProductionModel>>> getProduction(
       {DateTime? start, DateTime? end}) async {
-    try {
+    // try {
       var result = await _api.getProduction(startDate: start, endDate: end);
-      print(result);
+      // print(result);
 
       return Right(result);
-    } catch (error) {
-      print("Production Error ${error.toString()}");
-      return Left(Failure(error.toString()));
-    }
+    // } catch (error) {
+    //   print("Production Error ${error.toString()}");
+    //   return Left(Failure(error.toString()));
+    // }
   }
 }
 

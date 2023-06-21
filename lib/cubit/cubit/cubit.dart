@@ -228,6 +228,7 @@ class StepsCubit extends Cubit<StepsState> {
     if (horizontal.isNotEmpty && vertical.isNotEmpty) {
       String text = _setText(horizontal, "");
       await _sendMessage(text);
+      await Future.delayed(const Duration(seconds: 2));
       text = _setText("", vertical);
       await _sendMessage(text);
     } else {

@@ -25,7 +25,7 @@ class Api {
       {DateTime? startDate, DateTime? endDate}) async {
     final queryParameters = <String, dynamic>{
       "start_date": startDate ??
-          DateTime.now().subtract(const Duration(days: 365)).format,
+          DateTime.now().subtract(const Duration(days: 7)).format,
       "end_date": endDate ?? DateTime.now().format,
     };
     Response result = await _fetch(
@@ -37,7 +37,7 @@ class Api {
       {DateTime? startDate, DateTime? endDate}) async {
     final queryParameters = <String, dynamic>{
       "start_date":
-          startDate ?? DateTime.now().subtract(const Duration(days: 88)).format,
+          startDate ?? DateTime.now().subtract(const Duration(days: 7)).format,
       "end_date": endDate ?? DateTime.now().format,
     };
 

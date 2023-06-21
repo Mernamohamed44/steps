@@ -18,8 +18,9 @@ class AnalyticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<StepsCubit, StepsState>(
       builder: (BuildContext context, state) {
-        var weatherData = BlocProvider.of<StepsCubit>(context).weatherModel;
-        StepsCubit cubit =StepsCubit();
+        StepsCubit cubit = context.read<StepsCubit>();
+        var weatherData = cubit.weatherModel;
+
         if (state is GetWeatherDataLoadingState) {
           return Expanded(
               child: Container(
@@ -73,7 +74,7 @@ class AnalyticsScreen extends StatelessWidget {
                                 title: 'Estimated saving',
                                 imgpath: AppImages.up,
                                 styletxt: AppColor.blueColor,
-                                data: cubit.consumptionModel,
+                                data: cubit.productionModel,
                               ),
                               Card(
                                 color: AppColor.blueColor,
