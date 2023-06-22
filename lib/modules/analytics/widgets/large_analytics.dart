@@ -123,7 +123,7 @@ class _LAnalyticsState extends State<LAnalytics> {
                                   color: AppColor.blackText,
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400),
-                              text: "Energy Production\n",
+                              text: "Estimated saving\n",
                             ),
                             TextSpan(
                                 style: AppTextStyles.box_icons.copyWith(

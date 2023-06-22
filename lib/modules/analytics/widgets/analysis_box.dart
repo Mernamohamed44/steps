@@ -139,7 +139,7 @@ class AnalysisBox extends StatelessWidget {
                               // // selectionBehavior: _selectionBehavior,
                               dataSource: chartData,
                               xValueMapper: (item, y) => y,
-                              yValueMapper: (item, y) => item.y.check,
+                              yValueMapper: (item, y) => item.y.check.ceil(),
                             ),
                           ]),
                     )

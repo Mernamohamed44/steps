@@ -71,7 +71,7 @@ class AnalyticsScreen extends StatelessWidget {
                                 data: cubit.consumptionModel,
                               ),
                               AnalysisBox(
-                                title: 'Estimated saving',
+                                title: 'Energy Production',
                                 imgpath: AppImages.up,
                                 styletxt: AppColor.blueColor,
                                 data: cubit.productionModel,
