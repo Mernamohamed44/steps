@@ -271,7 +271,7 @@ class DashboardScreen extends StatelessWidget {
                                             ],
                                           ),
                                           title: "CO₂ Reduction",
-                                          num: '${co2Reduction.check}',
+                                          num: '${co2Reduction.check.ceil()}',
                                           measure_unit: "Kwh"),
                                       SmallStaticsCard(
                                           context: context,

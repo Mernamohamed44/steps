@@ -47,6 +47,7 @@ abstract class WorkManagerHelper {
         if (date.difference(DateTime.now()).inDays == 0 ||
             await _taskPerDay()) {
           var weather = await _taskPer2Hours(cubit: cubit);
+
           if (weather?.current?.windKph > 50) {
             _move(horizontal: "0", vertical: "90", cubit: cubit);
           }
