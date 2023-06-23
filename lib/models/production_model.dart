@@ -18,7 +18,7 @@ class ProductionModel {
     List<ProductionModel> result = [];
     for (int i = 0; i < productionList.length; i++) {
       List<ProductionModel> temp = [];
-      for (int j = i ; j < productionList.length; j++) {
+      for (int j = i; j < productionList.length; j++) {
         if (productionList[i]
             .date
             .dateTime
@@ -54,6 +54,8 @@ extension DateTimeExtension on String {
     final formatter = DateFormat('EEE, d MMM yyyy HH:mm:ss');
     return formatter.parse(this);
   }
+
+  String get monthDay => substring(6);
 }
 
 extension DateTimeCompareExtension on DateTime {

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:steps/models/production_model.dart';
 import 'package:steps/style/constrians.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../models/prediction_model.dart';
 import '../../../style/colors.dart';
 import '../../../style/text_style.dart';
 
 class LAnalytics extends StatefulWidget {
-  const LAnalytics({Key? key}) : super(key: key);
-
+  const LAnalytics({Key? key, required this.items}) : super(key: key);
+  final List<PredictionModel> items;
   @override
   State<LAnalytics> createState() => _LAnalyticsState();
 }
@@ -30,71 +32,18 @@ class _LAnalyticsState extends State<LAnalytics> {
 
 //   late List<_ChartData> data;
   TooltipBehavior? _tooltip;
+  List<ChartData> _setList() {
+    List<ChartData> result = [];
+    for (int i = 0; i < widget.items.length; i++) {
+      result.add(ChartData(
+          widget.items[i].date.monthDay, widget.items[i].predictedPower, 0));
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = <ChartData>[
-      ChartData(
-        'Jan',
-        110,
-        130,
-      ),
-      ChartData(
-        'Feb',
-        123,
-        100,
-      ),
-      ChartData(
-        'Mar',
-        128,
-        129,
-      ),
-      ChartData(
-        'Apr',
-        87,
-        95,
-      ),
-      ChartData(
-        'May',
-        87,
-        95,
-      ),
-      ChartData(
-        'Jun',
-        87,
-        95,
-      ),
-      ChartData(
-        'Jul',
-        87,
-        95,
-      ),
-      ChartData(
-        'Aug',
-        110,
-        95,
-      ),
-      ChartData(
-        'Sep',
-        10,
-        60,
-      ),
-      ChartData(
-        'Oct',
-        87,
-        95,
-      ),
-      ChartData(
-        'Nov',
-        87,
-        90,
-      ),
-      ChartData(
-        'Dec',
-        87,
-        95,
-      ),
-    ];
+    final List<ChartData> chartData = _setList();
     _tooltip = TooltipBehavior(enable: true);
     return Card(
       elevation: 10,

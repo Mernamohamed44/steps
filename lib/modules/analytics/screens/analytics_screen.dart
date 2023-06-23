@@ -53,7 +53,7 @@ class AnalyticsScreen extends StatelessWidget {
                                 styletxt: AppColor.blueColor,
                                 data: [],
                               ),
-                              LAnalytics()
+                              LAnalytics(items: cubit.predictionModel)
                             ],
                           ),
                         ),
