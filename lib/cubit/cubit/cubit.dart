@@ -19,8 +19,9 @@ import 'package:steps/network/remote/dio_helper.dart';
 import 'package:steps/network/remote/repository.dart';
 import 'package:steps/shared/components/components.dart';
 
-import '../../models/avarege_model.dart';
+import '../../models/average_model.dart';
 import '../../models/consumption_model.dart';
+import '../../models/prediction_model.dart';
 import '../../models/production_model.dart';
 
 class StepsCubit extends Cubit<StepsState> {
@@ -269,7 +270,7 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   AverageModel? averageModel;
-  void getAverage() async {
+  Future getAverage() async {
     (await Repository.getAverage()).fold((l) => emit(ErrorState(l.message)),
         (r) {
       averageModel = r;
@@ -278,7 +279,7 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   List<ConsumptionModel> consumptionModel = [];
-  void getConsumption() async {
+  Future getConsumption() async {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
         (r) {
       consumptionModel = r;
@@ -287,7 +288,7 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   List<ProductionModel> productionModel = [];
-  void getProduction() async {
+  Future getProduction() async {
     (await Repository.getProduction()).fold((l) {
       print(l.message);
       emit(ErrorState(l.message));
@@ -296,6 +297,44 @@ class StepsCubit extends Cubit<StepsState> {
       productionModel = r;
       emit(SuccessState());
     });
+  }
+
+  List<PredictionModel> predictionModel = [];
+  Future getPredictions() async {
+    (await Repository.getPredictions()).fold((l) {
+      print(l.message);
+      emit(ErrorState(l.message));
+    }, (r) {
+      print(r);
+      predictionModel = r;
+      emit(SuccessState());
+    });
+  }
+
+  double _getAveragePredictionModel() {
+    double average = 0;
+    for (int i = 0; i < predictionModel.length; i++) {
+      average += predictionModel[i].predictedPower;
+    }
+    return average / predictionModel.length;
+  }
+
+  String warningText = "";
+  void _setManual() {
+    double average = _getAveragePredictionModel();
+    if (60 > average - (averageModel?.averageEnergyProduction ?? 0)) {
+      warningText = "الالواح تحتاج لصيانة او تنظيف ياحمار شوف";
+      isShowing = true;
+    }
+    if (weatherModel?.current?.condition?.text != "Clear") {
+      warningText = " غير للوضع الامن بسبب الامطار";
+      isShowing = true;
+    }
+    if (weatherModel?.current?.windKph > 80) {
+      warningText = " غير للوضع الامن بسبب الرياح";
+      isShowing = true;
+    }
+    emit(SuccessState());
   }
 
   bool isDisconnecting = false;
@@ -369,10 +408,15 @@ class StepsCubit extends Cubit<StepsState> {
     }
   }
 
-  void apiData() {
-    getConsumption();
-    getDataWeather();
-    getProduction();
+  void apiData() async {
+    await Future.wait([
+      getConsumption(),
+      getDataWeather(),
+      getProduction(),
+      getAverage(),
+      getPredictions()
+    ]);
+    _setManual();
   }
 }
 

@@ -76,15 +76,14 @@ class DashboardScreen extends StatelessWidget {
                                 style: AppTextStyles.titles,
                               ),
                               if (cubitInfo.isShowing)
-                                const AnalogUpdateWidget(
-                                  message:
-                                      "The angle need to be adjusted to 45° for the vertical and 60° for the horizontal due to the rainy weather.",
+                                AnalogUpdateWidget(
+                                  message: cubitInfo.warningText,
                                 ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 30,
                                   ),
                                   Column(
@@ -236,7 +235,7 @@ class DashboardScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               Row(
@@ -248,8 +247,8 @@ class DashboardScreen extends StatelessWidget {
                                     children: [
                                       SmallStaticsCard(
                                           context: context,
-                                          image: Stack(
-                                            children: const [
+                                          image: const Stack(
+                                            children: [
                                               Center(
                                                 child: Image(
                                                   image: AssetImage(

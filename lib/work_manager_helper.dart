@@ -3,7 +3,7 @@ import 'package:solar_calculator/solar_calculator.dart';
 import 'package:steps/cubit/cubit/cubit.dart';
 import 'package:workmanager/workmanager.dart';
 
-import 'models/avarege_model.dart';
+import 'models/average_model.dart';
 import 'models/weather_model.dart';
 import 'network/remote/api.dart';
 
@@ -18,8 +18,9 @@ void callbackDispatcher() {
 abstract class WorkManagerHelper {
   static void foregroundTask(StepsCubit cubit) async {
     while (true) {
-      await task(cubit: cubit);
       await Future.delayed(const Duration(hours: 2));
+
+      await task(cubit: cubit);
     }
   }
 
@@ -48,26 +49,33 @@ abstract class WorkManagerHelper {
             await _taskPerDay()) {
           var weather = await _taskPer2Hours(cubit: cubit);
 
-          if (weather?.current?.windKph > 50) {
+          if (weather?.current?.windKph > 80) {
             _move(horizontal: "0", vertical: "90", cubit: cubit);
+          } else if (weather?.current?.condition?.text != "Clear") {
+            _move(horizontal: "0", vertical: "0", cubit: cubit);
+          } else {
+            _move(horizontal: "45", vertical: "0");
           }
-          //todo: when it's raining
         } else {
           var weather = await _taskPer2Hours(cubit: cubit);
-          if (weather?.current?.windKph > 50) {
+          if (weather?.current?.windKph > 80) {
             _move(horizontal: "0", vertical: "90", cubit: cubit);
           }
-          //todo: when it's raining
-          // get the move value from the api and move around it
-          _move(
-            horizontal: azimuth.toString(),
-            vertical: elevation.toString(),
-            cubit: cubit,
-          );
-          sharedPreference.setBool("movement", await _taskPerDay());
-          sharedPreference.setString("date", DateTime.now().toString());
+          if (weather?.current?.condition?.text != "Clear") {
+            _move(horizontal: "0", vertical: "0", cubit: cubit);
+          }
+          if (!(weather?.current?.condition?.text != "Clear" ||
+              weather?.current?.windKph > 80)) {
+            _move(
+              horizontal: azimuth.toString(),
+              vertical: elevation.toString(),
+              cubit: cubit,
+            );
+          }
         }
       }
+      sharedPreference.setBool("movement", await _taskPerDay());
+      sharedPreference.setString("date", DateTime.now().toString());
       print("task completed");
     } catch (err) {
       print("error: $err ");

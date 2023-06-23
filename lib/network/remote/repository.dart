@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import '../../models/avarege_model.dart';
+import '../../models/average_model.dart';
 import '../../models/consumption_model.dart';
+import '../../models/prediction_model.dart';
 import '../../models/production_model.dart';
 import 'api.dart';
 
@@ -35,6 +36,16 @@ abstract class Repository {
       var result = await _api.getProduction(startDate: start, endDate: end);
       // print(result);
 
+      return Right(result);
+    } catch (error) {
+      print("Production Error ${error.toString()}");
+      return Left(Failure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, List<PredictionModel>>> getPredictions() async {
+    try {
+      var result = await _api.getPredictions();
       return Right(result);
     } catch (error) {
       print("Production Error ${error.toString()}");

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:steps/layout/app_layout.dart';
 import 'package:steps/modules/sign_up/screen/sign_up_screen.dart';
-import 'package:steps/work_manager_helper.dart';
 
 import 'cubit/cubit/cubit.dart';
 
@@ -15,10 +14,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
     Firebase.initializeApp(),
-    WorkManagerHelper.initialize(),
+    // WorkManagerHelper.initialize(),
   ]);
 
-  await WorkManagerHelper.register();
+  // await WorkManagerHelper.register();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final User? user = _auth.currentUser;
   HttpOverrides.global = MyHttpOverrides();

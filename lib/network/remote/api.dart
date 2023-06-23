@@ -2,12 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../models/avarege_model.dart';
+import '../../models/average_model.dart';
 import '../../models/consumption_model.dart';
+import '../../models/prediction_model.dart';
 import '../../models/production_model.dart';
 
 class Api {
-  static final Dio _dio = DioFactory.getDio;
+  final Dio _dio = DioFactory.getDio;
   Future<AverageModel> getAverage(
       {DateTime? startDate, DateTime? endDate}) async {
     final queryParameters = <String, dynamic>{
@@ -24,8 +25,8 @@ class Api {
   Future<List<ConsumptionModel>> getConsumption(
       {DateTime? startDate, DateTime? endDate}) async {
     final queryParameters = <String, dynamic>{
-      "start_date": startDate ??
-          DateTime.now().subtract(const Duration(days: 7)).format,
+      "start_date":
+          startDate ?? DateTime.now().subtract(const Duration(days: 7)).format,
       "end_date": endDate ?? DateTime.now().format,
     };
     Response result = await _fetch(
@@ -47,10 +48,20 @@ class Api {
     return ProductionModel.fromListJson(result.data);
   }
 
+  Future<List<PredictionModel>> getPredictions() async {
+    Response result = await _fetch(
+      method: "GET",
+      path: "/31.0409,31.3785/14",
+      url: "https://solarpowerprediction.onrender.com",
+    );
+    return PredictionModel.fromListedJson(result.data!);
+  }
+
   Future<Response<T>> _fetch<T>(
           {Map<String, dynamic>? headers,
           required String path,
           required String method,
+          String? url,
           Map<String, dynamic>? queryParameters,
           Map<String, dynamic>? extra,
           Map<String, dynamic>? data}) async =>
@@ -59,7 +70,7 @@ class Api {
         headers: headers,
         extra: extra,
       ).compose(
-        _dio.options,
+        _dio.options.copyWith(baseUrl: url),
         path,
         queryParameters: queryParameters,
         data: data,
