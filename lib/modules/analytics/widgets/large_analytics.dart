@@ -17,16 +17,16 @@ class LAnalytics extends StatefulWidget {
 class _LAnalyticsState extends State<LAnalytics> {
   String? selectedValue;
 
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(
-        value: "Year",
-        child: Text("Year"),
-      ),
-      const DropdownMenuItem(value: "Month", child: Text("Month")),
-    ];
-    return menuItems;
-  }
+  // List<DropdownMenuItem<String>> get dropdownItems {
+  //   List<DropdownMenuItem<String>> menuItems = [
+  //     const DropdownMenuItem(
+  //       value: "Year",
+  //       child: Text("Year"),
+  //     ),
+  //     const DropdownMenuItem(value: "Month", child: Text("Month")),
+  //   ];
+  //   return menuItems;
+  // }
 
   SelectionBehavior? _selectionBehavior;
 
@@ -81,32 +81,32 @@ class _LAnalyticsState extends State<LAnalytics> {
                                 text: "Updated 40 mins ago"),
                           ]),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 30.0,
-                        width: 115.0,
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: AppColor.accentBlue,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: DropdownButton(
-                              underline: SizedBox(),
-                              icon: const Icon(Icons.arrow_drop_down,
-                                  color: Colors.black),
-                              elevation: 16,
-                              borderRadius: BorderRadius.circular(10),
-                              value: selectedValue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value;
-                                });
-                              },
-                              items: dropdownItems),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: SizedBox(
+                    //     height: 30.0,
+                    //     width: 115.0,
+                    //     child: Container(
+                    //       alignment: Alignment.center,
+                    //       decoration: BoxDecoration(
+                    //           color: AppColor.accentBlue,
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       child: DropdownButton(
+                    //           underline: SizedBox(),
+                    //           icon: const Icon(Icons.arrow_drop_down,
+                    //               color: Colors.black),
+                    //           elevation: 16,
+                    //           borderRadius: BorderRadius.circular(10),
+                    //           value: selectedValue,
+                    //           onChanged: (String? value) {
+                    //             setState(() {
+                    //               selectedValue = value;
+                    //             });
+                    //           },
+                    //           items: dropdownItems),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SfCartesianChart(
