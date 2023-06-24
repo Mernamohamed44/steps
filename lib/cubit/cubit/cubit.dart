@@ -144,14 +144,14 @@ class StepsCubit extends Cubit<StepsState> {
   var elevation;
   Future getDataWeather() async {
     emit(GetWeatherDataLoadingState());
-    print('zeft');
+    print('get data weather succefully');
     DioHelper.get(
             'current.json?key=22d8859c874c4f5094a85934230605&q=egypt-mansoura')
         .then((value) {
       weatherModel = WeatherModel.fromJson(value.data);
       final latitude = weatherModel!.location!.lat;
       final longitude = weatherModel!.location!.lat;
-      print('vvvvvvvvvvvvv${weatherModel!.location!.lat}');
+      print('lat is :${weatherModel!.location!.lat}');
       final instant = Instant(
           year: DateTime.now().year,
           month: DateTime.now().month,
@@ -218,7 +218,7 @@ class StepsCubit extends Cubit<StepsState> {
     }
     emit(AngleConstrainsState());
   }
-
+///////////////////////////////
   BluetoothConnection? connection;
   static final clientID = 0;
   BluetoothDevice? server;
@@ -277,7 +277,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
-
+//get Consumption >>
   List<ConsumptionModel> consumptionModel = [];
   Future getConsumption() async {
     (await Repository.getConsumption()).fold((l) => emit(ErrorState(l.message)),
@@ -286,7 +286,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
-
+//get production >>
   List<ProductionModel> productionModel = [];
   Future getProduction() async {
     (await Repository.getProduction()).fold((l) {
@@ -298,7 +298,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
-
+  //get prediction >>
   List<PredictionModel> predictionModel = [];
   Future getPredictions() async {
     (await Repository.getPredictions()).fold((l) {
@@ -310,7 +310,7 @@ class StepsCubit extends Cubit<StepsState> {
       emit(SuccessState());
     });
   }
-
+//get prediction average>>
   double _getAveragePredictionModel() {
     double average = 0;
     for (int i = 0; i < predictionModel.length; i++) {
@@ -323,15 +323,15 @@ class StepsCubit extends Cubit<StepsState> {
   void _setManual() {
     double average = _getAveragePredictionModel();
     if (60 > average - (averageModel?.averageEnergyProduction ?? 0)) {
-      warningText = "الالواح تحتاج لصيانة او تنظيف ياحمار شوف";
+      warningText = "There is a problem with SolarBanl... you may need maintenance or cleaning";
       isShowing = true;
     }
     if (weatherModel?.current?.condition?.text != "Clear") {
-      warningText = " غير للوضع الامن بسبب الامطار";
+      warningText = "Please adjust the position of the panels to 90 in the horizontal position due to the rainر";
       isShowing = true;
     }
     if (weatherModel?.current?.windKph > 80) {
-      warningText = " غير للوضع الامن بسبب الرياح";
+      warningText = " Please adjust the position of the panels to 90 in vertical mode due to severe storms";
       isShowing = true;
     }
     emit(SuccessState());

@@ -27,8 +27,10 @@ abstract class WorkManagerHelper {
   static Future<void> initialize() => Workmanager().initialize(
       callbackDispatcher, // The top level function, aka callbackDispatcher
       isInDebugMode:
-          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+          true // If enabled it will post a notification whenever the task is running.
+      // Handy for debugging tasks
       );
+
   static Future<void> register() async {
     // Periodic task registration
     await Workmanager().registerPeriodicTask(
@@ -101,6 +103,7 @@ abstract class WorkManagerHelper {
 
   static var azimuth;
   static var elevation;
+
   static _aa(WeatherModel? weatherModel) {
     final latitude = weatherModel!.location!.lat;
     final longitude = weatherModel.location!.lat;
@@ -122,4 +125,5 @@ abstract class WorkManagerHelper {
               horizontal: horizontal ?? "", vertical: vertical ?? "")
           : StepsCubit().sendMessage(
               horizontal: horizontal ?? "", vertical: vertical ?? "");
+
 }
