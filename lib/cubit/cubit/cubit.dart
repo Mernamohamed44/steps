@@ -318,12 +318,12 @@ class StepsCubit extends Cubit<StepsState> {
     }
     return average / predictionModel.length;
   }
-
+  //There is a problem with SolarBanel... you may need maintenance or cleaning
   String warningText = "";
   void _setManual() {
     double average = _getAveragePredictionModel();
     if (60 > average - (averageModel?.averageEnergyProduction ?? 0)) {
-      warningText = "There is a problem with SolarBanl... you may need maintenance or cleaning";
+      warningText = "You are now on the manual control mode";
       isShowing = true;
     }
     if (weatherModel?.current?.condition?.text != "Clear") {
@@ -338,6 +338,7 @@ class StepsCubit extends Cubit<StepsState> {
   }
 
   bool isDisconnecting = false;
+
   void setServer(BluetoothDevice device) async {
     server = device;
     await _initConnection();

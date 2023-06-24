@@ -49,7 +49,7 @@ class _LAnalyticsState extends State<LAnalytics> {
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
-          height: MediaQueryHelper.sizeFromHeight(context, 1.6),
+          height: MediaQueryHelper.sizeFromHeight(context, 1.8),
           //  width: MediaQueryHelper.sizeFromWidth(context, 3),
           decoration: BoxDecoration(
               //  color: Colors.grey,
@@ -72,7 +72,7 @@ class _LAnalyticsState extends State<LAnalytics> {
                                   color: AppColor.blackText,
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400),
-                              text: "Estimated saving\n",
+                              text: "Energy prediction\n",
                             ),
                             TextSpan(
                                 style: AppTextStyles.box_icons.copyWith(

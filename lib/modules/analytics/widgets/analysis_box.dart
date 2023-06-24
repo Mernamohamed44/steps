@@ -19,9 +19,15 @@ class AnalysisBox extends StatelessWidget {
   String imgpath;
   Color styletxt;
   final List<dynamic> data;
+  TooltipBehavior? _tooltip;
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
+    _tooltip = TooltipBehavior(enable: true);
      List<ChartData> chartData = [];
     if (data.runtimeType == List<ConsumptionModel>) {
    chartData=   data.map((e) => ChartData(e.date, e.energyConsumption)).toList();
@@ -35,7 +41,7 @@ class AnalysisBox extends StatelessWidget {
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
-        height: MediaQueryHelper.sizeFromHeight(context, 3.5),
+        height: MediaQueryHelper.sizeFromHeight(context, 2.5),
         //  width: MediaQueryHelper.sizeFromWidth(context, 3),
         decoration: BoxDecoration(
             //  color: Colors.grey,
@@ -126,15 +132,15 @@ class AnalysisBox extends StatelessWidget {
                       child: SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
                           selectionType: SelectionType.point,
-                          // tooltipBehavior: _tooltip,
+                           tooltipBehavior: _tooltip,
                           series: <ChartSeries<ChartData, int>>[
                             ColumnSeries<ChartData, int>(
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(20),
                                   topRight: Radius.circular(20)),
-                              name: 'potassium',
+                              name: 'energy',
                               dataLabelSettings:
-                                  const DataLabelSettings(isVisible: true),
+                                  const DataLabelSettings(isVisible: false),
                               color: const Color(0xffCFA841),
                               // // selectionBehavior: _selectionBehavior,
                               dataSource: chartData,

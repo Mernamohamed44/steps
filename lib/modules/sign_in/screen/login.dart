@@ -30,8 +30,8 @@ class SignInScreen extends StatelessWidget {
             );
           }
           if (state is SignInStateSuccessState) {
-            Navigator.pop(context);
-            Navigator.push(
+            // Navigator.pop(context);
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (_) => AppLayout()));
           }
 

@@ -37,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
         }
 
         if (state is SignUpStateSuccessState) {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => const AppLayout()));
         }
 

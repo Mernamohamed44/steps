@@ -47,12 +47,88 @@ class AnalyticsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AnalysisBox(
-                                title: 'Daily revenue',
-                                imgpath: AppImages.up,
-                                styletxt: AppColor.blueColor,
-                                data: [],
+                              Card(
+                                color: AppColor.blueColor,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    height: MediaQueryHelper.sizeFromHeight(
+                                        context, 3.9),
+                                    //  width: MediaQueryHelper.sizeFromWidth(context, 3),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(20)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                //  style: AppTextStyles.analysis_titles,
+                                                //    text: "+12%",
+                                                  children: [
+                                                    TextSpan(
+                                                      style: AppTextStyles
+                                                          .analysis_titles
+                                                          .copyWith(
+                                                          color: AppColor
+                                                              .blackText,
+                                                          fontSize: 24,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w400),
+                                                      text: "Weather\n",
+                                                    ),
+                                                    TextSpan(
+                                                        style: AppTextStyles
+                                                            .box_icons
+                                                            .copyWith(
+                                                            color: AppColor
+                                                                .blackText,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w300),
+                                                        text:
+                                                        "Updated 40 mins ago"),
+                                                  ]),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            DegreeBox(
+                                                txt: 'Temprature',
+                                                imgpath: AppImages.cloudy,
+                                                degree:
+                                                '${weatherData!.current!.tempC}°'),
+                                            DegreeBox(
+                                                txt: 'Irradiation',
+                                                imgpath: AppImages.sunny,
+                                                degree: '20 J/mm2'),
+                                          ],
+                                        ),
+                                        DegreeBox(
+                                            txt: 'Wind',
+                                            imgpath: AppImages.wind,
+                                            degree:
+                                            '${weatherData.current!.windKph} m/s'),
+                                      ],
+                                    )),
                               ),
+                              // AnalysisBox(
+                              //   title: 'Daily revenue',
+                              //   imgpath: AppImages.up,
+                              //   styletxt: AppColor.blueColor,
+                              //   data: [],
+                              // ),
                               LAnalytics(items: cubit.predictionModel)
                             ],
                           ),
@@ -60,9 +136,12 @@ class AnalyticsScreen extends StatelessWidget {
 
                         ///tttttttttttt
                         Container(
-                          width: MediaQueryHelper.sizeFromWidth(context, 2.5),
+                          width: MediaQueryHelper.sizeFromWidth(context, 2.4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+
                             children: [
                               AnalysisBox(
                                 title: 'Consumption',
@@ -76,82 +155,7 @@ class AnalyticsScreen extends StatelessWidget {
                                 styletxt: AppColor.blueColor,
                                 data: cubit.productionModel,
                               ),
-                              Card(
-                                color: AppColor.blueColor,
-                                elevation: 10,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    height: MediaQueryHelper.sizeFromHeight(
-                                        context, 3.5),
-                                    //  width: MediaQueryHelper.sizeFromWidth(context, 3),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            RichText(
-                                              text: TextSpan(
-                                                  //  style: AppTextStyles.analysis_titles,
-                                                  //    text: "+12%",
-                                                  children: [
-                                                    TextSpan(
-                                                      style: AppTextStyles
-                                                          .analysis_titles
-                                                          .copyWith(
-                                                              color: AppColor
-                                                                  .blackText,
-                                                              fontSize: 24,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                      text: "Weather\n",
-                                                    ),
-                                                    TextSpan(
-                                                        style: AppTextStyles
-                                                            .box_icons
-                                                            .copyWith(
-                                                                color: AppColor
-                                                                    .blackText,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300),
-                                                        text:
-                                                            "Updated 40 mins ago"),
-                                                  ]),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            DegreeBox(
-                                                txt: 'Temprature',
-                                                imgpath: AppImages.cloudy,
-                                                degree:
-                                                    '${weatherData!.current!.tempC}°'),
-                                            DegreeBox(
-                                                txt: 'Irradiation',
-                                                imgpath: AppImages.sunny,
-                                                degree: '20 J/mm2'),
-                                          ],
-                                        ),
-                                        DegreeBox(
-                                            txt: 'Wind',
-                                            imgpath: AppImages.wind,
-                                            degree:
-                                                '${weatherData.current!.windKph} m/s'),
-                                      ],
-                                    )),
-                              )
+
                             ],
                           ),
                         ),
