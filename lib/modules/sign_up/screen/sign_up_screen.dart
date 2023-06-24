@@ -11,13 +11,13 @@ import 'package:steps/style/constrians.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   var fKey = GlobalKey<FormState>();
-  Future<void> _register(BuildContext context) async {
-    if (!fKey.currentState!.validate()) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const AppLayout()));
-      return;
-    }
-  }
+  // Future<void> _register(BuildContext context) async {
+  //   if (!fKey.currentState!.validate()) {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const AppLayout()));
+  //     return;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,8 @@ class SignUpScreen extends StatelessWidget {
         }
 
         if (state is SignUpStateSuccessState) {
-          Navigator.pop(context);
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => SignInScreen()));
+              context, MaterialPageRoute(builder: (_) => const AppLayout()));
         }
 
         if (state is SignUpStateErrorState) {
@@ -185,7 +184,6 @@ class SignUpScreen extends StatelessWidget {
                                   txt: 'Sign Up',
                                   w: 400,
                                   onPress: () {
-                                    _register(context);
                                     cubit.signup(
                                         fName: cubit.fNameController.text,
                                         lName: cubit.lNameController.text,
